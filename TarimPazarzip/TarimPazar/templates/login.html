@@ -30,6 +30,11 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+.neon-card .card-count {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
     margin-bottom: 1rem;
 }
 .demo-section-title {
@@ -56,24 +61,28 @@
 .credential-row .email {
     color: #fff;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
+    word-break: break-all;
 }
 .credential-row .password {
     color: #0dcaf0;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
+    white-space: nowrap;
+    margin-left: 8px;
 }
-.credential-row .click-hint {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.65rem;
+.credential-row .company-name {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.6rem;
     display: block;
     margin-top: 2px;
 }
 .neon-card .users-list {
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: auto;
+    text-align: left;
 }
 .neon-card .users-list::-webkit-scrollbar {
     width: 4px;
@@ -143,14 +152,17 @@
                     <div class="card-body text-center">
                         <i class="fas fa-user-shield neon-icon"></i>
                         <h6 class="card-title">Yönetici</h6>
+                        <div class="card-count">{{ admins|length }} hesap</div>
                         <div class="users-list">
-                            <div class="credential-row" onclick="fillCredentials('admin@tarimpazari.com', 'Admin123!')">
+                            {% for admin in admins %}
+                            <div class="credential-row" onclick="fillCredentials('{{ admin.email }}', 'Admin123!')">
                                 <div>
-                                    <span class="email">admin@tarimpazari.com</span>
-                                    <span class="click-hint">Tıkla ve giriş yap</span>
+                                    <span class="email">{{ admin.email }}</span>
+                                    <span class="company-name">{{ admin.username }}</span>
                                 </div>
                                 <span class="password">Admin123!</span>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -161,35 +173,17 @@
                     <div class="card-body text-center">
                         <i class="fas fa-store neon-icon"></i>
                         <h6 class="card-title">Onaylı Satıcılar</h6>
+                        <div class="card-count">{{ approved_sellers|length }} hesap</div>
                         <div class="users-list">
-                            <div class="credential-row" onclick="fillCredentials('satici@tarimpazari.com', 'Satici123!')">
+                            {% for seller in approved_sellers %}
+                            <div class="credential-row" onclick="fillCredentials('{{ seller.email }}', 'Satici123!')">
                                 <div>
-                                    <span class="email">satici@tarimpazari.com</span>
-                                    <span class="click-hint">Antalya Sera Market</span>
+                                    <span class="email">{{ seller.email }}</span>
+                                    <span class="company-name">{{ seller.company_name or seller.username }}</span>
                                 </div>
                                 <span class="password">Satici123!</span>
                             </div>
-                            <div class="credential-row" onclick="fillCredentials('konyagubre@firma.com', 'Satici123!')">
-                                <div>
-                                    <span class="email">konyagubre@firma.com</span>
-                                    <span class="click-hint">Konya Gübre</span>
-                                </div>
-                                <span class="password">Satici123!</span>
-                            </div>
-                            <div class="credential-row" onclick="fillCredentials('egetohum@firma.com', 'Satici123!')">
-                                <div>
-                                    <span class="email">egetohum@firma.com</span>
-                                    <span class="click-hint">Ege Tohum</span>
-                                </div>
-                                <span class="password">Satici123!</span>
-                            </div>
-                            <div class="credential-row" onclick="fillCredentials('akdenizsera@firma.com', 'Satici123!')">
-                                <div>
-                                    <span class="email">akdenizsera@firma.com</span>
-                                    <span class="click-hint">Akdeniz Sera</span>
-                                </div>
-                                <span class="password">Satici123!</span>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -200,21 +194,17 @@
                     <div class="card-body text-center">
                         <i class="fas fa-clock neon-icon"></i>
                         <h6 class="card-title">Onaysız Satıcılar</h6>
+                        <div class="card-count">{{ pending_sellers|length }} hesap</div>
                         <div class="users-list">
-                            <div class="credential-row" onclick="fillCredentials('yeni@tarimpazari.com', 'Satici123!')">
+                            {% for seller in pending_sellers %}
+                            <div class="credential-row" onclick="fillCredentials('{{ seller.email }}', 'Satici123!')">
                                 <div>
-                                    <span class="email">yeni@tarimpazari.com</span>
-                                    <span class="click-hint">Yeni Çiftçi Ltd</span>
+                                    <span class="email">{{ seller.email }}</span>
+                                    <span class="company-name">{{ seller.company_name or seller.username }}</span>
                                 </div>
                                 <span class="password">Satici123!</span>
                             </div>
-                            <div class="credential-row" onclick="fillCredentials('karadenizfidan@firma.com', 'Satici123!')">
-                                <div>
-                                    <span class="email">karadenizfidan@firma.com</span>
-                                    <span class="click-hint">Karadeniz Fidan</span>
-                                </div>
-                                <span class="password">Satici123!</span>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -225,35 +215,17 @@
                     <div class="card-body text-center">
                         <i class="fas fa-shopping-basket neon-icon"></i>
                         <h6 class="card-title">Alıcılar</h6>
+                        <div class="card-count">{{ buyers|length }} hesap</div>
                         <div class="users-list">
-                            <div class="credential-row" onclick="fillCredentials('alici@tarimpazari.com', 'Alici123!')">
+                            {% for buyer in buyers %}
+                            <div class="credential-row" onclick="fillCredentials('{{ buyer.email }}', 'Alici123!')">
                                 <div>
-                                    <span class="email">alici@tarimpazari.com</span>
-                                    <span class="click-hint">Ana Test Alıcı</span>
+                                    <span class="email">{{ buyer.email }}</span>
+                                    <span class="company-name">{{ buyer.username }}</span>
                                 </div>
                                 <span class="password">Alici123!</span>
                             </div>
-                            <div class="credential-row" onclick="fillCredentials('ahmetyilmaz@email.com', 'Alici123!')">
-                                <div>
-                                    <span class="email">ahmetyilmaz@email.com</span>
-                                    <span class="click-hint">Ahmet Yılmaz</span>
-                                </div>
-                                <span class="password">Alici123!</span>
-                            </div>
-                            <div class="credential-row" onclick="fillCredentials('aysedemir@email.com', 'Alici123!')">
-                                <div>
-                                    <span class="email">aysedemir@email.com</span>
-                                    <span class="click-hint">Ayşe Demir</span>
-                                </div>
-                                <span class="password">Alici123!</span>
-                            </div>
-                            <div class="credential-row" onclick="fillCredentials('mehmetkaya@email.com', 'Alici123!')">
-                                <div>
-                                    <span class="email">mehmetkaya@email.com</span>
-                                    <span class="click-hint">Mehmet Kaya</span>
-                                </div>
-                                <span class="password">Alici123!</span>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

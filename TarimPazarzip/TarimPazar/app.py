@@ -276,7 +276,16 @@ def login():
         else:
             flash('E-posta veya şifre hatalı.', 'danger')
     
-    return render_template('login.html')
+    admins = User.query.filter_by(role='admin').all()
+    approved_sellers = User.query.filter_by(role='seller', is_seller_approved=True).all()
+    pending_sellers = User.query.filter_by(role='seller', is_seller_approved=False).all()
+    buyers = User.query.filter_by(role='buyer').all()
+    
+    return render_template('login.html', 
+                          admins=admins,
+                          approved_sellers=approved_sellers,
+                          pending_sellers=pending_sellers,
+                          buyers=buyers)
 
 
 @app.route('/register', methods=['GET', 'POST'])
