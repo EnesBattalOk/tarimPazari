@@ -32,23 +32,55 @@
     margin-top: 0.75rem;
     margin-bottom: 1rem;
 }
-.neon-card .credential-label {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    margin-bottom: 0.2rem;
-}
-.neon-card .credential-value {
-    color: #fff;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.85rem;
-    font-weight: 600;
-    word-break: break-all;
-}
 .demo-section-title {
     color: #0dcaf0;
     font-weight: 600;
     text-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
+}
+.credential-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: rgba(13, 202, 240, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+.credential-row:hover {
+    background: rgba(13, 202, 240, 0.25);
+    border-color: #0dcaf0;
+}
+.credential-row .email {
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.credential-row .password {
+    color: #0dcaf0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.credential-row .click-hint {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.65rem;
+    display: block;
+    margin-top: 2px;
+}
+.neon-card .users-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.neon-card .users-list::-webkit-scrollbar {
+    width: 4px;
+}
+.neon-card .users-list::-webkit-scrollbar-thumb {
+    background: #0dcaf0;
+    border-radius: 2px;
 }
 </style>
 
@@ -67,7 +99,7 @@
                         <label class="form-label">E-posta Adresi</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                            <input type="email" name="email" class="form-control" placeholder="ornek@email.com" required>
+                            <input type="email" name="email" id="emailInput" class="form-control" placeholder="ornek@email.com" required>
                         </div>
                     </div>
                     
@@ -75,7 +107,7 @@
                         <label class="form-label">Şifre</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                            <input type="password" name="password" class="form-control" placeholder="Şifreniz" required>
+                            <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Şifreniz" required>
                         </div>
                     </div>
                     
@@ -103,72 +135,125 @@
     
     <div class="mt-5">
         <h5 class="text-center demo-section-title mb-4">
-            <i class="fas fa-flask me-2"></i>Demo Hesapları
+            <i class="fas fa-flask me-2"></i>Demo Hesapları <small class="text-white-50" style="font-size: 0.7rem;">(Tıklayarak otomatik doldur)</small>
         </h5>
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
             <div class="col">
-                <div class="card neon-card h-100 text-center">
-                    <div class="card-body">
+                <div class="card neon-card h-100">
+                    <div class="card-body text-center">
                         <i class="fas fa-user-shield neon-icon"></i>
                         <h6 class="card-title">Yönetici</h6>
-                        <div class="mb-2">
-                            <div class="credential-label">E-posta</div>
-                            <div class="credential-value">admin@tarimpazari.com</div>
-                        </div>
-                        <div>
-                            <div class="credential-label">Şifre</div>
-                            <div class="credential-value">Admin123!</div>
+                        <div class="users-list">
+                            <div class="credential-row" onclick="fillCredentials('admin@tarimpazari.com', 'Admin123!')">
+                                <div>
+                                    <span class="email">admin@tarimpazari.com</span>
+                                    <span class="click-hint">Tıkla ve giriş yap</span>
+                                </div>
+                                <span class="password">Admin123!</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col">
-                <div class="card neon-card h-100 text-center">
-                    <div class="card-body">
+                <div class="card neon-card h-100">
+                    <div class="card-body text-center">
                         <i class="fas fa-store neon-icon"></i>
-                        <h6 class="card-title">Onaylı Satıcı</h6>
-                        <div class="mb-2">
-                            <div class="credential-label">E-posta</div>
-                            <div class="credential-value">satici@tarimpazari.com</div>
-                        </div>
-                        <div>
-                            <div class="credential-label">Şifre</div>
-                            <div class="credential-value">Satici123!</div>
+                        <h6 class="card-title">Onaylı Satıcılar</h6>
+                        <div class="users-list">
+                            <div class="credential-row" onclick="fillCredentials('satici@tarimpazari.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">satici@tarimpazari.com</span>
+                                    <span class="click-hint">Antalya Sera Market</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('konyagubre@firma.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">konyagubre@firma.com</span>
+                                    <span class="click-hint">Konya Gübre</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('egetohum@firma.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">egetohum@firma.com</span>
+                                    <span class="click-hint">Ege Tohum</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('akdenizsera@firma.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">akdenizsera@firma.com</span>
+                                    <span class="click-hint">Akdeniz Sera</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col">
-                <div class="card neon-card h-100 text-center">
-                    <div class="card-body">
-                        <i class="fas fa-lock neon-icon"></i>
-                        <h6 class="card-title">Onaysız Satıcı</h6>
-                        <div class="mb-2">
-                            <div class="credential-label">E-posta</div>
-                            <div class="credential-value">yeni@tarimpazari.com</div>
-                        </div>
-                        <div>
-                            <div class="credential-label">Şifre</div>
-                            <div class="credential-value">Satici123!</div>
+                <div class="card neon-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock neon-icon"></i>
+                        <h6 class="card-title">Onaysız Satıcılar</h6>
+                        <div class="users-list">
+                            <div class="credential-row" onclick="fillCredentials('yeni@tarimpazari.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">yeni@tarimpazari.com</span>
+                                    <span class="click-hint">Yeni Çiftçi Ltd</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('karadenizfidan@firma.com', 'Satici123!')">
+                                <div>
+                                    <span class="email">karadenizfidan@firma.com</span>
+                                    <span class="click-hint">Karadeniz Fidan</span>
+                                </div>
+                                <span class="password">Satici123!</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col">
-                <div class="card neon-card h-100 text-center">
-                    <div class="card-body">
+                <div class="card neon-card h-100">
+                    <div class="card-body text-center">
                         <i class="fas fa-shopping-basket neon-icon"></i>
-                        <h6 class="card-title">Alıcı</h6>
-                        <div class="mb-2">
-                            <div class="credential-label">E-posta</div>
-                            <div class="credential-value">alici@tarimpazari.com</div>
-                        </div>
-                        <div>
-                            <div class="credential-label">Şifre</div>
-                            <div class="credential-value">Alici123!</div>
+                        <h6 class="card-title">Alıcılar</h6>
+                        <div class="users-list">
+                            <div class="credential-row" onclick="fillCredentials('alici@tarimpazari.com', 'Alici123!')">
+                                <div>
+                                    <span class="email">alici@tarimpazari.com</span>
+                                    <span class="click-hint">Ana Test Alıcı</span>
+                                </div>
+                                <span class="password">Alici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('ahmetyilmaz@email.com', 'Alici123!')">
+                                <div>
+                                    <span class="email">ahmetyilmaz@email.com</span>
+                                    <span class="click-hint">Ahmet Yılmaz</span>
+                                </div>
+                                <span class="password">Alici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('aysedemir@email.com', 'Alici123!')">
+                                <div>
+                                    <span class="email">aysedemir@email.com</span>
+                                    <span class="click-hint">Ayşe Demir</span>
+                                </div>
+                                <span class="password">Alici123!</span>
+                            </div>
+                            <div class="credential-row" onclick="fillCredentials('mehmetkaya@email.com', 'Alici123!')">
+                                <div>
+                                    <span class="email">mehmetkaya@email.com</span>
+                                    <span class="click-hint">Mehmet Kaya</span>
+                                </div>
+                                <span class="password">Alici123!</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -176,4 +261,24 @@
         </div>
     </div>
 </div>
+
+<script>
+function fillCredentials(email, password) {
+    document.getElementById('emailInput').value = email;
+    document.getElementById('passwordInput').value = password;
+    
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+    document.getElementById('emailInput').classList.add('is-valid');
+    document.getElementById('passwordInput').classList.add('is-valid');
+    
+    setTimeout(() => {
+        document.getElementById('emailInput').classList.remove('is-valid');
+        document.getElementById('passwordInput').classList.remove('is-valid');
+    }, 2000);
+}
+</script>
 {% endblock %}
