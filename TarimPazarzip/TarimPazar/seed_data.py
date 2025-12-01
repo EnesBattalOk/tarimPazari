@@ -154,6 +154,8 @@ def seed_database(drop_all=False):
         Category(name='Gübre', icon_class='fa-seedling'),
         Category(name='Tohum', icon_class='fa-leaf'),
         Category(name='Sulama', icon_class='fa-tint'),
+        Category(name='Zirai İlaç', icon_class='fa-spray-can'),
+        Category(name='Tarım Makineleri', icon_class='fa-tractor'),
     ]
     
     for cat in categories:
@@ -229,6 +231,34 @@ def seed_database(drop_all=False):
         ("Sulama Tabancası Pro", "Sulama", 75.00, 0.4, "7 fonksiyonlu, metal gövde.", "https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?w=400"),
         ("Sprinkler Başlığı 5'li", "Sulama", 65.00, 0.6, "Ayarlanabilir açı, plastik.", "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400"),
         ("Damla Sulama Aparatı 50'li", "Sulama", 95.00, 1.0, "Ayarlanabilir damlatıcı.", "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400"),
+        ("Mantar İlacı 1L", "Zirai İlaç", 85.00, 1.5, "Külleme ve mildiyö için etkili.", "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"),
+        ("Yaprak Biti İlacı 500ml", "Zirai İlaç", 65.00, 0.8, "Organik sertifikalı, tüm bitkiler için.", "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=400"),
+        ("Kırmızı Örümcek İlacı", "Zirai İlaç", 95.00, 1.0, "Sera ve açık alan için etkili.", "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400"),
+        ("Genel Böcek İlacı 2L", "Zirai İlaç", 120.00, 2.5, "Geniş spektrumlu böcek ilacı.", "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400"),
+        ("Yabani Ot İlacı 5L", "Zirai İlaç", 180.00, 6.0, "Seçici herbisit, tahıllar için.", "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400"),
+        ("Toprak Dezenfektanı 10L", "Zirai İlaç", 250.00, 12.0, "Toprak kaynaklı hastalıklar için.", "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400"),
+        ("Biyolojik Mücadele Seti", "Zirai İlaç", 320.00, 2.0, "Faydalı böcekler ile doğal mücadele.", "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400"),
+        ("Bakır Sülfat 5kg", "Zirai İlaç", 145.00, 6.0, "Bordo bulamacı için, fungisit.", "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=400"),
+        ("Kükürt Tozu 10kg", "Zirai İlaç", 95.00, 11.0, "Organik tarımda kullanılabilir.", "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=400"),
+        ("Neem Yağı Konsantre 1L", "Zirai İlaç", 175.00, 1.2, "Doğal böcek kovucu ve fungisit.", "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400"),
+    ]
+    
+    machinery_products = [
+        ("Benzinli Çim Biçme Makinesi", "Tarım Makineleri", 4500.00, 45.0, "4 zamanlı motor, 46cm kesim genişliği.", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400"),
+        ("Akülü Budama Makası Pro", "Tarım Makineleri", 1800.00, 3.0, "32mm kesim kapasitesi, 2 adet akü.", "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"),
+        ("Motorlu Tırpan", "Tarım Makineleri", 2200.00, 8.0, "52cc motor, çift başlık sistemi.", "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400"),
+        ("Mini Çapa Makinesi", "Tarım Makineleri", 3800.00, 55.0, "6.5 HP benzinli motor, 80cm çalışma.", "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400"),
+        ("Elektrikli İlaçlama Pompası", "Tarım Makineleri", 850.00, 8.0, "16L tank, şarjlı, sırt tipi.", "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=400"),
+        ("Motorlu Pülverizatör 100L", "Tarım Makineleri", 5500.00, 65.0, "El arabası tipi, benzinli motor.", "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400"),
+        ("Zeytin Hasat Makinesi", "Tarım Makineleri", 2800.00, 5.0, "Titreşimli başlık, uzun sap.", "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400"),
+        ("Toprak Burgusu Makinesi", "Tarım Makineleri", 1950.00, 15.0, "52cc motor, 150mm ve 200mm uçlar.", "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400"),
+        ("Çim Havalandırma Makinesi", "Tarım Makineleri", 3200.00, 40.0, "Benzinli, 40cm çalışma genişliği.", "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400"),
+        ("Yaprak Toplama Makinesi", "Tarım Makineleri", 1600.00, 6.0, "Benzinli üfleme/emme fonksiyonu.", "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=400"),
+        ("Motorlu Testere 45cm", "Tarım Makineleri", 2400.00, 7.0, "52cc motor, profesyonel kullanım.", "https://images.unsplash.com/photo-1592502712628-162b0f3c1c4d?w=400"),
+        ("Dal Öğütme Makinesi", "Tarım Makineleri", 8500.00, 120.0, "15 HP motor, 10cm dal kapasitesi.", "https://images.unsplash.com/photo-1560493676-04071c5f467b?w=400"),
+        ("Çit Kesme Makinesi Akülü", "Tarım Makineleri", 1400.00, 4.0, "60cm bıçak, çift taraflı kesim.", "https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1?w=400"),
+        ("Kompresör 50L Taşınabilir", "Tarım Makineleri", 2100.00, 35.0, "2.5 HP motor, ilaçlama için.", "https://images.unsplash.com/photo-1504173010664-32509aeebb62?w=400"),
+        ("Jeneratör 3000W", "Tarım Makineleri", 4800.00, 45.0, "Benzinli, sera aydınlatma için.", "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=400"),
     ]
     
     all_products = []
@@ -254,6 +284,23 @@ def seed_database(drop_all=False):
     for name, cat_name, price, desi, desc, image_url in light_products:
         seller = random.choice(approved_sellers)
         stock = random.choice([0, 10, 50, 100, 200, 500, 1000])
+        product = Product(
+            seller_id=seller.id,
+            category_id=category_map[cat_name],
+            name=name,
+            description=desc,
+            price=price,
+            stock=stock,
+            desi=desi,
+            image_url=image_url,
+            rating=round(random.uniform(3.5, 5.0), 1)
+        )
+        db.session.add(product)
+        all_products.append(product)
+    
+    for name, cat_name, price, desi, desc, image_url in machinery_products:
+        seller = random.choice(approved_sellers)
+        stock = random.choice([0, 3, 5, 10, 15, 20])
         product = Product(
             seller_id=seller.id,
             category_id=category_map[cat_name],
