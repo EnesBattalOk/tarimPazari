@@ -1,3 +1,8 @@
 Flask
 Flask-SQLAlchemy
+Flask-Login
+Flask-WTF
+email_validator
 Werkzeug
+WTForms
+sqlalchemy
