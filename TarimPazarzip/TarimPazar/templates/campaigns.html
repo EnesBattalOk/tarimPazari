@@ -1,0 +1,649 @@
+{% extends "base.html" %}
+
+{% block title %}Kampanyalar - TarımPazarı{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="campaigns-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Kampanyalar & Fırsatlar</h1>
+        <p>TarımPazarı'nda toprağın bereketini teknoloji ile buluştur</p>
+    </div>
+</section>
+
+<div class="container-fluid py-5">
+    <!-- Horizontal Pill Navigation -->
+    <div class="campaign-nav-wrapper">
+        <div class="campaign-nav">
+            <button type="button" class="campaign-nav-pill {% if active_tab == 'campaigns' %}active{% endif %}" data-tab="campaigns">
+                <i class="fas fa-fire me-2"></i>Güncel Kampanyalar
+            </button>
+            <button type="button" class="campaign-nav-pill {% if active_tab == 'credit' %}active{% endif %}" data-tab="credit">
+                <i class="fas fa-hand-holding-dollar me-2"></i>Alışveriş Kredisi
+            </button>
+            <button type="button" class="campaign-nav-pill {% if active_tab == 'membership' %}active{% endif %}" data-tab="membership">
+                <i class="fas fa-crown me-2"></i>Elit Üyelik
+            </button>
+        </div>
+    </div>
+
+    <!-- Tab 1: Güncel Kampanyalar -->
+    <div class="campaign-tab {% if active_tab == 'campaigns' %}active{% endif %}" id="tab-campaigns">
+        <div class="container">
+            <div class="campaign-header mb-5">
+                <h2 class="fw-bold">
+                    <i class="fas fa-fire me-2" style="color: var(--secondary-color);"></i>
+                    Toprağınızın Bereketi, TarımPazarı'nın Fırsatlarıyla Buluşuyor
+                </h2>
+            </div>
+
+            <div class="campaign-grid">
+                <!-- Campaign Card 1 -->
+                <div class="campaign-poster-card" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1000&auto=format&fit=crop') center/cover;">
+                    <div class="campaign-poster-content">
+                        <span class="campaign-badge" style="background: #4CAF50;">
+                            <i class="fas fa-tractor me-1"></i>Sezon Açılışı
+                        </span>
+                        <h3>Ekim Sezonuna Dev Hazırlık</h3>
+                        <p>Sera naylonu, damlama sulama boruları ve taban gübrelerinde sepette anında %15 indirim. Üstelik 50.000 TL üzeri alışverişlerde nakliye bizden!</p>
+                        <div class="campaign-cta">
+                            <a href="#" class="btn btn-sm btn-light">
+                                <i class="fas fa-chevron-right me-1"></i>İncele
+                            </a>
+                            <span class="campaign-discount">%15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Card 2 -->
+                <div class="campaign-poster-card" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop') center/cover;">
+                    <div class="campaign-poster-content">
+                        <span class="campaign-badge" style="background: #FF9800;">
+                            <i class="fas fa-users me-1"></i>Kooperatif
+                        </span>
+                        <h3>Birlikten Kuvvet Doğar: Kooperatif İndirimi</h3>
+                        <p>Komşu çiftçilerinle birleş, toptan al, daha az öde. 10 Ton ve üzeri gübre siparişlerinde üretici fiyatına ek %5 kooperatif indirimi fırsatını kaçırma.</p>
+                        <div class="campaign-cta">
+                            <a href="#" class="btn btn-sm btn-light">
+                                <i class="fas fa-chevron-right me-1"></i>İncele
+                            </a>
+                            <span class="campaign-discount">%5 Ekstra</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Card 3 -->
+                <div class="campaign-poster-card" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=1000&auto=format&fit=crop') center/cover;">
+                    <div class="campaign-poster-content">
+                        <span class="campaign-badge" style="background: #2196F3;">
+                            <i class="fas fa-gift me-1"></i>Yeni Üye
+                        </span>
+                        <h3>Hoş Geldin Çiftçim Hediyesi</h3>
+                        <p>TarımPazarı ailesine yeni katılan üreticilerimize özel, ilk alışverişte geçerli 500 TL değerinde 'Can Suyu' kuponu hesabınıza tanımlandı.</p>
+                        <div class="campaign-cta">
+                            <a href="#" class="btn btn-sm btn-light">
+                                <i class="fas fa-chevron-right me-1"></i>İncele
+                            </a>
+                            <span class="campaign-discount">500 TL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Alışveriş Kredisi -->
+    <div class="campaign-tab {% if active_tab == 'credit' %}active{% endif %}" id="tab-credit">
+        <div class="container">
+            <div class="credit-hero text-center mb-5">
+                <h2 class="fw-bold mb-2">
+                    <i class="fas fa-hand-holding-dollar me-2" style="color: var(--primary-color);"></i>
+                    Şimdi Al, Ürününü Kaldırınca Hasatta Öde
+                </h2>
+                <p class="lead">
+                    Nakit sıkışıklığı üretimi durdurmasın. TarımPazarı Finans ile tarlanızın ihtiyacını ertelemeyin.
+                </p>
+            </div>
+
+            <!-- Modern Step Progress -->
+            <div class="credit-wizard">
+                <div class="steps-grid">
+                    <div class="wizard-step">
+                        <div class="step-badge">1</div>
+                        <h4>Başvuru</h4>
+                        <p>Sepetinizdeki ürünleri onaylarken ödeme ekranında 'Alışveriş Kredisi' seçeneğini işaretleyin.</p>
+                    </div>
+
+                    <div class="wizard-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
+                    <div class="wizard-step">
+                        <div class="step-badge">2</div>
+                        <h4>Anında Onay</h4>
+                        <p>T.C. Kimlik numaranızla bankaya gitmeden, kefilsiz ve evraksız saniyeler içinde limitinizi öğrenin.</p>
+                    </div>
+
+                    <div class="wizard-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
+                    <div class="wizard-step">
+                        <div class="step-badge">3</div>
+                        <h4>Üretim</h4>
+                        <p>Ürünleriniz kapınıza gelsin, siz sadece üretime odaklanın. Taksitleri düşünmeyin.</p>
+                    </div>
+
+                    <div class="wizard-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
+                    <div class="wizard-step">
+                        <div class="step-badge">4</div>
+                        <h4>Ödeme</h4>
+                        <p>Ödemenizi ürün hasat tarihine göre belirlenen vadede (3, 6 veya 9 ay sonra) yapın.</p>
+                    </div>
+                </div>
+
+                <div class="progress-bar" style="width: 33%;"></div>
+            </div>
+
+            <!-- Info & CTA -->
+            <div class="credit-info mt-5">
+                <div class="info-box">
+                    <i class="fas fa-info-circle me-3"></i>
+                    <div>
+                        <strong>Dipnot:</strong> Bu hizmet anlaşmalı bankalarımız ve Tarım Kredi iş birliği ile sağlanmaktadır.
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="{{ url_for('login') }}" class="btn btn-lg btn-credit">
+                        <i class="fas fa-arrow-right me-2"></i>Alışveriş Kredisine Başvur
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: Elit Üyelik -->
+    <div class="campaign-tab {% if active_tab == 'membership' %}active{% endif %}" id="tab-membership">
+        <div class="container">
+            <div class="membership-hero text-center mb-5">
+                <h2 class="fw-bold mb-2">
+                    <i class="fas fa-crown me-2" style="color: var(--secondary-color);"></i>
+                    TarımPazarı ELİT: Profesyonellerin Tercihi
+                </h2>
+                <p class="lead">
+                    Sürekli alım yapan profesyonel üreticiler ve sera işletmeleri için tasarladığımız Elit Üyelik ile maliyetlerinizi düşürün, hızınıza hız katın.
+                </p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="elite-table-wrapper">
+                <table class="elite-table">
+                    <thead>
+                        <tr>
+                            <th class="feature-col">Özellik</th>
+                            <th class="standard-col">Standart Üye</th>
+                            <th class="elite-col">
+                                <div class="elite-header">
+                                    <i class="fas fa-star me-1"></i>ELİT ÜYE
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-col"><strong>Kargo Ücreti</strong></td>
+                            <td>Desi Bazlı Ücretli</td>
+                            <td class="elite-highlight"><strong>Sınırsız Bedava Kargo</strong> (Tüm Ürünlerde)</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col"><strong>Lojistik Önceliği</strong></td>
+                            <td>Standart Teslimat</td>
+                            <td class="elite-highlight"><strong>Hızlı Teslimat & Öncelikli Yükleme</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col"><strong>Müşteri Desteği</strong></td>
+                            <td>E-posta Desteği</td>
+                            <td class="elite-highlight"><strong>7/24 Ziraat Mühendisi Telefon Desteği</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col"><strong>İade Süreci</strong></td>
+                            <td>14 Gün</td>
+                            <td class="elite-highlight"><strong>30 Gün & Yerinden İade Alma Hizmeti</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col"><strong>Ekstra İndirim</strong></td>
+                            <td>Yok</td>
+                            <td class="elite-highlight"><strong>Her Alışverişte Ekstra %3 İndirim</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- CTA -->
+            <div class="elite-cta text-center mt-5">
+                <a href="{{ url_for('login') }}" class="btn btn-lg btn-elite">
+                    <i class="fas fa-crown me-2"></i>Hemen Elit Ol - Yıllık Sadece 999 TL
+                </a>
+                <p class="text-muted mt-3">
+                    <i class="fas fa-info-circle me-1"></i>veya Yıllık 100.000 TL Alışverişle Ücretsiz
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Hero Section */
+.campaigns-hero {
+    position: relative;
+    height: 300px;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=400&fit=crop') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.campaigns-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.campaigns-hero p {
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+/* Horizontal Pill Navigation */
+.campaign-nav-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+    overflow-x: auto;
+    padding: 0 1rem;
+}
+
+.campaign-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.campaign-nav-pill {
+    background: transparent;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+.campaign-nav-pill:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.campaign-nav-pill.active {
+    background: var(--secondary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+}
+
+/* Campaign Tabs */
+.campaign-tab {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.campaign-tab.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Campaign Poster Grid */
+.campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.campaign-poster-card {
+    position: relative;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+}
+
+.campaign-poster-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.campaign-poster-card:hover::before {
+    transform: scale(1.1);
+}
+
+.campaign-poster-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 1.5rem;
+    color: white;
+}
+
+.campaign-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.campaign-poster-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.campaign-poster-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    opacity: 0.95;
+}
+
+.campaign-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.campaign-cta .btn {
+    transition: all 0.3s ease;
+}
+
+.campaign-cta .btn:hover {
+    background: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+    transform: translateX(4px);
+}
+
+.campaign-discount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Credit Section */
+.credit-hero {
+    margin-bottom: 3rem;
+}
+
+.credit-hero h2 {
+    font-size: 2rem;
+}
+
+.credit-wizard {
+    position: relative;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.wizard-step {
+    text-align: center;
+}
+
+.step-badge {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+.wizard-step h4 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.wizard-step p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.wizard-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.progress-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.credit-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.info-box {
+    background: #FFF3E0;
+    border-left: 4px solid var(--secondary-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    color: #E65100;
+    font-weight: 500;
+}
+
+.info-box i {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.btn-credit {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-credit:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.2);
+}
+
+/* Elite Membership Section */
+.membership-hero h2 {
+    font-size: 2rem;
+}
+
+.elite-table-wrapper {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.elite-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.elite-table th,
+.elite-table td {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.elite-table thead {
+    background: #f8f9fa;
+    border-bottom: 2px solid #eee;
+}
+
+.elite-table thead th {
+    font-weight: 700;
+    color: #333;
+}
+
+.elite-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.elite-table tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s ease;
+}
+
+.elite-table tbody tr:hover {
+    background: #f5f5f5;
+}
+
+.feature-col {
+    font-weight: 600;
+    color: #333;
+    width: 25%;
+}
+
+.standard-col {
+    color: #666;
+    width: 35%;
+}
+
+.elite-col {
+    width: 40%;
+}
+
+.elite-highlight {
+    background: #E8F5E9;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.elite-cta {
+    margin-top: 3rem;
+}
+
+.btn-elite {
+    background: linear-gradient(135deg, var(--primary-color), #1B5E20);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-elite:hover {
+    background: linear-gradient(135deg, #1B5E20, var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+}
+
+@media (max-width: 768px) {
+    .campaigns-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .campaign-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campaign-poster-card {
+        height: 280px;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .wizard-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+    }
+
+    .elite-table th,
+    .elite-table td {
+        padding: 1rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .feature-col,
+    .standard-col,
+    .elite-col {
+        width: auto;
+    }
+}
+</style>
+
+<script>
+document.querySelectorAll('.campaign-nav-pill').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabName = this.dataset.tab;
+        
+        // Update buttons
+        document.querySelectorAll('.campaign-nav-pill').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update tabs
+        document.querySelectorAll('.campaign-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        
+        // Update URL
+        window.history.replaceState({}, '', '?tab=' + tabName);
+    });
+});
+</script>
+{% endblock %}

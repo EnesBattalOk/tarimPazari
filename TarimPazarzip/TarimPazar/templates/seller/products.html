@@ -1,0 +1,89 @@
+{% extends "seller/base.html" %}
+
+{% block title %}Ürünlerim - TarımPazarı{% endblock %}
+
+{% block seller_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-box me-2"></i>Ürünlerim</h2>
+    <a href="{{ url_for('add_product') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Yeni Ürün Ekle
+    </a>
+</div>
+
+{% if products %}
+<div class="table-responsive">
+    <table class="table table-hover bg-white shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Görsel</th>
+                <th>Ürün Adı</th>
+                <th>Kategori</th>
+                <th>Fiyat</th>
+                <th>Stok</th>
+                <th>Desi</th>
+                <th>Puan</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>
+                    <img src="{{ product.image_url or 'https://via.placeholder.com/50x50?text=Ürün' }}" alt="{{ product.name }}" class="product-thumb">
+                </td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category.name }}</td>
+                <td>{{ "%.2f"|format(product.price) }} ₺</td>
+                <td>
+                    {% if product.stock == 0 %}
+                        <span class="text-danger">Tükendi</span>
+                    {% elif product.stock <= 5 %}
+                        <span class="text-warning">{{ product.stock }}</span>
+                    {% else %}
+                        {{ product.stock }}
+                    {% endif %}
+                </td>
+                <td>{{ product.desi }}</td>
+                <td>
+                    {% for i in range(5) %}
+                        {% if i < product.rating|int %}
+                            <i class="fas fa-star text-warning small"></i>
+                        {% else %}
+                            <i class="far fa-star text-muted small"></i>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if product.is_active %}
+                        <span class="badge bg-success">Aktif</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Pasif</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('edit_product', id=product.id) }}" class="btn btn-sm btn-outline-primary" title="Düzenle">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="{{ url_for('delete_product', id=product.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bu ürünü silmek istediğinize emin misiniz?')">
+                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Sil">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="text-center py-5 bg-white rounded shadow-sm">
+    <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+    <h4>Henüz Ürün Eklemediniz</h4>
+    <p class="text-muted">İlk ürününüzü ekleyerek satışa başlayın!</p>
+    <a href="{{ url_for('add_product') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Ürün Ekle
+    </a>
+</div>
+{% endif %}
+{% endblock %}

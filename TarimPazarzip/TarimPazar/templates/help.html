@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}Yardım ve Sıkça Sorulan Sorular - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-lg-12 text-center">
+            <h1 class="mb-2"><i class="fas fa-life-ring me-2"></i>Yardım Merkezi</h1>
+            <p class="lead text-muted">Sorularınıza hızlı ve kapsamlı cevaplar</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <!-- Sıkça Sorulan Sorular -->
+            <h2 class="mb-4"><i class="fas fa-question-circle me-2"></i>Sıkça Sorulan Sorular (S.S.S.)</h2>
+            
+            <div class="accordion accordion-flush" id="faqAccordion">
+                <!-- Soru 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            <i class="fas fa-truck me-2"></i>Ağır ürünler (Sera demiri vb.) nasıl gelir?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Hibrit Lojistik Algoritması</strong> sayesinde ağır ürünlerin taşıması en uygun şekilde organize edilir:</p>
+                            <ul>
+                                <li><strong>Desi ≥ 30 ise:</strong> Sistem otomatik olarak "Ambar/Nakliye" seçer</li>
+                                <li><strong>Anlaşmalı Ambar Şirketleri:</strong> İstanbul, Ankara, İzmir ve diğer büyük şehirlerde kapı kapısına teslim</li>
+                                <li><strong>Teslimat Süresi:</strong> 3-5 iş günü</li>
+                                <li><strong>Takip:</strong> Kargo numarası ve SMS ile bilgilendirilirsiniz</li>
+                            </ul>
+                            <p class="mt-3"><strong>Örnek:</strong> Sera demiri (10x10x5m, Desi 83) satın alırsanız, sistem otomatik "Ambar/Nakliye" seçer ve kapınızda teslim edilir.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            <i class="fas fa-box me-2"></i>Desi nedir ve nasıl hesaplanır?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Desi (Volumetrik Ağırlık)</strong>, hacimsel ağırlık olarak bilinir. Gönderinin fiili ağırlığı ile hacimsel ağırlığının büyük olanı kullanılır.</p>
+                            <div class="formula-box">
+                                <p><strong>Formül:</strong></p>
+                                <p class="formula"><code>Desi = (Uzunluk cm × Genişlik cm × Yükseklik cm) / 6000</code></p>
+                            </div>
+                            <p class="mt-3"><strong>Örnek Hesaplamalar:</strong></p>
+                            <ul>
+                                <li>Ürün: 30cm × 20cm × 10cm = (30×20×10)/6000 = <strong>1 Desi</strong> (Kargo ile)</li>
+                                <li>Ürün: 60cm × 60cm × 60cm = (60×60×60)/6000 = <strong>36 Desi</strong> (Ambar/Nakliye ile)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            <i class="fas fa-credit-card me-2"></i>Hangi ödeme yöntemleri mevcut?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>TarımPazarı, aşağıdaki güvenli ödeme yöntemlerini destekler:</p>
+                            <ul>
+                                <li><strong>Kredi Kartı:</strong> Visa, Mastercard, American Express</li>
+                                <li><strong>Banka Kartı:</strong> Tüm Türk bankaları</li>
+                                <li><strong>Alışveriş Kredisi:</strong> 0% faiz ile 3-12 ay taksit</li>
+                                <li><strong>Banka Transferi:</strong> Toplu alımlar için (İnsan Kaynakları ile iletişime geç)</li>
+                            </ul>
+                            <p class="mt-3"><strong>Güvenlik:</strong> Tüm işlemler 256-bit SSL ile şifrelenir. Kredi kartı bilgileriniz asla sunucularımızda saklanmaz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            <i class="fas fa-undo me-2"></i>İade ve Geri Ödeme
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>İade Hakkı ve Koşulları:</strong></p>
+                            <ul>
+                                <li><strong>Süre:</strong> Ürün teslim tarihinden itibaren 14 takvim günü</li>
+                                <li><strong>Gerekçe:</strong> Hiçbir gerekçe göstermeksizin iade hakkına sahipsiniz</li>
+                                <li><strong>İstisna:</strong> Canlı bitkiler (Fidanlar, Çiçekler) iade kabul edilmez</li>
+                                <li><strong>Durumu:</strong> Ürün orijinal ambalajında, kullanılmamış durumda olmalıdır</li>
+                            </ul>
+                            
+                            <h5 class="mt-3">İade Süreci:</h5>
+                            <ol>
+                                <li>Hesaptan "İade Talebinde Bulun" tuşuna tıkla</li>
+                                <li>İade sebebini ve görselleri ekle</li>
+                                <li>Sistem tarafından gönderim etiketi oluşturulacak (Ücretsiz)</li>
+                                <li>Ürünü kargo/ambar ile gönder</li>
+                                <li>Kontrol edildikten sonra paranın hesabına geri ödenmesi 5-7 iş günü sürer</li>
+                            </ol>
+                            
+                            <p class="mt-3 alert alert-info"><strong>Not:</strong> Toplu alımlar (Desi ≥ 30) için iade kargo genellikle ÜCRETSIZ sağlanmaktadır.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            <i class="fas fa-star me-2"></i>Yorum ve Değerlendirme Nasıl Yapılır?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Ürün Değerlendirmesi:</strong></p>
+                            <ul>
+                                <li>Sipariş teslim alındıktan sonra "Yorumlar" sekmesinde ürünü değerlendir</li>
+                                <li>1-5 yıldız verilerek kalite, paketleme ve hızlılık hakkında yorum yap</li>
+                                <li>Diğer alıcılarına yardımcı olacak detaylı açıklamalar ekle</li>
+                                <li>Fotoğraf ve video ekleyerek yorumunu daha güçlü kıl</li>
+                            </ul>
+                            
+                            <p class="mt-3"><strong>Satıcı Değerlendirmesi:</strong></p>
+                            <ul>
+                                <li>Satıcının hizmeti ve iletişim kalitesini değerlendir</li>
+                                <li>Hızlı yanıt vermesini ve profesyonelliğini ödüllendir</li>
+                            </ul>
+                            
+                            <p class="mt-3 alert alert-warning"><strong>Dikkat:</strong> Yalan veya kötü niyetli yorumlar sistem tarafından otomatik olarak kaldırılabilir.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                            <i class="fas fa-store me-2"></i>Satıcı Olarak Nasıl Başlarım?
+                        </button>
+                    </h2>
+                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Satıcı Başvurusu 5 Adımda:</strong></p>
+                            <ol>
+                                <li><strong>Kayıt:</strong> "Satıcı Başvurusu" seçeneğini seç ve formu doldur</li>
+                                <li><strong>Evraklarını Yükle:</strong> Vergi levhası ve ruhsat fotoğrafı ekle</li>
+                                <li><strong>İşletme Bilgileri:</strong> Adres ve iletişim bilgilerini belirt</li>
+                                <li><strong>Gönder:</strong> Başvuruyu gönder ve admin onayını bekle</li>
+                                <li><strong>Ürün Ekle:</strong> Onaylandıktan sonra ürün yükle ve satışa başla</li>
+                            </ol>
+                            
+                            <p class="mt-3">Detaylı rehber için <a href="{{ url_for('seller_guide') }}">Satıcı Bilgi Merkezi</a>'ne bakabilirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soru 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                            <i class="fas fa-lock me-2"></i>Kişisel Verilerim Güvende mi?
+                        </button>
+                    </h2>
+                    <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Evet, kişisel verileriniz tamamen güvende:</strong></p>
+                            <ul>
+                                <li><strong>Şifreleme:</strong> 256-bit SSL teknolojisi</li>
+                                <li><strong>Depolama:</strong> Güvenli veri merkezlerinde saklanır</li>
+                                <li><strong>Erişim:</strong> Yalnızca yetkili personel erişebilir</li>
+                                <li><strong>KVKK Uyumlu:</strong> 6698 sayılı Kanun'a tam uyulur</li>
+                            </ul>
+                            
+                            <p class="mt-3">Gizlilik hakkında daha fazla bilgi için <a href="{{ url_for('legal', tab='privacy') }}">Gizlilik Politikası</a> ve <a href="{{ url_for('legal', tab='kvkk') }}">KVKK Metni</a>'ni inceleyebilirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- İletişim Bölümü -->
+            <div class="help-contact mt-5 p-4 bg-light rounded">
+                <h3 class="mb-3"><i class="fas fa-headset me-2"></i>Bulunmadığınız Soru mu?</h3>
+                <p class="mb-3">Sorularınız için bize yazabilir veya arayabilirsiniz:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>📧 E-posta:</strong> <a href="mailto:support@tarimpazari.com">support@tarimpazari.com</a></p>
+                        <p><strong>💬 Canlı Destek:</strong> Saat 09:00-18:00 arası</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>📞 Telefon:</strong> <a href="tel:+905555555555">0555 555 55 55</a></p>
+                        <p><strong>🕐 Açılış Saatleri:</strong> Pazartesi-Cuma 09:00-18:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.accordion-button {
+    padding: 1.25rem;
+    font-weight: 500;
+    color: #333;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #f0f7ff;
+    color: var(--primary-color);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(46, 125, 50, 0.25);
+}
+
+.accordion-button i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+.accordion-body {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-top: 1px solid #dee2e6;
+}
+
+.accordion-body ul {
+    padding-left: 1.5rem;
+}
+
+.accordion-body li {
+    margin-bottom: 0.75rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.formula-box {
+    background: #f0f7ff;
+    padding: 1rem;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.formula {
+    font-family: 'Courier New', monospace;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+.help-contact {
+    border-left: 4px solid var(--primary-color);
+}
+
+.help-contact h3 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.help-contact a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.help-contact a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

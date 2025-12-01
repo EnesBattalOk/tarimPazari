@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block title %}Güvenlik Politikaları - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Başlık -->
+    <div class="row mb-4">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-shield-alt me-3" style="color: #2E7D32;"></i>TarımPazarı Güvencesiyle Alışveriş
+            </h1>
+            <p class="lead text-muted">Siz Üretin Diye, Biz Riskleri Sıfırladık.</p>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-lg-10 offset-lg-1">
+            <!-- Madde 1 -->
+            <div class="security-card mb-5">
+                <div class="security-header">
+                    <div class="security-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h2>Önce Ürün, Sonra Ödeme (Havuz Sistemi)</h2>
+                </div>
+                <div class="security-content">
+                    <p>
+                        TarımPazarı'nda paranız doğrudan satıcıya aktarılmaz. Ödemeniz, BDDK lisanslı güvenli havuz hesabında blokede tutulur. Siz ürünü teslim alıp, kontrol edip 'Onaylıyorum' butonuna basana kadar paranız güvendedir. Ürün gelmezse veya hatalıysa, paranız koşulsuz iade edilir.
+                    </p>
+                    <div class="security-highlight">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Sonuç:</strong> Alıcı her zaman korunmakta, satıcı ise düzgün hizmet verince paranın gelmesi garantilenmiş.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Madde 2 -->
+            <div class="security-card mb-5">
+                <div class="security-header">
+                    <div class="security-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h2>Resmi ve Yasal Altyapı (ETBİS & Vergi)</h2>
+                </div>
+                <div class="security-content">
+                    <p>
+                        Platformumuz, T.C. Ticaret Bakanlığı Elektronik Ticaret Bilgi Sistemi'ne (ETBİS) kayıtlıdır. Sitemizde satış yapan her tedarikçi, vergi levhası ve yetki belgeleri kontrol edilmiş, onaylı ticari işletmelerdir. Merdiven altı satıcılara yer yok.
+                    </p>
+                    <div class="security-badges">
+                        <span class="badge badge-official">
+                            <i class="fas fa-certificate me-1"></i>ETBİS Kayıtlı
+                        </span>
+                        <span class="badge badge-official">
+                            <i class="fas fa-check-double me-1"></i>Vergi Kontrollü
+                        </span>
+                        <span class="badge badge-official">
+                            <i class="fas fa-user-check me-1"></i>Onaylı Satıcılar
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Madde 3 -->
+            <div class="security-card mb-5">
+                <div class="security-header">
+                    <div class="security-icon">
+                        <i class="fas fa-lock-open"></i>
+                    </div>
+                    <h2>256-Bit Şifreleme Teknolojisi</h2>
+                </div>
+                <div class="security-content">
+                    <p>
+                        Kredi kartı bilgileriniz, bankaların kullandığı 256-Bit SSL sertifikası ile şifrelenir. Kart numaranız sistemimizde asla saklanmaz, doğrudan bankaya iletilir.
+                    </p>
+                    <div class="encryption-info">
+                        <div class="encryption-item">
+                            <i class="fas fa-key me-2"></i>
+                            <div>
+                                <strong>Şifreleme Standardı:</strong>
+                                <p class="mb-0 text-muted">256-Bit (AES) - Askeri Koruma Sınıfı</p>
+                            </div>
+                        </div>
+                        <div class="encryption-item">
+                            <i class="fas fa-server me-2"></i>
+                            <div>
+                                <strong>Veri İletimi:</strong>
+                                <p class="mb-0 text-muted">HTTPS Protokolü - Güvenli Bağlantı</p>
+                            </div>
+                        </div>
+                        <div class="encryption-item">
+                            <i class="fas fa-ban me-2"></i>
+                            <div>
+                                <strong>Kart Depolaması:</strong>
+                                <p class="mb-0 text-muted">Hiçbir Zaman Sunucuda Saklanmaz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Madde 4 -->
+            <div class="security-card mb-5">
+                <div class="security-header">
+                    <div class="security-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h2>Tarım Bakanlığı Mevzuatına Uyum</h2>
+                </div>
+                <div class="security-content">
+                    <p>
+                        Satılan tüm gübre ve zirai ilaçlar, ilgili bakanlık takip sistemleri (GTS ve BKÜ) ile uyumludur. Karekodlu ve orijinal ürün garantisi sunuyoruz.
+                    </p>
+                    <div class="compliance-grid">
+                        <div class="compliance-item">
+                            <div class="compliance-icon">
+                                <i class="fas fa-barcode"></i>
+                            </div>
+                            <h5>Karekodlu Ürünler</h5>
+                            <p>Tüm ürünler bakanlık kayıtlı ve izlenebilir karekod sistemi ile takip edilir.</p>
+                        </div>
+                        <div class="compliance-item">
+                            <div class="compliance-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <h5>Orijinal Garantisi</h5>
+                            <p>Taklit ürünler kesinlikle satılamaz. Her ürün bakanlık onaylıdır.</p>
+                        </div>
+                        <div class="compliance-item">
+                            <div class="compliance-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h5>Düzenli Denetim</h5>
+                            <p>GTS ve BKÜ sistemleri ile sürekli ve otomatik denetim yapılır.</p>
+                        </div>
+                        <div class="compliance-item">
+                            <div class="compliance-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h5>Yasal Uyum</h5>
+                            <p>Tarım Bakanlığı tüm düzenlemelerine tam uyum garantisi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.security-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border-left: 5px solid var(--primary-color);
+    transition: box-shadow 0.3s ease;
+}
+
+.security-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.security-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-bottom: 1px solid #e9ecef;
+}
+
+.security-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-right: 2rem;
+    flex-shrink: 0;
+}
+
+.security-header h2 {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.security-content {
+    padding: 2rem;
+}
+
+.security-content p {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.security-highlight {
+    background: #E8F5E9;
+    border-left: 4px solid var(--secondary-color);
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    color: #2E7D32;
+    font-weight: 500;
+}
+
+.security-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.badge-official {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.encryption-info {
+    background: #f0f7ff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #1976D2;
+    margin-top: 1.5rem;
+}
+
+.encryption-item {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+}
+
+.encryption-item:last-child {
+    margin-bottom: 0;
+}
+
+.encryption-item i {
+    color: #1976D2;
+    font-size: 1.3rem;
+    margin-top: 0.2rem;
+}
+
+.encryption-item strong {
+    color: #333;
+}
+
+.encryption-item p {
+    margin: 0;
+}
+
+.compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.compliance-item {
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    border-top: 3px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.compliance-item:hover {
+    transform: translateY(-3px);
+}
+
+.compliance-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.compliance-item h5 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.compliance-item p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+</style>
+{% endblock %}

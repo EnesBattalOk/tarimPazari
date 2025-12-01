@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-envelope me-3" style="color: #2E7D32;"></i>Bize Ulaşın
+            </h1>
+            <p class="lead text-muted">Sorularınız, önerileriniz ve teknik destek için bize yazın veya arayın</p>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <!-- Sol Taraf: İletişim Bilgileri -->
+        <div class="col-lg-5 mb-4">
+            <div class="contact-info-section">
+                <!-- Adres -->
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h5>Adres</h5>
+                        <p class="mb-0">
+                            TarımPazarı Teknoloji A.Ş.<br>
+                            Teknokent Ar-Ge Binası<br>
+                            Konyaaltı / ANTALYA
+                        </p>
+                        <small class="text-muted d-block mt-2">Türkiye'nin seracılık merkezi Antalya'da konumlandırıldık.</small>
+                    </div>
+                </div>
+                
+                <!-- Müşteri Hizmetleri -->
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h5>Müşteri Hizmetleri</h5>
+                        <p class="mb-0">
+                            <a href="tel:08501234567">0850 123 45 67</a>
+                        </p>
+                        <small class="text-muted d-block mt-2">Hafta içi 09:00 - 18:00 (Hızlı cevap garantili)</small>
+                    </div>
+                </div>
+                
+                <!-- E-Posta -->
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope-open"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h5>E-Posta</h5>
+                        <p class="mb-0">
+                            <a href="mailto:destek@tarimpazari.com">destek@tarimpazari.com</a>
+                        </p>
+                        <small class="text-muted d-block mt-2">7/24 mesaj alıyoruz, 24 saat içinde cevap veriyoruz</small>
+                    </div>
+                </div>
+                
+                <!-- Not -->
+                <div class="contact-note">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <div>
+                        <strong>Uzman Ekibimiz:</strong>
+                        <p class="mb-0">Sera kurulumu, toptan alım talepleri ve teknik destek için ziraat mühendislerimizden oluşan ekibimizle iletişime geçebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sağ Taraf: İletişim Formu -->
+        <div class="col-lg-7">
+            <div class="contact-form-section">
+                <h3 class="mb-4 fw-bold">İletişim Formu</h3>
+                <form id="contactForm" class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ad Soyad</label>
+                            <input type="text" class="form-control" name="name" placeholder="Adınız ve Soyadınız" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">E-Posta</label>
+                            <input type="email" class="form-control" name="email" placeholder="ornek@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Telefon (Opsiyonel)</label>
+                        <input type="tel" class="form-control" name="phone" placeholder="0555 555 55 55">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Konu</label>
+                        <select class="form-select" name="subject" required>
+                            <option value="">Konu Seçiniz...</option>
+                            <option value="support">Teknik Destek</option>
+                            <option value="sales">Satış Sorgusu</option>
+                            <option value="partnership">İşbirliği Talebi</option>
+                            <option value="suggestion">Öneri ve Şikayetler</option>
+                            <option value="other">Diğer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Mesajınız</label>
+                        <textarea class="form-control" name="message" rows="5" placeholder="Mesajınızı yazınız..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-paper-plane me-2"></i>Gönder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.contact-info-section {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-left: 5px solid var(--primary-color);
+    height: 100%;
+}
+
+.contact-item {
+    display: flex;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+}
+
+.contact-item:last-of-type {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.contact-details h5 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.contact-details p {
+    color: #555;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+    color: var(--secondary-color);
+}
+
+.contact-details small {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.contact-note {
+    background: #E8F5E9;
+    border-left: 4px solid var(--secondary-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    display: flex;
+    align-items: flex-start;
+    color: #2E7D32;
+}
+
+.contact-note i {
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.contact-note div {
+    margin-left: 1rem;
+}
+
+.contact-note strong {
+    color: #2E7D32;
+}
+
+.contact-note p {
+    color: #2E7D32;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.contact-form-section {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.contact-form-section h3 {
+    color: var(--primary-color);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.7rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.15);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .contact-info-section,
+    .contact-form-section {
+        margin-bottom: 2rem;
+    }
+    
+    .contact-item {
+        margin-bottom: 2rem;
+    }
+}
+</style>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Gönderiliyor...';
+    btn.disabled = true;
+    
+    // Simülasyon: 1 saniye sonra başarı mesajı
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-check me-2"></i>Mesaj Gönderildi!';
+        btn.style.background = '#4CAF50';
+        this.reset();
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.disabled = false;
+        }, 3000);
+    }, 1000);
+});
+</script>
+{% endblock %}

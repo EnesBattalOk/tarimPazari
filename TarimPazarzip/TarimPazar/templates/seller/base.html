@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="seller-sidebar">
+                <div class="seller-info mb-4">
+                    <i class="fas fa-store fa-2x text-primary mb-2"></i>
+                    <h5>{{ user.company_name or user.username }}</h5>
+                    <span class="badge bg-success">Onaylı Satıcı</span>
+                </div>
+                
+                <nav class="seller-nav">
+                    <a href="{{ url_for('seller_dashboard') }}" class="nav-item {% if request.endpoint == 'seller_dashboard' %}active{% endif %}">
+                        <i class="fas fa-tachometer-alt"></i> Kontrol Paneli
+                    </a>
+                    <a href="{{ url_for('seller_products') }}" class="nav-item {% if request.endpoint == 'seller_products' %}active{% endif %}">
+                        <i class="fas fa-box"></i> Ürünlerim
+                    </a>
+                    <a href="{{ url_for('add_product') }}" class="nav-item {% if request.endpoint == 'add_product' %}active{% endif %}">
+                        <i class="fas fa-plus-circle"></i> Ürün Ekle
+                    </a>
+                    <a href="{{ url_for('seller_orders') }}" class="nav-item {% if request.endpoint == 'seller_orders' %}active{% endif %}">
+                        <i class="fas fa-shopping-bag"></i> Siparişler
+                    </a>
+                    <a href="{{ url_for('seller_questions') }}" class="nav-item {% if request.endpoint == 'seller_questions' %}active{% endif %}">
+                        <i class="fas fa-comments"></i> Soru & Cevap
+                        {% if pending_questions_count > 0 %}
+                        <span class="badge bg-danger ms-2">{{ pending_questions_count }}</span>
+                        {% endif %}
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="col-lg-10">
+            {% block seller_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

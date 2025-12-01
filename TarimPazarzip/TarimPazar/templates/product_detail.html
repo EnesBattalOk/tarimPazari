@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-4">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('products') }}">Ürünler</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('products', category=product.category_id) }}">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><strong>{{ product.name }}</strong></li>
+        </ol>
+    </nav>
+    
+    <div class="row">
+        <div class="col-lg-5 mb-4">
+            <div class="product-detail-image">
+                <div style="position: relative;">
+                    <img src="{{ product.image_url or 'https://via.placeholder.com/500x400?text=Ürün' }}" alt="{{ product.name }}" class="img-fluid rounded">
+                    {% if session.get('user_id') %}
+                    <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn-detail">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-7">
+            <div class="product-detail-info">
+                <p class="product-category-badge">
+                    <i class="fas {{ product.category.icon_class }} me-1"></i>{{ product.category.name }}
+                </p>
+                <h1 class="product-detail-title">{{ product.name }}</h1>
+                
+                <div class="product-detail-rating mb-3">
+                    {% for i in range(5) %}
+                        {% if i < product.rating|int %}
+                            <i class="fas fa-star"></i>
+                        {% elif i < product.rating %}
+                            <i class="fas fa-star-half-alt"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="ms-2">{{ product.rating|round(1) }} ({{ product.reviews|length }} değerlendirme)</span>
+                </div>
+                
+                <div class="product-detail-price mb-4">
+                    <span class="price">{{ "%.2f"|format(product.price) }} ₺</span>
+                </div>
+                
+                <div class="product-info-box mb-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="info-item">
+                                <i class="fas fa-box text-primary"></i>
+                                <div>
+                                    <small>Desi/Ağırlık</small>
+                                    <strong>{{ product.desi }} Desi</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="info-item">
+                                <i class="fas fa-cubes text-success"></i>
+                                <div>
+                                    <small>Stok Durumu</small>
+                                    <strong>{% if product.stock > 0 %}{{ product.stock }} Adet{% else %}Tükendi{% endif %}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="shipping-info-box mb-4 alert alert-{{ shipping_info.color }}">
+                    <i class="fas {{ shipping_info.icon }} fa-2x me-3"></i>
+                    <div>
+                        <strong>Gönderim Yöntemi: {{ shipping_info.method }}</strong>
+                        <p class="mb-0 small">{{ shipping_info.description }}</p>
+                    </div>
+                </div>
+                
+                <div class="seller-info mb-4">
+                    <i class="fas fa-store me-2"></i>
+                    <span>Satıcı: <strong>{{ product.seller.company_name or product.seller.username }}</strong></span>
+                </div>
+                
+                {% if product.stock > 0 %}
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="add-to-cart-form">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="quantity-selector">
+                            <button type="button" class="btn btn-outline-secondary qty-btn" data-action="decrease">-</button>
+                            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control qty-input">
+                            <button type="button" class="btn btn-outline-secondary qty-btn" data-action="increase">+</button>
+                        </div>
+                        <button type="submit" class="btn-add-to-cart-detail flex-grow-1" {% if not session.get('user_id') %}disabled{% endif %}>
+                            <i class="fas fa-cart-plus me-2"></i>Sepete Ekle
+                        </button>
+                    </div>
+                    {% if not session.get('user_id') %}
+                    <p class="text-muted small mt-2">
+                        <i class="fas fa-info-circle me-1"></i>Sepete eklemek için <a href="{{ url_for('login') }}">giriş yapmalısınız</a>.
+                    </p>
+                    {% endif %}
+                </form>
+                {% else %}
+                <button class="btn btn-secondary btn-lg w-100" disabled>
+                    <i class="fas fa-times me-2"></i>Ürün Tükendi
+                </button>
+                {% endif %}
+                
+                {% if session.get('user_id') and session.get('role') == 'buyer' %}
+                <button type="button" class="btn btn-outline-primary btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#askQuestionModal">
+                    <i class="fas fa-question-circle me-2"></i>Satıcıya Soru Sor
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <ul class="nav nav-tabs" id="productTabs">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#description">Açıklama</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviews">Değerlendirmeler ({{ product.reviews|length }})</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#questions">Soru & Cevap ({{ product.questions|length }})</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content p-4 border border-top-0 rounded-bottom">
+                <div class="tab-pane fade show active" id="description">
+                    <p>{{ product.description or 'Bu ürün için açıklama bulunmamaktadır.' }}</p>
+                </div>
+                
+                <div class="tab-pane fade" id="reviews">
+                    {% if product.reviews %}
+                        {% for review in product.reviews %}
+                        <div class="review-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong><i class="fas fa-user-circle me-2"></i>{{ review.user.username }}</strong>
+                                    <div class="review-stars">
+                                        {% for i in range(5) %}
+                                            {% if i < review.stars %}
+                                                <i class="fas fa-star"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <small class="text-muted">{{ review.created_at.strftime('%d.%m.%Y') }}</small>
+                            </div>
+                            <p class="mt-2 mb-0">{{ review.comment }}</p>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">Henüz değerlendirme yapılmamış.</p>
+                    {% endif %}
+                    
+                    {% if session.get('user_id') and session.get('role') == 'buyer' %}
+                    <hr>
+                    <h5>Değerlendirme Yap</h5>
+                    <form action="{{ url_for('add_review', product_id=product.id) }}" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Puanınız</label>
+                            <div class="star-rating-input">
+                                {% for i in range(5, 0, -1) %}
+                                <input type="radio" name="stars" value="{{ i }}" id="star{{ i }}" {% if i == 5 %}checked{% endif %}>
+                                <label for="star{{ i }}"><i class="fas fa-star"></i></label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Yorumunuz</label>
+                            <textarea name="comment" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Gönder
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+                
+                <div class="tab-pane fade" id="questions">
+                    {% if product.questions %}
+                        {% for question in product.questions %}
+                        <div class="question-item mb-4 pb-3 border-bottom">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong><i class="fas fa-user-circle me-2"></i>{{ question.user.username }}</strong>
+                                    <p class="text-muted small mb-2">{{ question.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+                                    <p class="mb-0">{{ question.question_text }}</p>
+                                </div>
+                            </div>
+                            {% if question.answer_text %}
+                            <div class="mt-3 p-3 bg-light rounded" style="border-left: 4px solid var(--primary-color);">
+                                <strong><i class="fas fa-store me-2"></i>Satıcı Yanıtı:</strong>
+                                <p class="mb-0 mt-2">{{ question.answer_text }}</p>
+                                <small class="text-muted d-block mt-2">{{ question.answered_at.strftime('%d.%m.%Y %H:%M') }}</small>
+                            </div>
+                            {% else %}
+                            <div class="mt-3 alert alert-warning">
+                                <small><i class="fas fa-clock me-1"></i>Satıcı tarafından henüz yanıtlanmamıştır.</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">Henüz soru sorulmamıştır. Siz ilk soru soranız olabilirsiniz!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Soru Sor Modal -->
+    <div class="modal fade" id="askQuestionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-question-circle me-2"></i>Satıcıya Soru Sor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ url_for('ask_question', product_id=product.id) }}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Sorunuz</label>
+                            <textarea name="question_text" class="form-control" rows="4" placeholder="Lütfen satıcıya sormak istediğiniz soruyu yazınız..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Gönder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% if related_products %}
+    <section class="related-products mt-5">
+        <h4 class="mb-4"><i class="fas fa-th-large me-2"></i>Benzer Ürünler</h4>
+        <div class="row">
+            {% for rp in related_products %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{{ url_for('product_detail', id=rp.id) }}">
+                            <img src="{{ rp.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ rp.name }}">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-title">
+                            <a href="{{ url_for('product_detail', id=rp.id) }}">{{ rp.name }}</a>
+                        </h5>
+                        <div class="product-footer">
+                            <span class="product-price">{{ "%.2f"|format(rp.price) }} ₺</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

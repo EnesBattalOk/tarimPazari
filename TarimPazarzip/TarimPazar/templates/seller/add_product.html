@@ -1,0 +1,83 @@
+{% extends "seller/base.html" %}
+
+{% block title %}Ürün Ekle - TarımPazarı{% endblock %}
+
+{% block seller_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="panel-card">
+            <div class="panel-header">
+                <h4><i class="fas fa-plus-circle me-2"></i>Yeni Ürün Ekle</h4>
+            </div>
+            <div class="panel-body">
+                <form action="{{ url_for('add_product') }}" method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ürün Adı <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required placeholder="Örn: Organik Domates Tohumu">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kategori <span class="text-danger">*</span></label>
+                            <select name="category_id" class="form-select" required>
+                                <option value="">Kategori Seçin</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat.id }}">{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Ürün Açıklaması</label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="Ürün hakkında detaylı bilgi girin..."></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Fiyat (₺) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" name="price" class="form-control" step="0.01" min="0" required placeholder="0.00">
+                                <span class="input-group-text">₺</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Stok Adedi <span class="text-danger">*</span></label>
+                            <input type="number" name="stock" class="form-control" min="0" required placeholder="0">
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                Desi/Ağırlık <span class="text-danger">*</span>
+                                <i class="fas fa-info-circle text-muted" data-bs-toggle="tooltip" title="Desi değeri kargo yöntemini belirler. 30 ve üzeri Ambar/Nakliye, altı Kargo ile gönderilir."></i>
+                            </label>
+                            <input type="number" name="desi" class="form-control" step="0.1" min="0.1" required placeholder="1.0">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Görsel URL'si</label>
+                        <input type="url" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
+                        <small class="text-muted">Ürün görselinin internet adresi (URL)</small>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Lojistik Bilgisi:</strong> Desi değeri 30'un altındaki ürünler <strong>Kargo</strong> ile, 30 ve üzerindeki ürünler <strong>Ambar/Nakliye</strong> ile gönderilir.
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Ürünü Kaydet
+                        </button>
+                        <a href="{{ url_for('seller_products') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

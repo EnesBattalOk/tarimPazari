@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}Biz Kimiz - TarımPazarı{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Toprağın Bereketini Teknolojiyle Buluşturuyoruz</h1>
+    </div>
+</section>
+
+<div class="container py-5">
+    <!-- Başlık -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="fas fa-leaf me-3" style="color: #2E7D32;"></i>TarımPazarı: Çiftçinin Dijital Gücü
+            </h1>
+        </div>
+    </div>
+    
+    <!-- Hikayemiz -->
+    <div class="row mb-5">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="content-section">
+                <h2 class="section-heading">Hikayemiz</h2>
+                <p class="story-text">
+                    TarımPazarı, Türkiye seracılığının kalbi Antalya'da doğmuş, kökleri Anadolu'nun verimli topraklarına, dalları ise geleceğin teknolojisine uzanan yeni nesil bir girişimdir. Bizler, sadece bir e-ticaret sitesi değil; çiftçinin alın terini koruyan, tedarikçinin pazarını büyüten dijital bir köprüyüz.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sorun ve Çözüm -->
+    <div class="row mb-5">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="content-section">
+                <h2 class="section-heading">Sorun ve Çözüm</h2>
+                <p class="story-text">
+                    Yıllardır süregelen 'Lojistik İmkansızlıklar' nedeniyle internetten alınamayan sera naylonlarını, tonluk gübreleri ve ağır demir profilleri; geliştirdiğimiz <strong>Hibrit Lojistik Altyapısı (Kargo + Ambar)</strong> sayesinde kapınıza kadar getiriyoruz. Artık çiftçimiz, sadece bölgesindeki bayinin fiyatına mecbur değil; Kars'tan Edirne'ye tüm tedarikçilerin rekabetçi fiyatlarına tek tıkla ulaşabiliyor.
+                </p>
+                <div class="solution-highlight">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Sonuç:</strong> Daha uygun fiyatlar, daha hızlı teslimat, daha geniş seçim.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vizyon -->
+    <div class="row mb-5">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="content-section">
+                <h2 class="section-heading">Vizyonumuz</h2>
+                <p class="story-text">
+                    Amacımız net: Tarımsal ticaretteki aracıları kaldırarak şeffaf, hızlı ve maliyet odaklı bir pazar yeri oluşturmak. Çiftçinin cebini, toprağın verimini düşünüyoruz.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Değerlerimiz -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <h2 class="text-center mb-5 fw-bold">Temel Değerlerimiz</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Şeffaflık</h4>
+                        <p>Tüm işlemler izlenebilir ve kontrol edilebilir. Gizli ücret veya aracı olmaksızın doğrudan ticaret.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Güvenlik</h4>
+                        <p>Sektör standartlarının ötesinde veri ve ödeme güvenliği. Çiftçinin parası güvende.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>İnovasyon</h4>
+                        <p>Hibrit lojistik algoritması gibi yenilikçi çözümler. Tarımsal sorunlara teknolojik yaklaşım.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h4>Sosyal Sorumluluk</h4>
+                        <p>Tarım kesiminin kalkınmasına katkı. Türkiye'nin verimini arttırmaya adanmış bir misyon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.about-hero {
+    position: relative;
+    height: 400px;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=400&fit=crop') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    line-height: 1.3;
+}
+
+.content-section {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 5px solid var(--primary-color);
+}
+
+.section-heading {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.story-text {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    letter-spacing: 0.3px;
+}
+
+.solution-highlight {
+    background: #E8F5E9;
+    border-left: 4px solid var(--secondary-color);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    color: #2E7D32;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.value-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.value-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.value-card h4 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .content-section {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %}

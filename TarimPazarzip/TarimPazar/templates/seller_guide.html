@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+
+{% block title %}Satıcı Bilgi Merkezi - TarımPazarı{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="seller-hero">
+    <div class="hero-content">
+        <h1>TarımPazarı ile İşinizi Dijitalleştirin, Tüm Türkiye'ye Satın.</h1>
+        <p>Ağır nakliye derdi yok, ödeme riski yok. Sadece üretmek ve kazanmak var.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-lg btn-seller-cta">
+            <i class="fas fa-rocket me-2"></i>Hemen Satıcı Ol
+        </a>
+    </div>
+</section>
+
+<div class="container-fluid py-5">
+    <!-- Process Timeline Section -->
+    <div class="container">
+        <div class="process-header text-center mb-5">
+            <h2 class="fw-bold mb-2">Nasıl Çalışır?</h2>
+            <p class="lead text-muted">4 basit adımda TarımPazarı'da satışa başlayın</p>
+        </div>
+
+        <div class="process-timeline">
+            <!-- Step 1: Mağaza Açılışı -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-circle">
+                        <i class="fas fa-store"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h5>Mağaza Açılışı & Evrak</h5>
+                    <p>Vergi levhanız, imza sirküleriniz ve faaliyet belgeniz ile dakikalar içinde başvurunuzu yapın. Eğer Zirai İlaç veya Sertifikalı Tohum satışı yapacaksanız, Tarım Bakanlığı onaylı 'Bayilik Ruhsatınızı' sisteme yüklemeniz yasal zorunluluktur. Belgeleriniz uzman ekibimizce doğrulandıktan sonra mağazanız anında satışa açılır.</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Ürün Yükleme -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-circle">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h5>Akıllı Ürün Yükleme</h5>
+                    <p>Sınırsız ürün yükleme hakkınız vardır. Ürünlerinizi yüklerken fotoğrafların net olması satış hızınızı artırır. <strong>En kritik nokta:</strong> Ürünün 'Desi/Ağırlık' bilgisini doğru girmektir. Sistemimiz, bu veriyi kullanarak ürünün Kargo ile mi yoksa Ambar ile mi taşınacağına otomatik karar verir.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Sipariş & Lojistik -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-circle">
+                        <i class="fas fa-truck-fast"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h5>Sipariş Yönetimi & Lojistik</h5>
+                    <p>Sipariş geldiğinde panik yok! Sistem size otomatik bir barkod üretir. Eğer ürün hafifse (30 Desi altı) anlaşmalı kargo şubesine teslim edersiniz. Eğer ürün ağırsa (Sera demiri, Tonluk gübre vb.) sistem sizi bölgenizdeki anlaşmalı Nakliye/Ambar firmasına yönlendirir ve ürün kapınızdan alınır.</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Ödeme -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-circle">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h5>Güvenli Tahsilat (Havuz Hesabı)</h5>
+                    <p>Ürünü gönderdiniz, alıcı teslim aldı ve onayladı. Hak edişiniz (satış tutarı eksi komisyon bedeli), ertesi iş günü BDDK lisanslı ödeme kuruluşu aracılığıyla doğrudan banka hesabınıza yatırılır. Tahsilat riski, ödeme peşinde koşma derdi yoktur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Concepts Section -->
+    <div class="container mt-5 pt-5">
+        <div class="concepts-header text-center mb-5">
+            <h2 class="fw-bold mb-2">Temel Kavramlar Sözlüğü</h2>
+            <p class="lead text-muted">Başarılı satış için bilmeniz gerekenler</p>
+        </div>
+
+        <div class="concepts-grid">
+            <!-- Card 1: Desi -->
+            <div class="concept-card">
+                <div class="card-icon">
+                    <i class="fas fa-weight"></i>
+                </div>
+                <h4>Desi ve Lojistik Algoritması</h4>
+                <p class="concept-label">(Kritik)</p>
+                <p class="concept-text">
+                    Sistemimizin beyni 'Desi' üzerine kuruludur. Ürün yüklerken girdiğiniz hacimsel ağırlık (Desi), gönderim yöntemini belirler. <strong>30 Desi altı</strong> siparişler anlaşmalı kargolarla (MNG/Yurtiçi), <strong>30 Desi üzeri</strong> ağır yükler (Sera demiri, Tonluk Gübre) ise özel Ambar/Nakliye ağımızla taşınır. Bu sayede 'kargo bunu taşımaz' sorunu ortadan kalkar.
+                </p>
+            </div>
+
+            <!-- Card 2: Havuz Hesabı -->
+            <div class="concept-card">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Güvenli Havuz Hesabı</h4>
+                <p class="concept-label">(Bloke)</p>
+                <p class="concept-text">
+                    Alıcı ödemeyi yaptığında para doğrudan size gelmez, BDDK lisanslı tarafsız bir 'Havuz Hesabında' bekler. Siz ürünü kargolar, alıcı teslim alıp 'Onay' verdiğinde para serbest kalır. Bu sistem, iki tarafı da dolandırıcılığa karşı %100 korur.
+                </p>
+            </div>
+
+            <!-- Card 3: Komisyon -->
+            <div class="concept-card">
+                <div class="card-icon">
+                    <i class="fas fa-percent"></i>
+                </div>
+                <h4>Komisyon ve Hizmet Bedeli</h4>
+                <p class="concept-label">(Şeffaf)</p>
+                <p class="concept-text">
+                    TarımPazarı'nda mağaza açmak ve ürün listelemek ücretsizdir. Sadece gerçekleşen satış üzerinden, kategoriye göre değişen oranlarda (%3 - %10 arası) komisyon alınır. Başka gizli bir aidat veya ücret yoktur.
+                </p>
+            </div>
+
+            <!-- Card 4: Yetki Belgeleri -->
+            <div class="concept-card">
+                <div class="card-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h4>Yetki Belgeleri</h4>
+                <p class="concept-label">(GTS & BKÜ)</p>
+                <p class="concept-text">
+                    Zirai İlaç ve Tohum satışı yapan bayilerin, Tarım Bakanlığı mevzuatı gereği 'Satış Yetki Belgesi' yüklemesi zorunludur. Platformumuz, GTS (Gübre Takip Sistemi) ve BKÜ (Bitki Koruma Ürünleri) sistemlerine uyumlu çalışmayı taahhüt eder.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="seller-cta-section text-center mt-5 pt-5">
+        <h3 class="fw-bold mb-4">Satıcı olma yolculuğunuza başlamaya hazır mısınız?</h3>
+        <a href="{{ url_for('register') }}" class="btn btn-lg btn-seller-cta">
+            <i class="fas fa-sign-in-alt me-2"></i>TarımPazarı'da Satıcı Kaydı Yap
+        </a>
+    </div>
+</div>
+
+<style>
+/* Hero Section */
+.seller-hero {
+    position: relative;
+    height: 400px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1625246333195-09d9b430db80?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 3rem;
+}
+
+.seller-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.seller-hero p {
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.btn-seller-cta {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.9rem 2.5rem;
+}
+
+.btn-seller-cta:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(245, 124, 0, 0.3);
+    color: white;
+}
+
+/* Process Timeline */
+.process-header {
+    margin-bottom: 3rem;
+}
+
+.process-header h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.process-timeline {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 3rem;
+}
+
+.process-timeline::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--secondary-color), var(--primary-color));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 60px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -44px;
+    top: 0;
+}
+
+.timeline-circle {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 4px solid var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    box-shadow: 0 0 0 8px rgba(245, 124, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:nth-child(2) .timeline-circle {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 0 8px rgba(46, 125, 50, 0.1);
+}
+
+.timeline-item:nth-child(3) .timeline-circle {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.timeline-item:nth-child(4) .timeline-circle {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 0 8px rgba(46, 125, 50, 0.1);
+}
+
+.timeline-item:hover .timeline-circle {
+    box-shadow: 0 0 0 12px rgba(245, 124, 0, 0.15);
+    transform: scale(1.1);
+}
+
+.timeline-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.timeline-content h5 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.timeline-content p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Concepts Grid */
+.concepts-header h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.concept-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.concept-card h4 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.concept-label {
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.concept-text {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.concept-text strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* CTA Section */
+.seller-cta-section {
+    background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+    padding: 3rem;
+    border-radius: 15px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.seller-cta-section h3 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+@media (max-width: 768px) {
+    .seller-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .seller-hero p {
+        font-size: 1rem;
+    }
+    
+    .process-timeline {
+        padding-left: 40px;
+    }
+    
+    .process-timeline::before {
+        left: 8px;
+        width: 3px;
+    }
+    
+    .timeline-marker {
+        left: -34px;
+    }
+    
+    .timeline-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .timeline-item {
+        padding-left: 50px;
+    }
+    
+    .concepts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .seller-cta-section {
+        padding: 2rem;
+    }
+    
+    .seller-cta-section h3 {
+        font-size: 1.4rem;
+    }
+}
+</style>
+{% endblock %}

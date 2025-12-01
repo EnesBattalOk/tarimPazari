@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Kayıt Ol - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="auth-card">
+                <div class="text-center mb-4">
+                    <i class="fas fa-leaf fa-3x text-primary mb-3"></i>
+                    <h3>Kayıt Ol</h3>
+                    <p class="text-muted">TarımPazarı'na üye olun</p>
+                </div>
+                
+                <form action="{{ url_for('register') }}" method="POST" id="registerForm">
+                    <div class="mb-3">
+                        <label class="form-label">Hesap Türü</label>
+                        <div class="role-selector">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="roleBuyer" value="buyer" checked>
+                                <label class="form-check-label" for="roleBuyer">
+                                    <i class="fas fa-user me-1"></i>Alıcı (Çiftçi)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="roleSeller" value="seller">
+                                <label class="form-check-label" for="roleSeller">
+                                    <i class="fas fa-store me-1"></i>Satıcı (Tedarikçi)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Kullanıcı Adı</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" name="username" class="form-control" placeholder="kullanici_adi" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">E-posta Adresi</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" name="email" class="form-control" placeholder="ornek@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3" id="companyField" style="display: none;">
+                        <label class="form-label">Firma Adı</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-building"></i></span>
+                            <input type="text" name="company_name" class="form-control" placeholder="Firma Adınız">
+                        </div>
+                        <small class="text-muted">Satıcı hesapları admin onayı gerektirir.</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Şifre</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Güçlü bir şifre oluşturun" required>
+                        </div>
+                        <small class="text-muted d-block mt-2">Şifreniz aşağıdaki kriterleri karşılamalıdır:</small>
+                        <ul class="password-criteria list-unstyled small mt-2">
+                            <li id="rule-length"><i class="fas fa-times-circle text-danger me-1"></i>En az 8 karakter</li>
+                            <li id="rule-upper"><i class="fas fa-times-circle text-danger me-1"></i>Bir büyük harf (A-Z)</li>
+                            <li id="rule-lower"><i class="fas fa-times-circle text-danger me-1"></i>Bir küçük harf (a-z)</li>
+                            <li id="rule-number"><i class="fas fa-times-circle text-danger me-1"></i>Bir rakam (0-9)</li>
+                            <li id="rule-special"><i class="fas fa-times-circle text-danger me-1"></i>Bir özel karakter (!@#$%)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="legal-link">Kullanım koşullarını</a> ve <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal" class="legal-link">gizlilik politikasını</a> kabul ediyorum.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="registerBtn" class="btn btn-primary w-100 btn-lg" disabled>
+                        <i class="fas fa-user-plus me-2"></i>Kayıt Ol
+                    </button>
+                </form>
+                
+                <hr class="my-4">
+                
+                <div class="text-center">
+                    <p class="mb-0">Zaten hesabınız var mı? <a href="{{ url_for('login') }}" class="text-primary fw-bold">Giriş Yapın</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kullanım Koşulları Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-scroll me-2"></i>Kullanım Koşulları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Genel Hükümler</h6>
+                <p>Bu sözleşme, TarımPazarı web sitesinin kullanımını düzenlemektedir. Siteyi kullanarak bu koşulları kabul etmiş sayılırsınız.</p>
+                
+                <h6>2. Kullanıcı Sorumluluğu</h6>
+                <p>Siteye girdiğiniz tüm bilgiler doğru ve eksiksiz olmalıdır. Hesabınız hakkında sorumluluk size aittir.</p>
+                
+                <h6>3. Ürünler ve Hizmetler</h6>
+                <p>Sitemizde yer alan ürünler, mevcut durumları ve açıklamaları referans amaçlıdır. Ürünlerin gerçek durumu, teslimat sırasında kontrol edilmelidir.</p>
+                
+                <h6>4. Ödeme ve Fiyatlandırma</h6>
+                <p>Fiyatlar, işlem sırasında gösterilen tutarlar üzerinden hesaplanır. Tüm vergileri ve masrafları içerir. Fiyatlar önceden haber verilmeksizin değişebilir.</p>
+                
+                <h6>5. İade ve Cayma Hakkı</h6>
+                <p>Ürün teslim tarihinden itibaren 14 gün içinde hiçbir gerekçe göstermeksizin cayma hakkına sahipsiniz. Ürünün orijinal durumda ve ambalajında olması gerektiği halde, iadeli ürün kontrol edildikten sonra ödeme geri ödenir.</p>
+                
+                <h6>6. Sorumluluk Sınırlaması</h6>
+                <p>TarımPazarı, sitede veya hizmetlerde meydana gelen aksaklıklardan, gecikme ve kesintilerden sorumlu tutulamaz. Siteyi olduğu gibi sunuyoruz.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anladım</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gizlilik Politikası Modal -->
+<div class="modal fade" id="privacyModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-shield-alt me-2"></i>Gizlilik Politikası</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Toplanan Bilgiler</h6>
+                <p>Hizmetlerimizi sunmak ve iyileştirmek amacıyla aşağıdaki türde bilgileri toplayabiliriz: ad, soyadı, e-posta adresi, telefon numarası, teslimat adresi, sipariş geçmişi, ödeme bilgileri.</p>
+                
+                <h6>2. Bilgilerin Kullanımı</h6>
+                <p>Toplanan bilgiler aşağıdaki amaçlarla kullanılmaktadır:</p>
+                <ul>
+                    <li>Sipariş işleme ve teslimat</li>
+                    <li>Müşteri hizmetleri</li>
+                    <li>Hesap yönetimi</li>
+                    <li>Pazarlama ve promosyon</li>
+                    <li>Yasal yükümlülükler</li>
+                </ul>
+                
+                <h6>3. Veri Güvenliği</h6>
+                <p>Kişisel verileriniz, 256-bit SSL şifreleme teknolojisini kullanarak korunmaktadır. Endüstri standartlarının ötesinde güvenlik protokolleri uygulanmaktadır.</p>
+                
+                <h6>4. Üçüncü Taraflar ile Paylaşım</h6>
+                <p>Verileriniz, hizmet sağlayıcılarımızla ve kargo şirketleriyle, sözleşmesel ilişkiler çerçevesinde paylaşılabilir.</p>
+                
+                <h6>5. Haklarınız</h6>
+                <p>Kişisel verilerinize erişim, düzeltilme, silinilme ve işlenmeye itiraz talebinde bulunma haklarına sahipsiniz.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Anladım</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.legal-link {
+    color: #2E7D32;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.legal-link:hover {
+    color: #F57C00;
+    text-decoration: none;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #2E7D32;
+}
+
+.modal-title {
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+.modal-body h6 {
+    color: #2E7D32;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+</style>
+
+<script>
+document.querySelectorAll('input[name="role"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const companyField = document.getElementById('companyField');
+        if (this.value === 'seller') {
+            companyField.style.display = 'block';
+        } else {
+            companyField.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

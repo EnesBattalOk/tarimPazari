@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Favorilerim - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4"><i class="fas fa-heart me-2"></i>Favorilerim</h2>
+    
+    {% if products %}
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ product.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ product.name }}">
+                    <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn heart-btn active">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    {% if product.desi >= 30 %}
+                    <span class="shipping-badge ambar">
+                        <i class="fas fa-warehouse"></i> Ambar
+                    </span>
+                    {% else %}
+                    <span class="shipping-badge kargo">
+                        <i class="fas fa-truck"></i> Kargo
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <p class="product-category">{{ product.category.name }}</p>
+                    <h5 class="product-title">
+                        <a href="{{ url_for('product_detail', id=product.id) }}">{{ product.name }}</a>
+                    </h5>
+                    <div class="product-rating">
+                        {% for i in range(5) %}
+                            {% if i < product.rating|int %}
+                                <i class="fas fa-star"></i>
+                            {% elif i < product.rating %}
+                                <i class="fas fa-star-half-alt"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="rating-text">({{ product.rating|round(1) }})</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">{{ "%.2f"|format(product.price) }} ₺</span>
+                    </div>
+                    <form class="add-to-cart-form" action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-sm btn-outline-success w-100 mt-2" {% if not session.get('user_id') %}disabled{% endif %}>
+                            <i class="fas fa-cart-plus me-1"></i>Sepete Ekle
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5 bg-white rounded shadow-sm">
+        <i class="fas fa-heart fa-4x text-muted mb-3"></i>
+        <h4>Favorilerim Boş</h4>
+        <p class="text-muted">Henüz favori ürün eklemediz. <a href="{{ url_for('products') }}">Ürünleri İncele</a></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

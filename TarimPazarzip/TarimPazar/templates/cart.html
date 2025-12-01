@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Sepetim - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4"><i class="fas fa-shopping-cart me-2"></i>Sepetim</h2>
+    
+    {% if cart_items %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="cart-items">
+                {% for item in cart_items %}
+                <div class="cart-item" data-item-id="{{ item.id }}">
+                    <div class="cart-item-image">
+                        <img src="{{ item.product.image_url or 'https://via.placeholder.com/100x100?text=Ürün' }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h5><a href="{{ url_for('product_detail', id=item.product.id) }}">{{ item.product.name }}</a></h5>
+                        <p class="text-muted small mb-1">
+                            <i class="fas fa-store me-1"></i>{{ item.product.seller.company_name or item.product.seller.username }}
+                        </p>
+                        <p class="text-muted small mb-0">
+                            <i class="fas fa-box me-1"></i>{{ item.product.desi }} Desi
+                        </p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <div class="quantity-selector">
+                            <button type="button" class="btn btn-outline-secondary btn-sm qty-btn" data-action="decrease" data-item="{{ item.id }}">-</button>
+                            <input type="number" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" class="form-control form-control-sm qty-input" data-item="{{ item.id }}">
+                            <button type="button" class="btn btn-outline-secondary btn-sm qty-btn" data-action="increase" data-item="{{ item.id }}">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-price">
+                        <span class="item-total">{{ "%.2f"|format(item.product.price * item.quantity) }} ₺</span>
+                        <small class="text-muted d-block">{{ "%.2f"|format(item.product.price) }} ₺ / adet</small>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button type="button" class="btn btn-outline-danger btn-sm remove-item" data-item="{{ item.id }}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="cart-summary">
+                <h5 class="mb-4">Sipariş Özeti</h5>
+                
+                <div class="summary-row">
+                    <span>Ürün Toplamı</span>
+                    <span id="subtotal">{{ "%.2f"|format(total_price) }} ₺</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Toplam Desi</span>
+                    <span id="total-desi">{{ "%.1f"|format(total_desi) }}</span>
+                </div>
+                
+                <hr>
+                
+                <div class="shipping-method-box alert alert-{{ shipping_info.color }}" id="shipping-method-box">
+                    <i class="fas {{ shipping_info.icon }} fa-lg me-2" id="shipping-icon"></i>
+                    <div>
+                        <strong id="shipping-method">{{ shipping_info.method }}</strong>
+                        <p class="mb-0 small" id="shipping-description">
+                            {% if total_desi < 30 %}
+                                Desi < 30 olduğu için Kargo ile gönderilecektir.
+                            {% else %}
+                                Desi >= 30 olduğu için Ambar/Nakliye ile gönderilecektir.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="summary-row total">
+                    <span>Genel Toplam</span>
+                    <span id="grand-total">{{ "%.2f"|format(total_price) }} ₺</span>
+                </div>
+                
+                <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-lg w-100 mt-3">
+                    <i class="fas fa-credit-card me-2"></i>Siparişi Tamamla
+                </a>
+                
+                <a href="{{ url_for('products') }}" class="btn btn-outline-secondary w-100 mt-2">
+                    <i class="fas fa-arrow-left me-2"></i>Alışverişe Devam Et
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-shopping-cart fa-5x text-muted mb-4"></i>
+        <h3>Sepetiniz Boş</h3>
+        <p class="text-muted">Hemen alışverişe başlayın!</p>
+        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-store me-2"></i>Ürünleri İncele
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

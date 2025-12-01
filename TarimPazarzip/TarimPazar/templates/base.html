@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TarımPazarı{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+                <i class="fas fa-leaf me-2"></i>TarımPazarı
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <form class="d-flex mx-auto search-form" action="{{ url_for('products') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Ürün, kategori veya marka ara..." value="{{ request.args.get('search', '') }}">
+                        <button class="btn btn-warning" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('products') }}">
+                            <i class="fas fa-th-large me-1"></i> Ürünler
+                        </a>
+                    </li>
+                    
+                    {% if session.get('user_id') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('wishlist') }}">
+                                <i class="fas fa-heart"></i> Favorilerim
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="{{ url_for('cart') }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-badge" id="cart-badge">{{ cart_info.count }}</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i> {{ session.get('username') }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% if session.get('role') == 'admin' %}
+                                    <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}"><i class="fas fa-cog me-2"></i>Admin Paneli</a></li>
+                                {% elif session.get('role') == 'seller' %}
+                                    <li><a class="dropdown-item" href="{{ url_for('seller_dashboard') }}"><i class="fas fa-store me-2"></i>Satıcı Paneli</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ url_for('orders') }}"><i class="fas fa-box me-2"></i>Siparişlerim</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">
+                                <i class="fas fa-sign-in-alt me-1"></i> Giriş Yap
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-warning btn-sm ms-2" href="{{ url_for('register') }}">
+                                <i class="fas fa-user-plus me-1"></i> Kayıt Ol
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="category-bar d-none d-lg-block">
+        <div class="container">
+            <ul class="category-nav">
+                {% for cat in categories %}
+                <li>
+                    <a href="{{ url_for('products', category=cat.id) }}">
+                        <i class="fas {{ cat.icon_class }}"></i>
+                        {{ cat.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="footer mt-5">
+        <!-- Üst Kısım: 4-Sütunlu Menü -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5><i class="fas fa-leaf me-2"></i>Tarım Pazarı</h5>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('about_us') }}">Biz Kimiz</a></li>
+                            <li><a href="{{ url_for('security') }}">Tarım Pazarında Güvenlik</a></li>
+                            <li><a href="{{ url_for('contact') }}">İletişim</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h6>Kampanyalar</h6>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('campaigns') }}">Kampanyalar</a></li>
+                            <li><a href="{{ url_for('campaigns', tab='credit') }}">Alışveriş Kredisi</a></li>
+                            <li><a href="{{ url_for('campaigns', tab='membership') }}">Elit Üyelik</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h6>Satıcı</h6>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('seller_guide') }}">Tarım Pazarında Satış Yap</a></li>
+                            <li><a href="{{ url_for('seller_guide') }}#concepts">Temel Kavramlar</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h6>Yardım</h6>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('help') }}">Sıkça Sorulan Sorular</a></li>
+                            <li><a href="{{ url_for('help') }}#returns">Nasıl İade Edebilirim?</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ayırıcı Çizgi -->
+        <hr class="my-4">
+        
+        <!-- Orta Kısım: Ödeme, Güven Rozetleri, Sosyal Medya -->
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Sol Taraf: Güven Rozetleri -->
+                    <div class="col-lg-3 col-md-4 mb-4 text-center">
+                        <div class="trust-official-row">
+                            <img src="https://placehold.co/60x60/ffffff/333333?text=ETBIS" alt="ETBİS" class="trust-logo-img">
+                            <img src="https://placehold.co/60x60/2E7D32/ffffff?text=Guven" alt="Güven Damgası" class="trust-logo-img">
+                        </div>
+                    </div>
+                    
+                    <!-- Orta Kısım: Ödeme Logoları -->
+                    <div class="col-lg-6 col-md-8 mb-4">
+                        <div class="payment-logos-grid">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/120px-Visa_Inc._logo.svg.png" alt="Visa" class="payment-logo-img">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/100px-Mastercard-logo.svg.png" alt="Mastercard" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/E31837?text=Bonus" alt="Bonus" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/FF6600?text=Maximum" alt="Maximum" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/00529B?text=World" alt="World" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/004990?text=YapiKredi" alt="YapıKredi" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/C8102E?text=Ziraat" alt="Ziraat Bankkart" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/003DA5?text=CardFinans" alt="CardFinans" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/ED1C24?text=Axess" alt="Axess" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/006341?text=KuveytTurk" alt="Kuveyt Türk" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/FF0000?text=Advantage" alt="Advantage" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/DB0011?text=HSBC" alt="HSBC" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/00A0DF?text=Paraf" alt="Paraf" class="payment-logo-img">
+                            <img src="https://placehold.co/80x30/ffffff/1E3A8A?text=Troy" alt="Troy" class="payment-logo-img">
+                        </div>
+                    </div>
+                    
+                    <!-- Sağ Taraf: Sosyal Medya -->
+                    <div class="col-lg-3 col-md-12 text-center text-lg-end">
+                        <div class="social-links footer-social">
+                            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="#" title="X"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alt Kısım: Copyright ve Yasal Linkler -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 TarımPazarı. Tüm hakları saklıdır.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="{{ url_for('legal', tab='privacy') }}">Gizlilik Politikası</a>
+                        <a href="{{ url_for('legal', tab='kvkk') }}" class="ms-3">KVKK</a>
+                        <a href="{{ url_for('legal', tab='terms') }}" class="ms-3">Kullanım Koşulları</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+    
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "progressBar": true,
+                "timeOut": "3000",
+                "extendedTimeOut": "1000"
+            };
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'success' %}
+                            toastr.success('{{ message }}');
+                        {% elif category == 'danger' or category == 'error' %}
+                            toastr.error('{{ message }}');
+                        {% elif category == 'warning' %}
+                            toastr.warning('{{ message }}');
+                        {% elif category == 'info' %}
+                            toastr.info('{{ message }}');
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        });
+    </script>
+</body>
+</html>

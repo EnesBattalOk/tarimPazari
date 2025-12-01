@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Paneli - TarımPazarı{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="admin-sidebar">
+                <div class="admin-info mb-4">
+                    <i class="fas fa-user-shield fa-2x text-danger mb-2"></i>
+                    <h5>Admin Paneli</h5>
+                </div>
+                
+                <nav class="admin-nav">
+                    <a href="{{ url_for('admin_dashboard') }}" class="nav-item active">
+                        <i class="fas fa-tachometer-alt"></i> Kontrol Paneli
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="col-lg-10">
+            <h2 class="mb-4">Admin Kontrol Paneli</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card stat-card-primary text-white" style="background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);">
+                        <i class="fas fa-wallet fa-2x mb-2"></i>
+                        <div class="stat-info">
+                            <h3>{{ "%.0f"|format(stats.total_sales) }} ₺</h3>
+                            <p>Toplam Satış</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-card-success text-white" style="background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);">
+                        <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.total_orders }}</h3>
+                            <p>Toplam Sipariş</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-card-info text-white" style="background: linear-gradient(135deg, #42A5F5 0%, #1976D2 100%);">
+                        <i class="fas fa-users fa-2x mb-2"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.approved_sellers }}</h3>
+                            <p>Onaylı Satıcı</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card stat-card-warning text-white" style="background: linear-gradient(135deg, #FFA726 0%, #F57C00 100%);">
+                        <i class="fas fa-box fa-2x mb-2"></i>
+                        <div class="stat-info">
+                            <h3>{{ stats.total_products }}</h3>
+                            <p>Toplam Ürün</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-pie-chart me-2"></i>Kategori Dağılımı</h5>
+                        </div>
+                        <div class="panel-body" style="position: relative; height: 300px;">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-chart-line me-2"></i>Haftalık Satış Performansı</h5>
+                        </div>
+                        <div class="panel-body" style="position: relative; height: 300px;">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Pie Chart for Categories
+                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+                new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: {{ category_data.keys()|list|tojson }},
+                        datasets: [{
+                            data: {{ category_data.values()|list|tojson }},
+                            backgroundColor: ['#2E7D32', '#F57C00', '#42A5F5', '#9CCC65', '#FF7043', '#AB47BC']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+
+                // Line Chart for Sales
+                const salesCtx = document.getElementById('salesChart').getContext('2d');
+                new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: {{ sales_data.keys()|list|tojson }},
+                        datasets: [{
+                            label: 'Satış (₺)',
+                            data: {{ sales_data.values()|list|tojson }},
+                            borderColor: '#2E7D32',
+                            backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#2E7D32',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            </script>
+            
+            {% if pending_sellers %}
+            <div class="panel-card mb-4">
+                <div class="panel-header bg-warning">
+                    <h5 class="mb-0"><i class="fas fa-user-clock me-2"></i>Onay Bekleyen Satıcılar</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>E-posta</th>
+                                    <th>Firma Adı</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for seller in pending_sellers %}
+                                <tr>
+                                    <td>{{ seller.username }}</td>
+                                    <td>{{ seller.email }}</td>
+                                    <td>{{ seller.company_name or '-' }}</td>
+                                    <td>{{ seller.created_at.strftime('%d.%m.%Y') }}</td>
+                                    <td>
+                                        <form action="{{ url_for('approve_seller', user_id=seller.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i class="fas fa-check me-1"></i>Onayla
+                                            </button>
+                                        </form>
+                                        <form action="{{ url_for('reject_seller', user_id=seller.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-times me-1"></i>Reddet
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-tags me-2"></i>Kategoriler</h5>
+                        </div>
+                        <div class="panel-body">
+                            <form action="{{ url_for('add_category') }}" method="POST" class="mb-3">
+                                <div class="row g-2">
+                                    <div class="col-5">
+                                        <input type="text" name="name" class="form-control" placeholder="Kategori Adı" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" name="icon_class" class="form-control" placeholder="fa-icon" value="fa-leaf">
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <ul class="list-group">
+                                {% for cat in categories %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="fas {{ cat.icon_class }} me-2 text-primary"></i>
+                                        {{ cat.name }}
+                                    </span>
+                                    <span>
+                                        <span class="badge bg-secondary me-2">{{ cat.products|length }} ürün</span>
+                                        {% if not cat.products %}
+                                        <form action="{{ url_for('delete_category', id=cat.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-shopping-bag me-2"></i>Son Siparişler</h5>
+                        </div>
+                        <div class="panel-body">
+                            {% if orders %}
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Müşteri</th>
+                                            <th>Tutar</th>
+                                            <th>Gönderim</th>
+                                            <th>Durum</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in orders %}
+                                        <tr>
+                                            <td>#{{ order.id }}</td>
+                                            <td>{{ order.buyer.username }}</td>
+                                            <td>{{ "%.2f"|format(order.total_price) }} ₺</td>
+                                            <td>
+                                                <i class="fas fa-{{ 'truck' if order.shipping_method == 'Kargo Entegrasyonu' else 'warehouse' }} text-{{ 'success' if order.shipping_method == 'Kargo Entegrasyonu' else 'warning' }}"></i>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{{ 'warning' if order.status == 'pending' else 'success' }}">
+                                                    {{ order.status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <p class="text-muted text-center py-4">Henüz sipariş yok.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h5><i class="fas fa-users me-2"></i>Tüm Kullanıcılar</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>E-posta</th>
+                                    <th>Rol</th>
+                                    <th>Firma</th>
+                                    <th>Durum</th>
+                                    <th>Kayıt Tarihi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'danger' if user.role == 'admin' else 'primary' if user.role == 'seller' else 'secondary' }}">
+                                            {{ user.role }}
+                                        </span>
+                                    </td>
+                                    <td>{{ user.company_name or '-' }}</td>
+                                    <td>
+                                        {% if user.role == 'seller' %}
+                                            {% if user.is_seller_approved %}
+                                                <span class="badge bg-success">Onaylı</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Beklemede</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge bg-info">Aktif</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.created_at.strftime('%d.%m.%Y') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

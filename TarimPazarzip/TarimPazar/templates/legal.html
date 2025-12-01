@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}Yasal Bilgilendirme - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+            <h1 class="mb-4"><i class="fas fa-file-contract me-2"></i>Yasal Bilgilendirme</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Sol Menü -->
+        <div class="col-lg-3 mb-4">
+            <div class="legal-menu sticky-top">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action legal-tab-btn {% if active_tab == 'privacy' %}active{% endif %}" data-tab="privacy">
+                        <i class="fas fa-shield-alt me-2"></i>Gizlilik Politikası
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action legal-tab-btn {% if active_tab == 'kvkk' %}active{% endif %}" data-tab="kvkk">
+                        <i class="fas fa-lock me-2"></i>KVKK Metni
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action legal-tab-btn {% if active_tab == 'terms' %}active{% endif %}" data-tab="terms">
+                        <i class="fas fa-scroll me-2"></i>Kullanım Koşulları
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action legal-tab-btn {% if active_tab == 'distance' %}active{% endif %}" data-tab="distance">
+                        <i class="fas fa-handshake me-2"></i>Mesafeli Satış Sözleşmesi
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sağ İçerik -->
+        <div class="col-lg-9">
+            <div class="legal-content-wrapper">
+                <!-- Gizlilik Politikası -->
+                <div class="legal-content-tab {% if active_tab == 'privacy' %}active{% endif %}" id="tab-privacy">
+                    <div class="legal-content-card">
+                        <h2><i class="fas fa-shield-alt me-2 text-primary"></i>Gizlilik Politikası</h2>
+                        <p class="lead">Son güncelleme tarihi: Kasım 2024</p>
+                        
+                        <h4 class="mt-4">1. Giriş</h4>
+                        <p>TarımPazarı olarak, kişisel verilerinizin gizliliğine önem veriyor ve koruma altına almaktayız. Bu Gizlilik Politikası, web sitemizi ve hizmetlerimizi kullanırken toplanan bilgilerin nasıl kullanıldığı, paylaşıldığı ve korunduğu hakkında bilgi sağlamak için hazırlanmıştır.</p>
+                        
+                        <h4 class="mt-4">2. Toplanan Bilgiler</h4>
+                        <p>Hizmetlerimizi sunmak ve iyileştirmek amacıyla, aşağıdaki türde bilgileri toplayabiliriz:</p>
+                        <ul>
+                            <li><strong>Kimlik Bilgileri:</strong> Ad, soyadı, e-posta adresi, telefon numarası</li>
+                            <li><strong>Adres Bilgileri:</strong> Teslimat ve fatura adresleri</li>
+                            <li><strong>İşlem Bilgileri:</strong> Sipariş geçmişi, ödeme bilgileri, satın alma tercihleriniz</li>
+                            <li><strong>Teknik Bilgiler:</strong> IP adresi, tarayıcı türü, ziyaret edilen sayfalar</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">3. Bilgilerin Kullanım Amacı</h4>
+                        <p>Toplanan bilgiler aşağıdaki amaçlarla kullanılmaktadır:</p>
+                        <ul>
+                            <li>Sipariş işleme ve teslimat gerçekleştirme</li>
+                            <li>Müşteri hizmetleri sunma</li>
+                            <li>Hesap oluşturma ve yönetimi</li>
+                            <li>Pazarlama ve promosyon aktiviteleri</li>
+                            <li>Sitenin geliştirilmesi ve iyileştirilmesi</li>
+                            <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">4. Veri Güvenliği</h4>
+                        <p>Kişisel verileriniz, endüstri standartlarının ötesinde güvenlik protokolleri kullanılarak korunmaktadır. 256-bit SSL şifreleme teknolojisini kullanarak tüm işlemleri güvenli hale getiriyoruz.</p>
+                        
+                        <h4 class="mt-4">5. Haklarınız</h4>
+                        <p>Gizlilik Kanunu kapsamında size tanınan haklarınız:</p>
+                        <ul>
+                            <li>Kişisel verilerinize erişme hakkı</li>
+                            <li>Hatalı bilgileri düzeltme hakkı</li>
+                            <li>Verilerinizin silinmesini talep etme hakkı</li>
+                            <li>Veri işlemeye itiraz etme hakkı</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- KVKK Metni -->
+                <div class="legal-content-tab {% if active_tab == 'kvkk' %}active{% endif %}" id="tab-kvkk">
+                    <div class="legal-content-card">
+                        <h2><i class="fas fa-lock me-2 text-primary"></i>KVKK - Kişisel Verilerin Korunması</h2>
+                        <p class="lead">Son güncelleme tarihi: Kasım 2024</p>
+                        
+                        <h4 class="mt-4">Madde 1: Aydınlatma Yükümlülüğü</h4>
+                        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verilerinizin işlenmesine ilişkin bilgilendirme yapılmaktadır. TarımPazarı ("Veri Sorumlusu"), aşağıdaki koşullar altında kişisel verilerinizi işlemektedir.</p>
+                        
+                        <h4 class="mt-4">Madde 2: Verinin İşlenmesinin Hukuki Dayanağı</h4>
+                        <p>Kişisel verileriniz aşağıdaki dayanaklar üzerine işlenmektedir:</p>
+                        <ul>
+                            <li>Sözleşmenin kurulması ve ifası (KVKK Madde 5/1-a)</li>
+                            <li>Yasal yükümlülüklerin yerine getirilmesi (KVKK Madde 5/1-c)</li>
+                            <li>Meşru menfaat (KVKK Madde 5/1-f)</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 3: Aktarım</h4>
+                        <p>Kişisel verileriniz, hizmet sağlayıcılarımızla, kargo şirketleriyle ve ödeme kuruluşlarıyla, sözleşmesel ilişkiler çerçevesinde paylaşılabilir. Üçüncü taraflarla yapılan paylaşımlar, KVKK mevzuatı uyarınca gerçekleştirilmektedir.</p>
+                        
+                        <h4 class="mt-4">Madde 4: Kişi Hakları</h4>
+                        <p>KVKK Madde 12 uyarınca aşağıdaki haklara sahipsiniz:</p>
+                        <ul>
+                            <li>Kişisel verilerinizin işlenip işlenmediğini, işlenmişse bunun niteliğini öğrenme hakkı</li>
+                            <li>Verilerinize ilişkin işleme faaliyetlerinin kimlere aktarıldığını öğrenme hakkı</li>
+                            <li>Hatalı veya eksik verilerinizin düzeltilmesini isteme hakkı</li>
+                            <li>Verilerinizin silinmesini talep etme hakkı</li>
+                            <li>Verilerinizin başkasına aktarılmasında itiraz etme hakkı</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 5: İletişim</h4>
+                        <p>KVKK hakkında soru, talep veya şikayet için iletişim bilgilerimiz:</p>
+                        <p><strong>Email:</strong> kvkk@tarimpazari.com</p>
+                    </div>
+                </div>
+                
+                <!-- Kullanım Koşulları -->
+                <div class="legal-content-tab {% if active_tab == 'terms' %}active{% endif %}" id="tab-terms">
+                    <div class="legal-content-card">
+                        <h2><i class="fas fa-scroll me-2 text-primary"></i>Kullanım Koşulları</h2>
+                        <p class="lead">Son güncelleme tarihi: Kasım 2024</p>
+                        
+                        <h4 class="mt-4">1. Kabul Koşulları</h4>
+                        <p>TarımPazarı web sitesini ve hizmetlerini kullanarak, bu kullanım koşullarını kabul etmiş sayılırsınız. Koşulları kabul etmiyorsanız, lütfen siteyi kullanmayınız.</p>
+                        
+                        <h4 class="mt-4">2. Kullanıcı Hesabı</h4>
+                        <p>Sitemizi kullanmak için kullanıcı hesabı oluşturmanız gerekebilir. Hesap oluştururken sağladığınız bilgilerin doğru ve tam olması sizin sorumluluğunuzdadır. Hesabınıza ilişkin tüm etkinliklerden siz sorumlusunuz.</p>
+                        
+                        <h4 class="mt-4">3. Kullanıcı Sorumlulukları</h4>
+                        <p>Siteyi kullanırken aşağıdakiler yasak ve sorumluluğunuzdur:</p>
+                        <ul>
+                            <li>Yasal olmayan faaliyetlerde bulunmak</li>
+                            <li>Başkasının haklarını ihlal etmek</li>
+                            <li>Virüs, kötü amaçlı yazılım veya benzeri şeyler göndermek</li>
+                            <li>Diğer kullanıcılara rahatsızlık vermek</li>
+                            <li>Siteyi izinsiz olarak değiştirmek</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">4. Ürünler ve Fiyatlar</h4>
+                        <p>Sitemizde yer alan ürünler, fotoğraflar ve açıklamalar referans amaçlıdır. Ürünlerin gerçek durumu, teslimat sırasında kontrol edilmelidir. Fiyatlar önceden haber verilmeksizin değişebilir.</p>
+                        
+                        <h4 class="mt-4">5. Sipariş ve Ödeme</h4>
+                        <p>Sipariş verdiğinizde sözleşme kurmuş olursunuz. Ödeme işlemleri güvenli SSL teknolojisi ile korunmaktadır. Ödemeler başarısız olursa, sipariş otomatik olarak iptal edilir.</p>
+                        
+                        <h4 class="mt-4">6. Teslimat</h4>
+                        <p>Teslimat süresi, sipariş zamanı ve ürünün durumuna göre değişiklik gösterebilir. Teslimat tarihleri yaklaşık olup, garantili değildir. Ürün teslimatından sonra, kontrol işlemini hemen gerçekleştiriniz.</p>
+                        
+                        <h4 class="mt-4">7. İade ve Geri Ödeme</h4>
+                        <p>Ürün teslim tarihinden itibaren 14 gün içinde ürünü iade edebilirsiniz. İade işleminde ürünün orijinal durumda olması şart koşulmaktadır. Ödeme işlemi, iadeli ürün kontrol edildikten sonra gerçekleştirilir.</p>
+                        
+                        <h4 class="mt-4">8. Sorumluluk Sınırlaması</h4>
+                        <p>TarımPazarı, sitede veya hizmetlerde meydana gelen aksaklıklardan, gecikme ve kesintilerden sorumlu tutulamaz. Siteyi olduğu gibi ("AS-IS") sunarız.</p>
+                    </div>
+                </div>
+                
+                <!-- Mesafeli Satış Sözleşmesi -->
+                <div class="legal-content-tab {% if active_tab == 'distance' %}active{% endif %}" id="tab-distance">
+                    <div class="legal-content-card">
+                        <h2><i class="fas fa-handshake me-2 text-primary"></i>Mesafeli Satış Sözleşmesi</h2>
+                        <p class="lead">Son güncelleme tarihi: Kasım 2024</p>
+                        
+                        <h4 class="mt-4">Madde 1: Taraflar</h4>
+                        <ul>
+                            <li><strong>Satıcı:</strong> TarımPazarı / Antalya Sera Market</li>
+                            <li><strong>Alıcı:</strong> Web sitesinden sipariş veren kimse</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 2: Sözleşmenin Kapsamı</h4>
+                        <p>Bu sözleşme, TarımPazarı web sitesi aracılığıyla yapılan ve mesafeli satış yapılan tüm ürünleri kapsamaktadır. Ürünlerin cinsi, miktarı, kalitesi, fiyatı ve teslimat koşulları sipariş anında belirtilmektedir.</p>
+                        
+                        <h4 class="mt-4">Madde 3: Satıcının Yükümlülükleri</h4>
+                        <p>Satıcı:</p>
+                        <ul>
+                            <li>Ürünleri tam, sağlam ve sözleşme şartlarına uygun olarak teslimat yapacaktır</li>
+                            <li>Teslimat öncesi ve sonrasında müşteri hizmetleri sağlayacaktır</li>
+                            <li>Ürün hakkında doğru ve kapsamlı bilgi verecektir</li>
+                            <li>Ödeme işlemlerini güvenli şekilde gerçekleştirecektir</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 4: Alıcının Yükümlülükleri</h4>
+                        <p>Alıcı:</p>
+                        <ul>
+                            <li>Doğru kişisel bilgiler sağlayacaktır</li>
+                            <li>Fatura ve teslimat adreslerini doğru belirtecektir</li>
+                            <li>Ödemeyi vaktinde yapacaktır</li>
+                            <li>Ürünü teslim aldığında, hemen kontrol işlemini yapacaktır</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 5: Fiyat ve Ödeme</h4>
+                        <p>Ürün fiyatı, web sitesinde belirtilen fiyat üzerinden hesaplanır. Kargo ve vergi dahil tüm masraflar fiyata dahildir. Ödeme, kredi kartı, banka transferi veya diğer belirtilen yöntemler aracılığıyla gerçekleştirilir.</p>
+                        
+                        <h4 class="mt-4">Madde 6: Teslimat</h4>
+                        <p>Teslimat adresi, alıcı tarafından belirtilen adres olacaktır. Teslimat süresi, ortalama 3-5 iş günü olup, bu süre referans amaçlıdır. Gecikmeler konusunda satıcı sorumlu tutulamaz.</p>
+                        
+                        <h4 class="mt-4">Madde 7: İade ve Cayma Hakkı</h4>
+                        <p>Alıcı, ürün teslim tarihinden itibaren 14 takvim günü içinde hiçbir gerekçe göstermeksizin sözleşmeden cayma hakkına sahiptir. Cayma işleminde:</p>
+                        <ul>
+                            <li>Ürün, orijinal ambalajında ve kullanılmamış durumda olmalıdır</li>
+                            <li>Ürünün satıcıya geri gönderilmesi alıcının sorumluluğudur</li>
+                            <li>Ödeme, iade kontrol edildikten sonra geri ödenir</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Madde 8: Şikayetler ve Çözüm</h4>
+                        <p>Ürün veya hizmetle ilgili şikayet veya şüpheleriniz varsa, satıcıya e-posta yoluyla bildiriniz. Satıcı, 7 iş günü içinde cevap verecektir. Anlaşmazlıklar, ticari tahkim veya hukuk mahkemesine taşınabilir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.legal-menu {
+    top: 100px;
+}
+
+.legal-tab-btn {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.legal-tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-left-color: var(--secondary-color);
+}
+
+.legal-tab-btn:hover {
+    background-color: #f8f9fa;
+    border-left-color: var(--primary-color);
+}
+
+.legal-tab-btn.active:hover {
+    background-color: var(--primary-color);
+}
+
+.legal-content-tab {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.legal-content-tab.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.legal-content-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.legal-content-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.legal-content-card h4 {
+    color: #333;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.legal-content-card p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.legal-content-card ul {
+    color: #666;
+    line-height: 2;
+}
+
+.legal-content-card ul li {
+    margin-bottom: 0.5rem;
+}
+
+.lead {
+    color: #999;
+    font-size: 0.95rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.legal-tab-btn');
+    const tabs = document.querySelectorAll('.legal-content-tab');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabName = this.dataset.tab;
+            
+            // Tüm butonlardan active sınıfını kaldır
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Tüm tab'lardan active sınıfını kaldır
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Tıklanan buton ve tab'a active sınıfını ekle
+            this.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+Görev: Kurumsal Sayfaları (Biz Kimiz, Güvenlik, İletişim) "Profesyonel Hikaye Anlatıcılığı" ile Yeniden Yaz ve Tasarla.
+
+Aşağıdaki HTML sayfalarını oluştururken, sana verdiğim **TAM VE DETAYLI METİNLERİ** birebir kullan. Asla kısaltma veya özetleme yapma. Tasarım olarak "Temiz, Okunaklı, Tipografisi Güçlü" bir yapı kur.
+
+---
+
+### 1. Sayfa: Biz Kimiz (`templates/about_us.html`)
+**Tasarım:** Sayfanın başında tam genişlikte, tarımı yansıtan, üzerine koyu filtre atılmış şık bir Hero görseli ve üzerinde beyaz puntolarla "Toprağın Bereketini Teknolojiyle Buluşturuyoruz" sloganı olsun.
+**İçerik:**
+**Başlık:** TarımPazarı: Çiftçinin Dijital Gücü
+**Paragraf 1 (Hikayemiz):**
+"TarımPazarı, Türkiye seracılığının kalbi Antalya'da doğmuş, kökleri Anadolu'nun verimli topraklarına, dalları ise geleceğin teknolojisine uzanan yeni nesil bir girişimdir. Bizler, sadece bir e-ticaret sitesi değil; çiftçinin alın terini koruyan, tedarikçinin pazarını büyüten dijital bir köprüyüz."
+**Paragraf 2 (Sorun ve Çözüm):**
+"Yıllardır süregelen 'Lojistik İmkansızlıklar' nedeniyle internetten alınamayan sera naylonlarını, tonluk gübreleri ve ağır demir profilleri; geliştirdiğimiz **Hibrit Lojistik Altyapısı (Kargo + Ambar)** sayesinde kapınıza kadar getiriyoruz. Artık çiftçimiz, sadece bölgesindeki bayinin fiyatına mecbur değil; Kars'tan Edirne'ye tüm tedarikçilerin rekabetçi fiyatlarına tek tıkla ulaşabiliyor."
+**Paragraf 3 (Vizyon):**
+"Amacımız net: Tarımsal ticaretteki aracıları kaldırarak şeffaf, hızlı ve maliyet odaklı bir pazar yeri oluşturmak. Çiftçinin cebini, toprağın verimini düşünüyoruz."
+
+---
+
+### 2. Sayfa: Güvenlik Politikaları (`templates/security.html`)
+**Tasarım:** Güven veren mavi/yeşil tonlarda, maddelerin yanında ikonların (Kilit, Kalkan, Banka Binası) olduğu "Feature List" tasarımı.
+**İçerik:**
+**Başlık:** TarımPazarı Güvencesiyle Alışveriş
+**Alt Başlık:** "Siz Üretin Diye, Biz Riskleri Sıfırladık."
+**Madde 1: Önce Ürün, Sonra Ödeme (Havuz Sistemi)**
+"TarımPazarı'nda paranız doğrudan satıcıya aktarılmaz. Ödemeniz, BDDK lisanslı güvenli havuz hesabında blokede tutulur. Siz ürünü teslim alıp, kontrol edip 'Onaylıyorum' butonuna basana kadar paranız güvendedir. Ürün gelmezse veya hatalıysa, paranız koşulsuz iade edilir."
+**Madde 2: Resmi ve Yasal Altyapı (ETBİS & Vergi)**
+"Platformumuz, T.C. Ticaret Bakanlığı Elektronik Ticaret Bilgi Sistemi'ne (ETBİS) kayıtlıdır. Sitemizde satış yapan her tedarikçi, vergi levhası ve yetki belgeleri kontrol edilmiş, onaylı ticari işletmelerdir. Merdiven altı satıcılara yer yok."
+**Madde 3: 256-Bit Şifreleme Teknolojisi**
+"Kredi kartı bilgileriniz, bankaların kullandığı 256-Bit SSL sertifikası ile şifrelenir. Kart numaranız sistemimizde asla saklanmaz, doğrudan bankaya iletilir."
+**Madde 4: Tarım Bakanlığı Mevzuatına Uyum**
+"Satılan tüm gübre ve zirai ilaçlar, ilgili bakanlık takip sistemleri (GTS ve BKÜ) ile uyumludur. Karekodlu ve orijinal ürün garantisi sunuyoruz."
+
+---
+
+### 3. Sayfa: İletişim (`templates/contact.html`)
+**Tasarım:** Sol tarafta iletişim bilgileri, sağ tarafta şık bir iletişim formu.
+**İçerik (Sol Taraf):**
+**Başlık:** Bize Ulaşın
+**Adres:** "TarımPazarı Teknoloji A.Ş. - Teknokent Ar-Ge Binası, Konyaaltı / ANTALYA" (Antalya vurgusu güven verir).
+**Müşteri Hizmetleri:** "0850 123 45 67 (Hafta içi 09:00 - 18:00)"
+**E-Posta:** "destek@tarimpazari.com"
+**Not:** "Sera kurulumu, toptan alım talepleri ve teknik destek için ziraat mühendislerimizden oluşan ekibimizle iletişime geçebilirsiniz."
+
+**Sonuç:** Bu metinleri kullanarak sayfaları yeniden oluştur. Yazı tiplerini okunaklı (Sans-serif) seç ve metin bloklarını görsellerle/ikonlarla ferahlat.

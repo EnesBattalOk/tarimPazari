@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Sipariş #{{ order.id }} - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('orders') }}">Siparişlerim</a></li>
+            <li class="breadcrumb-item active">Sipariş #{{ order.id }}</li>
+        </ol>
+    </nav>
+
+    <!-- Order Tracking Timeline -->
+    <div class="track-order mb-4">
+        <div class="timeline-step {% if order.status in ['processing', 'shipped', 'delivered'] %}active{% endif %}">
+            <div class="timeline-circle">
+                <i class="fas fa-file-invoice"></i>
+            </div>
+            <div class="timeline-label">Sipariş Alındı</div>
+        </div>
+        <div class="timeline-step {% if order.status in ['shipped', 'delivered'] %}active{% endif %}">
+            <div class="timeline-circle">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <div class="timeline-label">Hazırlanıyor</div>
+        </div>
+        <div class="timeline-step {% if order.status == 'delivered' %}active{% endif %}">
+            <div class="timeline-circle">
+                <i class="fas fa-truck"></i>
+            </div>
+            <div class="timeline-label">Kargoya Verildi</div>
+        </div>
+        <div class="timeline-step {% if order.status == 'delivered' %}active{% endif %}">
+            <div class="timeline-circle">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="timeline-label">Teslim Edildi</div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="order-detail-card">
+                <div class="order-detail-header">
+                    <h4>Sipariş #{{ order.id }}</h4>
+                    <span class="order-status status-{{ order.status }}">
+                        {% if order.status == 'pending' %}
+                            <i class="fas fa-clock me-1"></i>Beklemede
+                        {% elif order.status == 'processing' %}
+                            <i class="fas fa-cog me-1"></i>Hazırlanıyor
+                        {% elif order.status == 'shipped' %}
+                            <i class="fas fa-truck me-1"></i>Kargoya Verildi
+                        {% elif order.status == 'delivered' %}
+                            <i class="fas fa-check-circle me-1"></i>Teslim Edildi
+                        {% elif order.status == 'cancelled' %}
+                            <i class="fas fa-times-circle me-1"></i>İptal Edildi
+                        {% endif %}
+                    </span>
+                </div>
+                
+                <div class="order-detail-body">
+                    <h5 class="mb-3">Ürünler</h5>
+                    <div class="order-items-list">
+                        {% for item in order.items %}
+                        <div class="order-item">
+                            <img src="{{ item.product.image_url or 'https://via.placeholder.com/80x80?text=Ürün' }}" alt="{{ item.product.name }}">
+                            <div class="order-item-info">
+                                <strong>{{ item.product.name }}</strong>
+                                <small class="text-muted d-block">{{ item.quantity }} adet x {{ "%.2f"|format(item.price) }} ₺</small>
+                                <small class="text-muted">Desi: {{ item.desi }}</small>
+                            </div>
+                            <div class="order-item-price">
+                                {{ "%.2f"|format(item.price * item.quantity) }} ₺
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-detail-card mt-4">
+                <h5><i class="fas fa-map-marker-alt me-2"></i>Teslimat Adresi</h5>
+                <p class="mb-0">{{ order.shipping_address or 'Adres belirtilmemiş' }}</p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="cart-summary">
+                <h5 class="mb-4">Sipariş Özeti</h5>
+                
+                <div class="summary-row">
+                    <span>Sipariş Tarihi</span>
+                    <span>{{ order.created_at.strftime('%d.%m.%Y') }}</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Ürün Sayısı</span>
+                    <span>{{ order.items|length }}</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Toplam Desi</span>
+                    <span>{{ "%.1f"|format(order.total_desi) }}</span>
+                </div>
+                
+                <hr>
+                
+                <div class="shipping-method-box alert alert-{{ 'success' if order.shipping_method == 'Kargo Entegrasyonu' else 'warning' }}">
+                    <i class="fas {{ 'fa-truck' if order.shipping_method == 'Kargo Entegrasyonu' else 'fa-warehouse' }} me-2"></i>
+                    <strong>{{ order.shipping_method }}</strong>
+                </div>
+                
+                <hr>
+                
+                <div class="summary-row total">
+                    <span>Genel Toplam</span>
+                    <span>{{ "%.2f"|format(order.total_price) }} ₺</span>
+                </div>
+            </div>
+            
+            <a href="{{ url_for('orders') }}" class="btn btn-outline-secondary w-100 mt-3">
+                <i class="fas fa-arrow-left me-2"></i>Siparişlerime Dön
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

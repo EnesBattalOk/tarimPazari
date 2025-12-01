@@ -1,0 +1,52 @@
+Görev: Footer Yapısını Yenile ve Kurumsal İçerik Sayfalarını Oluştur.
+
+1. **Footer Düzeni (base.html):**
+   - Footer kısmındaki mevcut sütunları sil ve aşağıdaki 4 sütunlu yapıyı kur:
+
+   **Sütun 1: Tarım Pazarı (Kurumsal)**
+   - Başlık: "Tarım Pazarı"
+   - Linkler: "Biz Kimiz", "Tarım Pazarında Güvenlik", "İletişim".
+   - Hedef: `/corporate` sayfasına gitmeli (Solda menü, sağda içerik yapısı).
+
+   **Sütun 2: Kampanyalar**
+   - Başlık: "Kampanyalar"
+   - Linkler: "Kampanyalar", "Alışveriş Kredisi", "Elit Üyelik".
+   - Hedef: `/campaigns` sayfasına gitmeli (Solda menü, sağda içerik yapısı).
+
+   **Sütun 3: Satıcı**
+   - Başlık: "Satıcı"
+   - Linkler: "Tarım Pazarında Satış Yap", "Temel Kavramlar".
+   - Hedef: `/seller-guide` sayfasına gitmeli (Burası ÖZEL TASARIM olacak).
+
+   **Sütun 4: Yardım**
+   - Başlık: "Yardım"
+   - Linkler: "Sıkça Sorulan Sorular", "Nasıl İade Edebilirim?".
+   - Hedef: `/help` sayfasına gitmeli (Accordion/Açılır kapanır yapı).
+
+2. **Backend ve Sayfaların Oluşturulması:**
+   - `app.py` içinde `/corporate`, `/campaigns`, `/seller-guide` ve `/help` route'larını oluştur.
+   - Aşağıdaki şablonları (templates) hazırla ve içlerini şu mantıkla doldur:
+
+   **A. `corporate.html` ve `campaigns.html` (Tablo Yapısı):**
+   - Tıpkı `/legal` sayfasında yaptığımız gibi; solda dikey menü, sağda içerik olsun.
+   - **İçerik (Context):**
+     - *Biz Kimiz:* "Türkiye'nin tarım tedarik zincirini dijitalleştiren, çiftçiyi ve tedarikçiyi aracısız buluşturan pazar yeri" vurgusu yap.
+     - *Elit Üyelik:* Rapordaki "Premium Satıcı" mantığına atıfta bulun (Daha az komisyon, vitrin hakkı vb.) ve Alıcılar için avantajlardan bahset.
+
+   **B. `seller-guide.html` (Satıcı Bilgi Merkezi - ÖZEL UI):**
+   - Bu sayfa sıkıcı düz yazı OLMASIN.
+   - **Tasarım:** Adım adım ilerleyen görsel bir **Zaman Çizelgesi (Process Timeline)** veya Kart yapısı kullan.
+   - **Adımlar:**
+     1. *Üyelik:* "Vergi levhası ve ruhsat yüklemesi."
+     2. *Ürün Yükleme:* "Desi/Ağırlık bilgisinin girilmesi (Kargo vs Ambar ayrımı için)."
+     3. *Satış:* "Sipariş onayı ve fatura kesimi."
+     4. *Lojistik:* "30 Desi altı Kargo, üstü Ambar teslimatı."
+     5. *Ödeme:* "Havuz sisteminden paranın hesaba geçmesi."
+   - Başlığa "Satıcı Bilgi Merkezi" yaz ve güven verici, profesyonel ikonlar kullan.
+
+   **C. `help.html` (S.S.S. ve İade):**
+   - Bootstrap **Accordion** bileşeni kullan. Sorulara tıklayınca cevaplar aşağı açılsın.
+   - **Örnek Soru:** "Ağır ürünler (Sera demiri vb.) nasıl gelir?" -> **Cevap:** "Sistemimizdeki hibrit lojistik sayesinde 30 desi üzeri ürünler anlaşmalı ambarlarla kapınıza gelir."
+   - **İade:** "14 gün içinde iade hakkı (Fidan/Canlı ürünler hariç)" bilgisini ekle.
+
+Sonuç: Footer 4 sütuna ayrılsın. Linklere tıklayınca ilgili, içi dolu ve proje raporuna uygun mantıkla yazılmış sayfalar açılsın. Satıcı sayfası özellikle görsel olarak zengin olsun.

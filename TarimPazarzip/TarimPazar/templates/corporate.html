@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Kurumsal - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <h1 class="mb-2"><i class="fas fa-building me-2"></i>Kurumsal</h1>
+            <p class="lead text-muted">TarımPazarı hakkında bilinmesi gerekenler</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Sol Menü -->
+        <div class="col-lg-3 mb-4">
+            <div class="list-group sticky-top" style="top: 100px;">
+                <button type="button" class="list-group-item list-group-item-action corp-tab-btn {% if active_tab == 'about' %}active{% endif %}" data-tab="about">
+                    <i class="fas fa-info-circle me-2"></i>Biz Kimiz
+                </button>
+                <button type="button" class="list-group-item list-group-item-action corp-tab-btn {% if active_tab == 'security' %}active{% endif %}" data-tab="security">
+                    <i class="fas fa-shield-alt me-2"></i>Güvenlik
+                </button>
+                <button type="button" class="list-group-item list-group-item-action corp-tab-btn {% if active_tab == 'contact' %}active{% endif %}" data-tab="contact">
+                    <i class="fas fa-envelope me-2"></i>İletişim
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sağ İçerik -->
+        <div class="col-lg-9">
+            <!-- Biz Kimiz -->
+            <div class="corp-tab {% if active_tab == 'about' %}active{% endif %}" id="tab-about">
+                <div class="content-card">
+                    <h2><i class="fas fa-info-circle me-2"></i>Biz Kimiz</h2>
+                    <p class="lead">Türkiye'nin tarım tedarik zincirini dijitalleştiren, çiftçiyi ve tedarikçiyi aracısız buluşturan pazar yeri.</p>
+                    
+                    <h4 class="mt-4">Misyon</h4>
+                    <p>TarımPazarı, Türkiye'nin tarım kesimini teknoloji ile güçlendirerek, çiftçilerin (alıcılar) ve tedarikçilerin (satıcılar) direkt olarak bağlantı kurmasını sağlamak. Böylece aracı maliyetleri azalmış, kaliteli ürünlere daha uygun fiyatlarla erişim mümkün hale getirilmiştir.</p>
+                    
+                    <h4 class="mt-4">Vizyon</h4>
+                    <p>2030 yılına kadar Orta Doğu ve Balkanlar bölgesinin en büyük tarım e-ticareti platformu olmak. Dijital tarım konusunda öncü rol oynamak ve bin binlerce çiftçiye katma değer sağlamak.</p>
+                    
+                    <h4 class="mt-4">Değerlerimiz</h4>
+                    <ul class="values-list">
+                        <li><strong>Şeffaflık:</strong> Tüm işlemler izlenebilir ve kontrol edilebilir.</li>
+                        <li><strong>Güvenlik:</strong> Sektör standartlarının üzerinde veri ve ödeme güvenliği.</li>
+                        <li><strong>Inovation:</strong> Hibrit lojistik algoritması gibi yenilikçi çözümler.</li>
+                        <li><strong>Sosyal Sorumluluk:</strong> Tarım kesiminin kalkınmasına katkı.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Güvenlik -->
+            <div class="corp-tab {% if active_tab == 'security' %}active{% endif %}" id="tab-security">
+                <div class="content-card">
+                    <h2><i class="fas fa-shield-alt me-2"></i>Tarım Pazarında Güvenlik</h2>
+                    <p class="lead">Güvenlik, TarımPazarı'nın temel taşıdır. Alıcı, satıcı ve tüm paydaşlarımızın güvenini kazanmak için maksimum çaba gösterilmektedir.</p>
+                    
+                    <h4 class="mt-4">Veri Güvenliği</h4>
+                    <p><strong>256-bit SSL Şifreleme:</strong> Tüm iletişim tamamen şifrelenir. Kişisel verileriniz, yüksek seviyede koruma altında saklanır.</p>
+                    
+                    <h4 class="mt-4">Ödeme Güvenliği</h4>
+                    <p><strong>PCI DSS Uyumlu Ödeme Sistemi:</strong> Kredi kartı bilgileriniz asla doğrudan sunucularımızda saklanmaz. Güvenli ödeme sağlayıcılarımız ile çalışırız.</p>
+                    
+                    <h4 class="mt-4">Satıcı Doğrulaması</h4>
+                    <p><strong>Admin Onaylı Satıcılar:</strong> Her satıcı; vergi levhası, ruhsat ve kim olduğu doğrulanmadan listelemez. Aldatıcı ürünlere karşı sıkı denetim yapılmaktadır.</p>
+                    
+                    <h4 class="mt-4">Alıcı Koruması</h4>
+                    <p><strong>14 Gün İade Hakkı:</strong> Ürünü beğenmezseniz, hiçbir gerekçe göstermeksizin 14 gün içinde iade edebilirsiniz. Paradaki Ambar/Nakliye çoğu kez ücretsiz iade sağlamaktadır.</p>
+                    
+                    <h4 class="mt-4">KVKK Uyumluluğu</h4>
+                    <p><strong>6698 Sayılı Kanun:</strong> Kişisel verilerinizin korunması ve işlenmesi hakkında tüm yasal düzenlemelere uymaktayız.</p>
+                </div>
+            </div>
+            
+            <!-- İletişim -->
+            <div class="corp-tab {% if active_tab == 'contact' %}active{% endif %}" id="tab-contact">
+                <div class="content-card">
+                    <h2><i class="fas fa-envelope me-2"></i>İletişim</h2>
+                    <p class="lead">Bize ulaşmak, önerileriniz ve şikayetleriniz için iletişim bilgilerimiz:</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-envelope text-primary me-2"></i>E-posta</h5>
+                            <p><a href="mailto:info@tarimpazari.com">info@tarimpazari.com</a></p>
+                            <p><small class="text-muted">7/24 cevap verilir</small></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-phone text-primary me-2"></i>Telefon</h5>
+                            <p><a href="tel:+905555555555">0555 555 55 55</a></p>
+                            <p><small class="text-muted">Pazartesi-Cuma: 09:00-18:00</small></p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-map-marker-alt text-primary me-2"></i>Adres</h5>
+                            <p>Antalya, Türkiye</p>
+                            <p><small class="text-muted">Merkez Ofis</small></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-comments text-primary me-2"></i>Sosyal Medya</h5>
+                            <p><a href="#">Instagram</a> | <a href="#">Twitter/X</a> | <a href="#">Facebook</a></p>
+                            <p><small class="text-muted">Güncel haberler ve kampanyalar</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.corp-tab {
+    display: none;
+}
+
+.corp-tab.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.corp-tab-btn {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.corp-tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-left-color: var(--secondary-color);
+}
+
+.corp-tab-btn:hover {
+    background-color: #f8f9fa;
+    border-left-color: var(--primary-color);
+}
+
+.corp-tab-btn.active:hover {
+    background-color: var(--primary-color);
+}
+
+.content-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.content-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.content-card h4 {
+    color: #333;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+.content-card p {
+    color: #666;
+    line-height: 1.8;
+}
+
+.values-list li {
+    margin: 0.8rem 0;
+    color: #666;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.corp-tab-btn');
+    const tabs = document.querySelectorAll('.corp-tab');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabName = this.dataset.tab;
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            this.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "seller/base.html" %}
+
+{% block title %}Evrak Doğrulama - TarımPazarı{% endblock %}
+
+{% block seller_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>Evrak Onayı Bekleniyor</h4>
+            <p>Satış yapabilmek için aşağıdaki şirket evraklarını yükleyiniz. Yönetici onayından sonra ürün eklemeye başlayabileceksiniz.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-file-upload me-2"></i>Evrak Yükle</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('seller_verify') }}" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Vergi Numarası <span class="text-danger">*</span></label>
+                            <input type="text" name="tax_number" class="form-control" placeholder="Örn: 1234567890" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Vergi Dairesi <span class="text-danger">*</span></label>
+                            <input type="text" name="tax_office" class="form-control" placeholder="Örn: Kadıköy Vergi Dairesi" required>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3"><i class="fas fa-file-pdf me-2"></i>Evraklar</h6>
+
+                    <div class="mb-3">
+                        <label class="form-label">Vergi Levhası (PDF/JPG) <span class="text-danger">*</span></label>
+                        <input type="file" name="document_tax_plate" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small class="text-muted">Vergi müfettişi tarafından imzalanmış vergi levhası</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">İmza Sirküleri (PDF/JPG) <span class="text-danger">*</span></label>
+                        <input type="file" name="document_signature" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small class="text-muted">Banka / Mali müşavir tarafından onaylı imza sirküleri</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ticaret Sicil Gazetesi (PDF/JPG) <span class="text-danger">*</span></label>
+                        <input type="file" name="document_registry" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small class="text-muted">Son 3 ayda yayınlanan Ticaret Sicil Gazetesi</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Zirai İlaç/Tohum Ruhsatı (PDF/JPG) <span class="text-muted">(Opsiyonel)</span></label>
+                        <input type="file" name="document_agriculture" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                        <small class="text-muted">Zirai ürün satacaksanız, ilgili ruhsat dosyası</small>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong><i class="fas fa-info-circle me-2"></i>Dikkat!</strong>
+                        <ul class="mb-0 mt-2">
+                            <li>Tüm dosyalar PDF veya JPG formatında olmalıdır (Max: 5 MB)</li>
+                            <li>Yönetici tarafından doğrulama yapıldıktan sonra onay almış olacaksınız</li>
+                            <li>Onay alma süreniz 24-48 saat arası olabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-2"></i>Evrakları Yükle
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

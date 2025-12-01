@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Siparişi Tamamla - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4"><i class="fas fa-credit-card me-2"></i>Siparişi Tamamla</h2>
+    
+    <div class="row g-4">
+        <!-- Sol Kolon (Formlar) 70% -->
+        <div class="col-lg-8">
+            <!-- Teslimat Adresi -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Teslimat Adresi</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">İl</label>
+                            <input type="text" id="city" class="form-control" placeholder="İstanbul" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">İlçe</label>
+                            <input type="text" id="district" class="form-control" placeholder="Kadıköy" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tam Adres</label>
+                        <textarea id="address" class="form-control" rows="3" placeholder="Sokak, No, Apt..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Posta Kodu</label>
+                        <input type="text" id="zip_code" class="form-control" placeholder="34350" required>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kredi Kartı -->
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Ödeme Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <div class="card-display mb-4">
+                        <div class="card-number-display" id="displayCardNumber">•••• •••• •••• ••••</div>
+                        <div class="card-info-row">
+                            <div>
+                                <small>Kart Sahibi</small>
+                                <div id="displayCardHolder" class="card-holder">İSİM SOYAD</div>
+                            </div>
+                            <div>
+                                <small>Son Kullanma</small>
+                                <div id="displayCardExpiry" class="card-expiry">MM/YY</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Kart Numarası</label>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Kart Sahibinin Adı Soyadı</label>
+                        <input type="text" id="cardHolder" class="form-control" placeholder="JOHN DOE" style="text-transform: uppercase;" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">Son Kullanma Tarihi (MM/YY)</label>
+                            <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">CVV</label>
+                            <input type="text" id="cardCVV" class="form-control" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sağ Kolon (Sipariş Özeti) 30% - Sticky -->
+        <div class="col-lg-4">
+            <div class="card sticky-order-summary">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="fas fa-receipt me-2"></i>Sipariş Özeti</h5>
+                </div>
+                <div class="card-body">
+                    <div style="max-height: 300px; overflow-y: auto; margin-bottom: 1rem;">
+                        {% for item in cart_items %}
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                            <div>
+                                <strong>{{ item.product.name }}</strong>
+                                <br>
+                                <small class="text-muted">Miktar: {{ item.quantity }}</small>
+                            </div>
+                            <div class="text-end">
+                                <strong>{{ "%.2f"|format(item.product.price * item.quantity) }} ₺</strong>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Ara Toplam:</span>
+                            <strong>{{ "%.2f"|format(subtotal) }} ₺</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fas {{ shipping_info.icon }} me-1"></i>Kargo:</span>
+                            <strong>{{ "%.2f"|format(shipping_cost) }} ₺</strong>
+                        </div>
+                        <small class="text-muted d-block">{{ shipping_info.method }} - {{ shipping_info.description }}</small>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>Toplam:</strong>
+                        <div style="font-size: 1.5rem; color: var(--secondary-color); font-weight: 700;">
+                            {{ "%.2f"|format(total_price) }} ₺
+                        </div>
+                    </div>
+                    
+                    <button id="confirmOrderBtn" class="btn btn-lg w-100" style="background-color: var(--secondary-color); color: white; font-weight: 700;">
+                        <i class="fas fa-check me-2"></i>Siparişi Onayla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card-display {
+    background: linear-gradient(135deg, #1a1a3e, #3a5a80, #f39c12);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card-number-display {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.card-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.card-holder, .card-expiry {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+}
+</style>
+
+<script>
+// Kredi Kartı Formatlaması
+document.getElementById('cardNumber').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '').slice(0, 16);
+    let formatted = value.replace(/(\d{4})/g, '$1 ').trim();
+    e.target.value = formatted;
+    const masked = value.slice(0, -4).replace(/\d/g, '•') + value.slice(-4);
+    const displayFormatted = masked.replace(/(\w{4})/g, '$1 ').trim();
+    document.getElementById('displayCardNumber').textContent = displayFormatted || '•••• •••• •••• ••••';
+});
+
+document.getElementById('cardHolder').addEventListener('input', function(e) {
+    document.getElementById('displayCardHolder').textContent = e.target.value.toUpperCase() || 'İSİM SOYAD';
+});
+
+document.getElementById('cardExpiry').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '').slice(0, 4);
+    if (value.length >= 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2);
+    }
+    e.target.value = value;
+    document.getElementById('displayCardExpiry').textContent = value || 'MM/YY';
+});
+
+document.getElementById('confirmOrderBtn').addEventListener('click', function() {
+    const formData = {
+        city: document.getElementById('city').value,
+        district: document.getElementById('district').value,
+        address: document.getElementById('address').value,
+        zip_code: document.getElementById('zip_code').value
+    };
+    
+    if (!formData.city || !formData.district || !formData.address || !formData.zip_code) {
+        alert('Lütfen tüm adres alanlarını doldurunuz.');
+        return;
+    }
+    
+    fetch('{{ url_for("confirm_order") }}', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = data.redirect_url;
+        } else {
+            alert(data.message || 'Hata oluştu!');
+        }
+    })
+    .catch(e => alert('Siparişi gönderirken hata oluştu.'));
+});
+</script>
+{% endblock %}

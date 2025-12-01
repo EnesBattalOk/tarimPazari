@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Siparişlerim - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4"><i class="fas fa-box me-2"></i>Siparişlerim</h2>
+    
+    {% if orders %}
+    <div class="orders-list">
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <span class="order-id">Sipariş #{{ order.id }}</span>
+                    <span class="order-date text-muted ms-3">
+                        <i class="fas fa-calendar me-1"></i>{{ order.created_at.strftime('%d.%m.%Y %H:%M') }}
+                    </span>
+                </div>
+                <div>
+                    <span class="order-status status-{{ order.status }}">
+                        {% if order.status == 'pending' %}
+                            <i class="fas fa-clock me-1"></i>Beklemede
+                        {% elif order.status == 'processing' %}
+                            <i class="fas fa-cog me-1"></i>Hazırlanıyor
+                        {% elif order.status == 'shipped' %}
+                            <i class="fas fa-truck me-1"></i>Kargoya Verildi
+                        {% elif order.status == 'delivered' %}
+                            <i class="fas fa-check-circle me-1"></i>Teslim Edildi
+                        {% elif order.status == 'cancelled' %}
+                            <i class="fas fa-times-circle me-1"></i>İptal Edildi
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="order-body">
+                <div class="order-items-preview">
+                    {% for item in order.items[:3] %}
+                    <div class="order-item-mini">
+                        <img src="{{ item.product.image_url or 'https://via.placeholder.com/50x50?text=Ürün' }}" alt="{{ item.product.name }}">
+                        <div class="item-info">
+                            <span class="item-name">{{ item.product.name }}</span>
+                            <span class="item-qty text-muted">{{ item.quantity }} adet</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% if order.items|length > 3 %}
+                    <div class="more-items">
+                        +{{ order.items|length - 3 }} ürün daha
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="order-info">
+                    <div class="info-row">
+                        <span><i class="fas fa-{{ 'truck' if order.shipping_method == 'Kargo Entegrasyonu' else 'warehouse' }} me-2"></i>{{ order.shipping_method }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span><i class="fas fa-box me-2"></i>{{ "%.1f"|format(order.total_desi) }} Desi</span>
+                    </div>
+                </div>
+                
+                <div class="order-total">
+                    <span class="total-label">Toplam</span>
+                    <span class="total-price">{{ "%.2f"|format(order.total_price) }} ₺</span>
+                </div>
+            </div>
+            
+            <div class="order-footer">
+                <a href="{{ url_for('order_detail', id=order.id) }}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-eye me-1"></i>Detayları Gör
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-box-open fa-5x text-muted mb-4"></i>
+        <h3>Henüz Siparişiniz Yok</h3>
+        <p class="text-muted">Hemen alışverişe başlayın!</p>
+        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-store me-2"></i>Ürünleri İncele
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

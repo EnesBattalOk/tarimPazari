@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}500 - Sunucu Hatası - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <div style="margin: 60px 0;">
+                <i class="fas fa-wrench" style="font-size: 120px; color: #F57C00; margin-bottom: 20px; display: block;"></i>
+                
+                <h1 style="font-size: 3.5rem; font-weight: bold; color: #E65100; margin-bottom: 20px;">
+                    Traktör Bozuldu!
+                </h1>
+                
+                <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px; line-height: 1.6;">
+                    Teknik ekibimiz (Ziraat Mühendisleri) sorunu çözüyor. Lütfen biraz sonra tekrar deneyin.
+                </p>
+                
+                <p style="font-size: 1rem; color: #999; margin-bottom: 40px;">
+                    (500 - Sunucu Hatası)
+                </p>
+                
+                <a href="{{ url_for('index') }}" class="btn btn-lg" style="background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; padding: 12px 40px; font-weight: 600; border: none;">
+                    <i class="fas fa-home me-2"></i>Anasayfaya Dön
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

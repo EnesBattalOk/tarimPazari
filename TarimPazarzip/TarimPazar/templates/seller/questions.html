@@ -1,0 +1,87 @@
+{% extends "seller/base.html" %}
+
+{% block title %}Gelen Sorular - Satıcı Paneli - TarımPazarı{% endblock %}
+
+{% block seller_content %}
+<h2 class="mb-4"><i class="fas fa-comments me-2"></i>Gelen Sorular</h2>
+            
+            <!-- Cevaplanmamış Sorular -->
+            <div class="mb-5">
+                <h5 class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-exclamation-circle text-danger me-2"></i>Cevaplanmamış Sorular ({{ pending_questions|length }})
+                </h5>
+                
+                {% if pending_questions %}
+                    {% for question in pending_questions %}
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong><i class="fas fa-user-circle me-2"></i>{{ question.user.username }}</strong>
+                                    <p class="text-muted small mb-0">{{ question.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+                                </div>
+                                <span class="badge bg-danger">Cevaplanmamış</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title"><i class="fas fa-box me-2"></i>{{ question.product.name }}</h6>
+                            <p class="card-text">{{ question.question_text }}</p>
+                            
+                            <form action="{{ url_for('answer_question', id=question.id) }}" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label">Yanıt Giriniz</label>
+                                    <textarea name="answer_text" class="form-control" rows="3" placeholder="Alıcının sorusuna cevap yazınız..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <i class="fas fa-check me-1"></i>Yanıtla
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle me-2"></i>Tebrikler! Tüm sorular cevaplanmıştır.
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Cevaplanmış Sorular -->
+            <div>
+                <h5 class="mb-3 pb-2 border-bottom">
+                    <i class="fas fa-check-circle text-success me-2"></i>Cevaplanmış Sorular ({{ answered_questions|length }})
+                </h5>
+                
+                {% if answered_questions %}
+                    {% for question in answered_questions %}
+                    <div class="card mb-3 opacity-75">
+                        <div class="card-header bg-light">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong><i class="fas fa-user-circle me-2"></i>{{ question.user.username }}</strong>
+                                    <p class="text-muted small mb-0">{{ question.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+                                </div>
+                                <span class="badge bg-success">Cevaplanmış</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title"><i class="fas fa-box me-2"></i>{{ question.product.name }}</h6>
+                            
+                            <div class="mb-3">
+                                <strong>Soru:</strong>
+                                <p class="mb-0">{{ question.question_text }}</p>
+                            </div>
+                            
+                            <div class="p-3 bg-light rounded" style="border-left: 4px solid var(--primary-color);">
+                                <strong>Yanıt:</strong>
+                                <p class="mb-0 mt-2">{{ question.answer_text }}</p>
+                                <small class="text-muted d-block mt-2">Yanıt tarihi: {{ question.answered_at.strftime('%d.%m.%Y %H:%M') }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Henüz cevaplanmış soru bulunmamaktadır.</p>
+                {% endif %}
+            </div>
+{% endblock %}

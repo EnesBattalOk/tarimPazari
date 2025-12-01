@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Satıcı Paneli - TarımPazarı{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="seller-sidebar">
+                <div class="seller-info mb-4">
+                    <i class="fas fa-store fa-2x text-primary mb-2"></i>
+                    <h5>{{ user.company_name or user.username }}</h5>
+                    {% if user.is_seller_approved %}
+                    <span class="badge bg-success">Onaylı Satıcı</span>
+                    {% else %}
+                    <span class="badge bg-warning">Onay Bekliyor</span>
+                    {% endif %}
+                </div>
+                
+                <nav class="seller-nav">
+                    <a href="{{ url_for('seller_dashboard') }}" class="nav-item active">
+                        <i class="fas fa-tachometer-alt"></i> Kontrol Paneli
+                    </a>
+                    <a href="{{ url_for('seller_products') }}" class="nav-item">
+                        <i class="fas fa-box"></i> Ürünlerim
+                    </a>
+                    {% if user.is_seller_approved %}
+                    <a href="{{ url_for('add_product') }}" class="nav-item">
+                        <i class="fas fa-plus-circle"></i> Ürün Ekle
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('seller_verify') }}" class="nav-item" style="opacity: 0.6; cursor: not-allowed;" title="Hesap onayı için evrak yükleyin">
+                        <i class="fas fa-plus-circle"></i> Ürün Ekle <i class="fas fa-lock ms-1" style="font-size: 0.8em;"></i>
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('seller_orders') }}" class="nav-item">
+                        <i class="fas fa-shopping-bag"></i> Siparişler
+                    </a>
+                    <a href="{{ url_for('seller_questions') }}" class="nav-item">
+                        <i class="fas fa-comments"></i> Soru & Cevap
+                        {% if pending_questions_count > 0 %}
+                        <span class="badge bg-danger ms-2">{{ pending_questions_count }}</span>
+                        {% endif %}
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="col-lg-10">
+            {% if not user.is_seller_approved %}
+            <div class="alert alert-danger shadow-sm mb-4" role="alert">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fas fa-lock me-2"></i>
+                        <strong>Hesabınız Onay Bekliyor!</strong> Satış yapabilmek için şirket evraklarınızı yüklemeniz gerekmektedir.
+                    </div>
+                    <a href="{{ url_for('seller_verify') }}" class="btn btn-sm btn-light text-danger fw-bold">Evrak Yükle</a>
+                </div>
+            </div>
+            {% endif %}
+            
+            <h2 class="mb-4">Hoş Geldiniz, {{ user.company_name or user.username }}!</h2>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card bg-primary text-white">
+                        <i class="fas fa-box"></i>
+                        <div class="stat-info">
+                            <h3>{{ products|length }}</h3>
+                            <p>Toplam Ürün</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card bg-success text-white">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div class="stat-info">
+                            <h3>{{ orders|length }}</h3>
+                            <p>Toplam Sipariş</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card bg-warning text-dark">
+                        <i class="fas fa-cubes"></i>
+                        <div class="stat-info">
+                            <h3>{{ products|selectattr('stock', 'gt', 0)|list|length }}</h3>
+                            <p>Stokta Ürün</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card bg-info text-white">
+                        <i class="fas fa-star"></i>
+                        <div class="stat-info">
+                            <h3>{% if products %}{{ "%.1f"|format(products|map(attribute='rating')|sum / products|length) }}{% else %}0{% endif %}</h3>
+                            <p>Ortalama Puan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-box me-2"></i>Son Ürünler</h5>
+                            <a href="{{ url_for('seller_products') }}" class="btn btn-sm btn-outline-primary">Tümü</a>
+                        </div>
+                        <div class="panel-body">
+                            {% if products %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Ürün</th>
+                                            <th>Fiyat</th>
+                                            <th>Stok</th>
+                                            <th>Desi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for product in products[:5] %}
+                                        <tr>
+                                            <td>{{ product.name[:30] }}...</td>
+                                            <td>{{ "%.2f"|format(product.price) }} ₺</td>
+                                            <td>{{ product.stock }}</td>
+                                            <td>{{ product.desi }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <p class="text-muted text-center py-4">Henüz ürün eklememişsiniz.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h5><i class="fas fa-shopping-bag me-2"></i>Son Siparişler</h5>
+                            <a href="{{ url_for('seller_orders') }}" class="btn btn-sm btn-outline-primary">Tümü</a>
+                        </div>
+                        <div class="panel-body">
+                            {% if orders %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Sipariş</th>
+                                            <th>Tarih</th>
+                                            <th>Tutar</th>
+                                            <th>Durum</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in orders[:5] %}
+                                        <tr>
+                                            <td>#{{ order.id }}</td>
+                                            <td>{{ order.created_at.strftime('%d.%m.%Y') }}</td>
+                                            <td>{{ "%.2f"|format(order.total_price) }} ₺</td>
+                                            <td>
+                                                <span class="badge bg-{{ 'warning' if order.status == 'pending' else 'success' }}">
+                                                    {{ order.status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <p class="text-muted text-center py-4">Henüz sipariş yok.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

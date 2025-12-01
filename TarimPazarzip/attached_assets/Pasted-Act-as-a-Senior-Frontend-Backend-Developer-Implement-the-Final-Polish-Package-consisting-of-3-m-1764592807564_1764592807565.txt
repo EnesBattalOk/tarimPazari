@@ -1,0 +1,50 @@
+Act as a Senior Frontend & Backend Developer. Implement the "Final Polish Package" consisting of 3 major features: Wishlist, Category Redesign, and Toast Notifications.
+
+### TASK 1: Implement Wishlist (Favorilerim) Feature
+**1. Database (`models.py`):**
+   - Create a new table `Wishlist` (or use a many-to-many relationship).
+   - Columns: `id`, `user_id`, `product_id`.
+   - Update `User` and `Product` models to establish relationships.
+
+**2. Backend (`app.py`):**
+   - Add route `/wishlist`: Show products added to wishlist by the current user.
+   - Add route `/wishlist/add/<int:product_id>`: Toggle add/remove. If exists, remove it; if not, add it.
+   - Ensure these routes are protected with `@login_required`.
+
+**3. Frontend (`templates/wishlist.html` & Product Cards):**
+   - Create `wishlist.html` to display favorited products (reuse the product card design).
+   - **Heart Icon:** In `index.html` and `product_detail.html`, add a Heart Icon button on the product card (top-right).
+     - Logic: If product is in user's wishlist -> Icon is Solid Red (`fa-solid fa-heart text-danger`).
+     - Else -> Icon is Outline (`fa-regular fa-heart`).
+
+### TASK 2: Modern Category Design (Instagram Story Style)
+**1. Redesign in `index.html`:**
+   - Locate the Category section. Replace the current design with a **Horizontal Scrollable Ribbon**.
+   - **CSS Styling:**
+     - Container: `display: flex; overflow-x: auto; gap: 20px; padding: 20px 0; scrollbar-width: none;`
+     - Item: Circular images (80px x 80px), `border-radius: 50%`.
+     - Border: Add a colorful gradient border (Orange/Green) around the circle to make it pop (like Instagram stories).
+     - Text: Small, centered text below the circle.
+     - Hover: Scale up slightly (`transform: scale(1.1)`) on hover.
+
+### TASK 3: Toastr Notifications (Replacing Flash Messages)
+**1. Setup (`templates/base.html`):**
+   - Import Toastr.js via CDN (CSS and JS) in the head/body.
+     - CSS: `//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css`
+     - JS: `//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js`
+
+**2. Integration:**
+   - Remove the old Bootstrap Alert loop for flash messages.
+   - Add a JavaScript script block at the bottom of `base.html`:
+     - It should loop through Flask's `get_flashed_messages(with_categories=true)`.
+     - Map categories to Toastr types:
+       - 'success' -> `toastr.success()`
+       - 'danger'/'error' -> `toastr.error()`
+       - 'warning' -> `toastr.warning()`
+       - 'info' -> `toastr.info()`
+   - **Configuration:** Set Toastr options for a professional look: `positionClass: "toast-top-right"`, `progressBar: true`, `timeOut: "3000"`.
+
+**Execution:**
+- Apply schema changes.
+- Update UI components.
+- Ensure the "Heart" button works and updates the database.
