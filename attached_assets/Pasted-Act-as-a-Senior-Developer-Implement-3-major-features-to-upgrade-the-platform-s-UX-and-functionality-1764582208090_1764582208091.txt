@@ -1,0 +1,55 @@
+Act as a Senior Developer. Implement 3 major features to upgrade the platform's UX and functionality.
+
+### TASK 1: Professional Checkout Page (Trendyol-Style)
+Create a new route `/checkout` and template `checkout.html`.
+**Design:**
+- **Layout:** 2-Column Layout. Left (70%) for Forms, Right (30%) for Order Summary (Sticky).
+- **Left Column (Forms):**
+  1. **Address Section:** Fields for City, District, Full Address, Zip Code.
+  2. **Payment Section (Visual Only):** A realistic Credit Card form.
+     - Card Number (Auto-format spaces every 4 digits).
+     - Holder Name.
+     - Expiry Date (MM/YY) and CVV.
+     - *Note:* Do not process real payments, just simulate success on submit.
+- **Right Column (Summary):**
+  - List of items, Subtotal, Shipping Cost (Calculated by logic), and Total Price.
+  - A big Orange "Confirm Order" (Siparişi Onayla) button.
+**Logic:**
+- On submit, create the `Order` in DB, clear the `Cart`, and redirect to a "Success" page.
+
+### TASK 2: Dynamic Password Validation (Registration)
+Update `register.html` and `main.js`.
+**Requirement:**
+- Enforce strict password rules: Min 8 chars, 1 Uppercase, 1 Lowercase, 1 Number, 1 Special Char.
+**UI/UX:**
+- Add a criteria list below the password input:
+  - `<li id="rule-length">En az 8 karakter</li>`
+  - `<li id="rule-upper">Bir büyük harf (A-Z)</li>`
+  - `<li id="rule-lower">Bir küçük harf (a-z)</li>`
+  - `<li id="rule-number">Bir rakam (0-9)</li>`
+  - `<li id="rule-special">Bir özel karakter (!@#$%)</li>`
+- **Interaction:** Initially, all items are Red (`text-danger`). As the user types, use JavaScript (Regex) to check each rule in real-time.
+- If a rule is met, turn that item Green (`text-success`) and add a checkmark icon.
+- Disable the "Register" button until all rules are Green.
+
+### TASK 3: "Ask Seller" (Q&A) System
+**1. Database Update (`models.py`):**
+- Create a new table `ProductQuestion`.
+- Fields: `id`, `product_id`, `user_id` (buyer), `question_text`, `answer_text` (nullable), `created_at`.
+- Run migration/update DB.
+
+**2. Buyer Interface (`product_detail.html`):**
+- Add a button "Satıcıya Soru Sor" near the product info.
+- On click, open a Modal with a Textarea to write the question.
+- Show previously asked/answered questions in a tab below the product description.
+
+**3. Seller Dashboard Update:**
+- Add a new section "Gelen Sorular" (Incoming Questions).
+- List questions where `product.seller_id` matches the current seller AND `answer_text` is NULL.
+- Provide a Textarea and "Yanıtla" button for each question.
+- When answered, save to DB and show it on the product page.
+
+**Execution:**
+- Implement all tasks.
+- Ensure the Checkout page looks modern (Bootstrap Cards).
+- Ensure the Q&A system connects Buyers and Sellers correctly.

@@ -1,0 +1,30 @@
+Görev: Satıcı Rehberi (`seller-guide.html`) Sayfasındaki İçerikleri Detaylandır ve Hero Arka Planını Düzelt.
+
+1. **Hero Alanı Arka Plan Düzeltmesi (CSS Fix):**
+   - Şu an "TarımPazarı ile İşinizi Dijitalleştirin" yazısının arkası BEYAZ görünüyor. Bunu düzelt.
+   - Bu alanın CSS sınıfına (`.hero-section` veya ilgili div) şu özellikleri **inline style** veya **style.css** üzerinden zorla uygula:
+   - **Görsel URL:** `https://images.unsplash.com/photo-1625246333195-09d9b430db80?q=80&w=1920&auto=format&fit=crop` (Geniş, yeşil, modern bir tarım arazisi).
+   - **CSS Kodu:**
+     ```css
+     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('[https://images.unsplash.com/photo-1625246333195-09d9b430db80?q=80&w=1920&auto=format&fit=crop](https://images.unsplash.com/photo-1625246333195-09d9b430db80?q=80&w=1920&auto=format&fit=crop)');
+     background-size: cover;
+     background-position: center;
+     color: white; /* Yazıların beyaz olduğundan emin ol */
+     ```
+
+2. **Timeline (Satış Yolculuğu) İçeriklerini Güncelle:**
+   - Ortadaki dikey süreç (timeline) adımlarının başlıklarını koru ama açıklama metinlerini aşağıdaki **DETAYLI** metinlerle değiştir:
+
+   **Adım 1: Mağaza Açılışı & Evrak**
+   - *Yeni Metin:* "Vergi levhanız, imza sirküleriniz ve faaliyet belgeniz ile dakikalar içinde başvurunuzu yapın. Eğer Zirai İlaç veya Sertifikalı Tohum satışı yapacaksanız, Tarım Bakanlığı onaylı 'Bayilik Ruhsatınızı' sisteme yüklemeniz yasal zorunluluktur. Belgeleriniz uzman ekibimizce doğrulandıktan sonra mağazanız anında satışa açılır."
+
+   **Adım 2: Akıllı Ürün Yükleme**
+   - *Yeni Metin:* "Sınırsız ürün yükleme hakkınız vardır. Ürünlerinizi yüklerken fotoğrafların net olması satış hızınızı artırır. **En kritik nokta:** Ürünün 'Desi/Ağırlık' bilgisini doğru girmektir. Sistemimiz, bu veriyi kullanarak ürünün Kargo ile mi yoksa Ambar ile mi taşınacağına otomatik karar verir."
+
+   **Adım 3: Sipariş Yönetimi & Lojistik**
+   - *Yeni Metin:* "Sipariş geldiğinde panik yok! Sistem size otomatik bir barkod üretir. Eğer ürün hafifse (30 Desi altı) anlaşmalı kargo şubesine teslim edersiniz. Eğer ürün ağırsa (Sera demiri, Tonluk gübre vb.) sistem sizi bölgenizdeki anlaşmalı Nakliye/Ambar firmasına yönlendirir ve ürün kapınızdan alınır."
+
+   **Adım 4: Güvenli Tahsilat (Havuz Hesabı)**
+   - *Yeni Metin:* "Ürünü gönderdiniz, alıcı teslim aldı ve onayladı. Hak edişiniz (satış tutarı eksi komisyon bedeli), ertesi iş günü BDDK lisanslı ödeme kuruluşu aracılığıyla doğrudan banka hesabınıza yatırılır. Tahsilat riski, ödeme peşinde koşma derdi yoktur."
+
+Sonuç: Hero alanında karanlık filtreli şık bir tarım görseli olmalı. Timeline adımları ise satıcıya süreci teknik ve güven verici bir dille anlatan detaylı paragraflar içermeli.

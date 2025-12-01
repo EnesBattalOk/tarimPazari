@@ -1,10 +1,9 @@
 modules = ["python-3.11"]
-[nix]
-channel = "stable-25_05"
-packages = ["unzip"]
-
 [agent]
 expertMode = true
+
+[nix]
+channel = "stable-25_05"
 
 [workflows]
 runButton = "Project"
@@ -16,15 +15,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "TarimPazar"
+args = "TarımPazarı Web Server"
 
 [[workflows.workflow]]
-name = "TarimPazar"
+name = "TarımPazarı Web Server"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd TarimPazarzip/TarimPazar && python app.py"
+args = "python app.py"
 waitForPort = 5000
 
 [workflows.workflow.metadata]

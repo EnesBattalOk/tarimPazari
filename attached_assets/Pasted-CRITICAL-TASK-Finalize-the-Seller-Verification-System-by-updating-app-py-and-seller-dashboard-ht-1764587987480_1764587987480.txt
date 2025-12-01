@@ -1,0 +1,91 @@
+CRITICAL TASK: Finalize the Seller Verification System by updating `app.py` and `seller_dashboard.html`.
+
+The database models and verifying templates are ready, but the backend routes and dashboard UI logic are missing.
+
+**Step 1: Update `app.py`**
+Insert the following logic to handle file uploads and verification routes.
+
+1.  **Add Imports & Config (Top of file):**
+    ```python
+    from werkzeug.utils import secure_filename
+    import os
+
+    # Configure Upload Folder
+    UPLOAD_FOLDER = 'static/uploads/documents'
+    ALLOWED_EXTENSIONS = {'pdf', 'jpg', 'jpeg', 'png'}
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    ```
+
+2.  **Add Routes (Before `seller_products`):**
+    Add the `seller_verify` (upload), `pending_sellers` (admin list), `approve_seller`, and `reject_seller` view functions exactly as described below:
+
+    ```python
+    @app.route('/seller/verify', methods=['GET', 'POST'])
+    @login_required
+    def seller_verify():
+        if current_user.role != 'seller':
+            return redirect(url_for('index'))
+        
+        if request.method == 'POST':
+            current_user.tax_number = request.form.get('tax_number')
+            current_user.tax_office = request.form.get('tax_office')
+            
+            # File Upload Logic
+            file_fields = [
+                ('document_tax_plate', 'tax_plate'), 
+                ('document_signature', 'signature'),
+                ('document_registry', 'registry'),
+                ('document_agriculture', 'agriculture')
+            ]
+            
+            for field_name, suffix in file_fields:
+                if field_name in request.files:
+                    file = request.files[field_name]
+                    if file and file.filename != '':
+                        filename = secure_filename(f"seller_{current_user.id}_{suffix}_{file.filename}")
+                        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                        # Save path to DB (e.g., /static/uploads/documents/...)
+                        setattr(current_user, field_name, f'/static/uploads/documents/{filename}')
+            
+            db.session.commit()
+            flash('Evraklarınız başarıyla yüklendi. Yönetici onayı bekleniyor.', 'success')
+            return redirect(url_for('seller_dashboard'))
+        
+        return render_template('seller/verify.html', user=current_user)
+
+    @app.route('/admin/pending-sellers')
+    @login_required
+    def pending_sellers():
+        # Ensure only admin can access
+        if current_user.role != 'admin':
+            return redirect(url_for('index'))
+        sellers = User.query.filter_by(role='seller', is_seller_approved=False).all()
+        return render_template('admin/pending_sellers.html', pending_sellers=sellers)
+
+    @app.route('/admin/approve-seller/<int:user_id>', methods=['POST'])
+    @login_required
+    def approve_seller(user_id):
+        if current_user.role != 'admin': return redirect(url_for('index'))
+        user = User.query.get_or_404(user_id)
+        user.is_seller_approved = True
+        db.session.commit()
+        flash(f'{user.company_name or user.username} onaylandı!', 'success')
+        return redirect(url_for('pending_sellers'))
+    ```
+
+**Step 2: Update `templates/seller/dashboard.html`**
+Add the "Verification Warning" alert. Locate the top of the main content block and insert:
+
+```html
+{% if not user.is_seller_approved %}
+<div class="alert alert-danger shadow-sm" role="alert">
+    <div class="d-flex align-items-center justify-content-between">
+        <div>
+            <i class="fas fa-lock me-2"></i>
+            <strong>Hesabınız Onay Bekliyor!</strong> Satış yapabilmek için şirket evraklarınızı yüklemeniz gerekmektedir.
+        </div>
+        <a href="{{ url_for('seller_verify') }}" class="btn btn-sm btn-light text-danger fw-bold">Evrak Yükle</a>
+    </div>
+</div>
+{% endif %}
