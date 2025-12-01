@@ -1,0 +1,40 @@
+Act as a Senior Developer. REWRITE the `seed_data.py` script and UPDATE `login.html` to generate a comprehensive "Demo Environment" for testing all scenarios.
+
+### TASK 1: Rewrite `seed_data.py`
+Create a script that drops all tables and repopulates them with:
+
+**1. Defined Users (For easy login):**
+   - **Admin:** `admin@tarimpazari.com` / `Admin123!`
+   - **Approved Seller (Big Inventory):** `satici@tarimpazari.com` / `Satici123!` (Company: "Antalya Sera Market")
+   - **Unapproved Seller (New):** `yeni@tarimpazari.com` / `Satici123!` (Company: "Yeni Çiftçi Ltd")
+   - **Buyer (Frequent Shopper):** `alici@tarimpazari.com` / `Alici123!`
+
+**2. Random Users (To reach 20 Buyers & 20 Sellers):**
+   - Generate 18 more Sellers (names like "Konya Gübre", "Ege Tohum" etc.). Randomly set `is_seller_approved` to True or False.
+   - Generate 19 more Buyers (names like "Ahmet Yilmaz", "Ayse Demir").
+
+**3. Products (Min 60 Items):**
+   - Create 4 Categories: "Sera Malzemeleri", "Gübre", "Tohum", "Sulama".
+   - Generate 60+ Products distributed among approved sellers.
+   - **Crucial Logic:**
+     - 50% of items should be **Heavy (>30 Desi)** (e.g., "Demir Profil", "Tonluk Gübre") to test Ambar logic.
+     - 50% of items should be **Light (<10 Desi)** (e.g., "Domates Tohumu", "Makas") to test Cargo logic.
+     - Vary stock levels (some 0, some 1000).
+
+**4. Orders & Reviews:**
+   - Create random past orders for the defined Buyer.
+   - Add random reviews (1-5 stars) to various products to test the rating system.
+
+*Note:* Use `werkzeug.security.generate_password_hash` for passwords.
+
+### TASK 2: Update `templates/login.html`
+Update the "Demo Accounts" info box at the bottom of the login form. Display these EXACT credentials clearly:
+
+- **Yönetici:** `admin@tarimpazari.com` | `Admin123!`
+- **Onaylı Satıcı:** `satici@tarimpazari.com` | `Satici123!`
+- **Onaysız Satıcı:** `yeni@tarimpazari.com` | `Satici123!`
+- **Alıcı:** `alici@tarimpazari.com` | `Alici123!`
+
+**Execution:**
+- Rewrite the files.
+- **IMPORTANT:** I will run `python seed_data.py` manually after you finish to apply these changes.
