@@ -3,6 +3,55 @@
 {% block title %}Giriş Yap - TarımPazarı{% endblock %}
 
 {% block content %}
+<style>
+.neon-card {
+    background: rgba(33, 37, 41, 0.95);
+    border: 1px solid #0dcaf0;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #0dcaf0, inset 0 0 5px rgba(13, 202, 240, 0.5);
+    transition: all 0.3s ease;
+}
+.neon-card:hover {
+    box-shadow: 0 0 20px #0dcaf0, 0 0 30px rgba(13, 202, 240, 0.4), inset 0 0 10px rgba(13, 202, 240, 0.6);
+    transform: translateY(-3px);
+}
+.neon-card .card-body {
+    padding: 1.25rem;
+}
+.neon-card .neon-icon {
+    color: #0dcaf0;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #0dcaf0;
+}
+.neon-card .card-title {
+    color: #0dcaf0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+}
+.neon-card .credential-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+.neon-card .credential-value {
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    word-break: break-all;
+}
+.demo-section-title {
+    color: #0dcaf0;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
+}
+</style>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-5">
@@ -48,31 +97,78 @@
                 <div class="text-center">
                     <p class="mb-0">Hesabınız yok mu? <a href="{{ url_for('register') }}" class="text-primary fw-bold">Kayıt Olun</a></p>
                 </div>
-                
-                <div class="demo-accounts mt-4 p-3 bg-light rounded">
-                    <h6 class="text-center mb-3"><i class="fas fa-info-circle me-2"></i>Demo Hesapları</h6>
-                    <div class="row small">
-                        <div class="col-6 mb-2">
-                            <strong class="text-danger">Yönetici:</strong><br>
-                            admin@tarimpazari.com<br>
-                            <code>Admin123!</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <h5 class="text-center demo-section-title mb-4">
+            <i class="fas fa-flask me-2"></i>Demo Hesapları
+        </h5>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+            <div class="col">
+                <div class="card neon-card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-user-shield neon-icon"></i>
+                        <h6 class="card-title">Yönetici</h6>
+                        <div class="mb-2">
+                            <div class="credential-label">E-posta</div>
+                            <div class="credential-value">admin@tarimpazari.com</div>
                         </div>
-                        <div class="col-6 mb-2">
-                            <strong class="text-success">Onaylı Satıcı:</strong><br>
-                            satici@tarimpazari.com<br>
-                            <code>Satici123!</code>
+                        <div>
+                            <div class="credential-label">Şifre</div>
+                            <div class="credential-value">Admin123!</div>
                         </div>
                     </div>
-                    <div class="row small">
-                        <div class="col-6">
-                            <strong class="text-warning">Onaysız Satıcı:</strong><br>
-                            yeni@tarimpazari.com<br>
-                            <code>Satici123!</code>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card neon-card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-store neon-icon"></i>
+                        <h6 class="card-title">Onaylı Satıcı</h6>
+                        <div class="mb-2">
+                            <div class="credential-label">E-posta</div>
+                            <div class="credential-value">satici@tarimpazari.com</div>
                         </div>
-                        <div class="col-6">
-                            <strong class="text-primary">Alıcı:</strong><br>
-                            alici@tarimpazari.com<br>
-                            <code>Alici123!</code>
+                        <div>
+                            <div class="credential-label">Şifre</div>
+                            <div class="credential-value">Satici123!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card neon-card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-lock neon-icon"></i>
+                        <h6 class="card-title">Onaysız Satıcı</h6>
+                        <div class="mb-2">
+                            <div class="credential-label">E-posta</div>
+                            <div class="credential-value">yeni@tarimpazari.com</div>
+                        </div>
+                        <div>
+                            <div class="credential-label">Şifre</div>
+                            <div class="credential-value">Satici123!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card neon-card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-shopping-basket neon-icon"></i>
+                        <h6 class="card-title">Alıcı</h6>
+                        <div class="mb-2">
+                            <div class="credential-label">E-posta</div>
+                            <div class="credential-value">alici@tarimpazari.com</div>
+                        </div>
+                        <div>
+                            <div class="credential-label">Şifre</div>
+                            <div class="credential-value">Alici123!</div>
                         </div>
                     </div>
                 </div>
