@@ -6,6 +6,27 @@ from functools import wraps
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+# --- VERITABANI AYARI (RENDER POSTGRES) ---
+import os
+# Render'dan gelen veritabanı adresini al
+db_url = os.environ.get("DATABASE_URL")
+
+if db_url:
+    # Postgres adresi bazen 'postgres://' diye baslar, onu 'postgresql://' yapmamiz gerek
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+    print("✅ Render Postgres Veritabanı kullanılıyor.")
+else:
+    # Lokal bilgisayarda yine SQLite kullan
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    db_path = os.path.join(base_dir, 'tarim.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
+    print("⚠️ Yerel SQLite kullanılıyor.")
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# ---------------------------------------------
 app.config['SECRET_KEY'] = os.environ.get('SESSION_SECRET', 'tarim-pazari-secret-key-2024')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tarim_pazari.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

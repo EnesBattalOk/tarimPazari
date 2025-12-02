@@ -7,3 +7,4 @@ Werkzeug
 WTForms
 sqlalchemy
 gunicorn
+psycopg2-binary
