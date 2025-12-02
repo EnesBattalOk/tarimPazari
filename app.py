@@ -1073,3 +1073,13 @@ def internal_server_error(e):
 if __name__ == '__main__':
     init_db()
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+
+# --- VERCEL ICIN TABLO OLUSTURMA ---
+# Uygulama her calistiginda tablolarin varligini kontrol et ve yoksa olustur
+with app.app_context():
+    try:
+        db.create_all()
+        print("✅ Tablolar basariyla olusturuldu (Vercel /tmp).")
+    except Exception as e:
+        print(f"⚠️ Tablo olusturma hatasi: {e}")
