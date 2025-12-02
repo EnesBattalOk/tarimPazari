@@ -135,7 +135,28 @@ def get_cart_total():
 
 @app.context_processor
 def inject_cart():
-    return dict(cart_info=get_cart_total(), categories=Category.query.all())
+    
+    # --- VERCEL KURTARMA MODU ---
+    try:
+        # Kategorileri çekmeyi dene
+        cats = Category.query.all()
+    except Exception:
+        # Eğer tablo yoksa hata verme, hemen oluştur!
+        try:
+            with app.app_context():
+                db.create_all()
+                # Opsiyonel: Boş kalmasın diye varsayılan kategori ekle
+                if not Category.query.first():
+                    ornek = Category(name="Genel", slug="genel", icon_class="fa-leaf")
+                    db.session.add(ornek)
+                    db.session.commit()
+            cats = Category.query.all()
+        except:
+            cats = [] # Yine de olmazsa boş liste dön ama ÇÖKME
+            
+    return dict(cart_info=get_cart_total(), categories=cats)
+    # ---------------------------
+
 
 
 # ============================================================================
