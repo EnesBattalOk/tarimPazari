@@ -14,7 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 UPLOAD_FOLDER = 'TarimPazar/static/uploads/documents'
 ALLOWED_EXTENSIONS = {'pdf', 'jpg', 'jpeg', 'png'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# VERCEL_ICIN_IPTAL: os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 db.init_app(app)
 
