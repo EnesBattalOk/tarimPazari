@@ -57,8 +57,13 @@ if os.path.exists(dosya_adi):
         with open(dosya_adi, "a", encoding="utf-8") as f:
             f.write(veri_hazirlama_kodu)
         print("✅ app.py güncellendi! Artık site adresinin sonuna '/hazirla' yazarak verileri yükleyebilirsin.")
+        print("\n⚠️ UNUTMA: Şimdi şu komutları sırasıyla çalıştır:")
+        print("   git add .")
+        print("   git commit -m \"hazirlama rotasi eklendi\"")
+        print("   git push")
     else:
-        print("⚠️ Bu kod zaten ekli.")
+        print("⚠️ Bu kod zaten ekli. Eğer hala 404 alıyorsan 'git push' yapmamış olabilirsin.")
+        print("   Lütfen 'git push' yapıp Vercel'in yüklenmesini bekle.")
 
 else:
-    print("❌ app.py dosyası bulunamadı!")
+    print("❌ app.py dosyası bulunamadı! Lütfen doğru klasörde olduğundan emin ol.")
