@@ -3,91 +3,79 @@ import os
 dosya_adi = "app.py"
 req_dosyasi = "requirements.txt"
 
-# 1. PostgreSQL kütüphanesini (psycopg2) ekle
+# 1. psycopg2 (Postgres) gerek yok, SQLite Python ile gelir.
+# Sadece requirements.txt kontrolü yapalım, temiz kalsın.
 if os.path.exists(req_dosyasi):
-    with open(req_dosyasi, "r", encoding="utf-8") as f:
-        reqs = f.read()
-    
-    if "psycopg2-binary" not in reqs:
-        with open(req_dosyasi, "a", encoding="utf-8") as f:
-            f.write("\npsycopg2-binary\n")
-        print("✅ requirements.txt güncellendi (psycopg2 eklendi).")
-    else:
-        print("ℹ️ psycopg2 zaten ekli.")
+    print("ℹ️ SQLite kullanıldığı için ek kütüphane gerekmiyor.")
 
-# 2. app.py dosyasını güncelle (Veritabanı Ayarı)
+# 2. app.py dosyasını güncelle (Sadece SQLite Ayarı)
 if os.path.exists(dosya_adi):
     with open(dosya_adi, "r", encoding="utf-8") as f:
         icerik = f.read()
 
-    # Eğer zaten ayarlıysa elleme, yoksa ekle
-    if "os.environ.get('DATABASE_URL')" in icerik:
-        print("⚠️ app.py zaten veritabanı ayarına sahip görünüyor.")
-    else:
-        if "app = Flask" in icerik:
-            # Yeni veritabanı ayar kodu
-            db_ayar_kodu = """
-# --- VERITABANI AYARI (RENDER POSTGRES) ---
+    # app = Flask satırını bul
+    if "app = Flask" in icerik:
+        # Yeni SADE veritabanı ayar kodu
+        db_ayar_kodu = """
+# --- VERITABANI AYARI (SQLITE - INSTANCE) ---
 import os
-# Render'dan gelen veritabanı adresini al
-db_url = os.environ.get("DATABASE_URL")
 
-if db_url:
-    # Postgres adresi bazen 'postgres://' diye baslar, onu 'postgresql://' yapmamiz gerek
-    if db_url.startswith("postgres://"):
-        db_url = db_url.replace("postgres://", "postgresql://", 1)
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
-    print("✅ Render Postgres Veritabanı kullanılıyor.")
-else:
-    # Lokal bilgisayarda yine SQLite kullan
-    base_dir = os.path.abspath(os.path.dirname(__file__))
-    db_path = os.path.join(base_dir, 'tarim.db')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
-    print("⚠️ Yerel SQLite kullanılıyor.")
+# Proje ana dizini
+base_dir = os.path.abspath(os.path.dirname(__file__))
+# Instance klasörü yolu (Flask standardı)
+instance_path = os.path.join(base_dir, 'instance')
+
+# Eğer instance klasörü yoksa oluştur (Hata almamak için)
+if not os.path.exists(instance_path):
+    try:
+        os.makedirs(instance_path)
+    except:
+        pass
+
+# Veritabanı dosyasının tam yolu
+db_path = os.path.join(instance_path, 'tarim_pazari.db')
+
+# SQLite bağlantısı
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
+print(f"✅ Veritabanı Yolu: {db_path}")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # ---------------------------------------------
 """
-            parcalar = icerik.split("app = Flask")
-            # app = Flask... satırını koruyarak araya kodumuzu sokuyoruz
-            # parcalar[1]'in ilk satırı (app tanımlaması) bittikten sonraya ekleyelim
-            kalan_kisim = parcalar[1]
-            ilk_satir_sonu = kalan_kisim.find("\n")
-            
-            yeni_icerik = parcalar[0] + "app = Flask" + kalan_kisim[:ilk_satir_sonu+1] + db_ayar_kodu + kalan_kisim[ilk_satir_sonu+1:]
-            
-            # Eski SQLALCHEMY tanımlarını temizleyelim (Çakışma olmasın)
-            # Basitçe eski 'app.config['SQLALCHEMY_DATABASE_URI'] =' satırlarını yoruma alalım
-            # (Yeni eklediğimiz kod hariç)
-            
-            # Bu biraz riskli regex yerine basitçe dosyanın en üstüne (app'den sonraya) ekledik,
-            # Python aşağı doğru okuduğu için eğer aşağıda başka tanım varsa bizimki ezilebilir.
-            # O yüzden eski tanımları bulup silmek daha garanti.
-            
-            if "app.config['SQLALCHEMY_DATABASE_URI'] =" in kalan_kisim:
-                 print("ℹ️ Eski veritabanı ayarları algılandı, temizleniyor...")
-                 # Eski ayarı etkisiz hale getirmek için basit bir replace yapıyoruz
-                 # Not: Bu tam çözüm olmayabilir ama genelde işe yarar.
-                 yeni_icerik = yeni_icerik.replace("app.config['SQLALCHEMY_DATABASE_URI'] =", "# ESKI AYAR: app.config['SQLALCHEMY_DATABASE_URI'] =")
-                 # Kendi eklediğimiz kodda da bu satır var, onu geri düzeltelim :)
-                 yeni_icerik = yeni_icerik.replace("# ESKI AYAR: app.config['SQLALCHEMY_DATABASE_URI'] = db_url", "app.config['SQLALCHEMY_DATABASE_URI'] = db_url")
-                 yeni_icerik = yeni_icerik.replace("# ESKI AYAR: app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path", "app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path")
+        # Kod yerleştirme mantığı
+        if "# --- VERITABANI AYARI" in icerik:
+             # Eğer daha önce eklediysek, eski bloğu bulup değiştirmek zor olabilir.
+             # En temizi kullanıcıya temizlemesini söylemekti ama biz üzerine yazmayı deneyelim.
+             # Basitçe app = Flask sonrasına tekrar ekliyoruz, Python son geleni kabul eder.
+             pass 
 
-            with open(dosya_adi, "w", encoding="utf-8") as f:
-                f.write(yeni_icerik)
-            print("✅ app.py veritabanı ayarı güncellendi! Artık Render veritabanını tanıyacak.")
-        else:
-            print("❌ app.py içinde 'app = Flask' bulunamadı.")
+        parcalar = icerik.split("app = Flask")
+        kalan_kisim = parcalar[1]
+        ilk_satir_sonu = kalan_kisim.find("\n")
+        
+        yeni_icerik = parcalar[0] + "app = Flask" + kalan_kisim[:ilk_satir_sonu+1] + db_ayar_kodu + kalan_kisim[ilk_satir_sonu+1:]
+        
+        # Eski karmaşık ayarları temizleyelim
+        if "app.config['SQLALCHEMY_DATABASE_URI'] =" in kalan_kisim:
+                yeni_icerik = yeni_icerik.replace("app.config['SQLALCHEMY_DATABASE_URI'] =", "# ESKI AYAR IPTAL: app.config['SQLALCHEMY_DATABASE_URI'] =")
+                # Kendi eklediğimiz kodda da bu satır var, onu geri düzeltelim
+                yeni_icerik = yeni_icerik.replace("# ESKI AYAR IPTAL: app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path", "app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path")
+
+        with open(dosya_adi, "w", encoding="utf-8") as f:
+            f.write(yeni_icerik)
+        print("✅ app.py güncellendi! Artık 'instance/tarim_pazari.db' kullanılacak.")
+    else:
+        print("❌ app.py içinde 'app = Flask' bulunamadı.")
 
     # 3. VERİ YÜKLEME ROTASINI EKLE (/hazirla)
-    # Veritabanı boş olduğu için bu rotaya ihtiyacımız var.
+    # Veritabanı dosyasını oluşturmak ve doldurmak için yine buna ihtiyacın olacak.
     with open(dosya_adi, "r", encoding="utf-8") as f:
         icerik_son = f.read()
 
     if "/hazirla" not in icerik_son:
         veri_hazirlama_kodu = """
 
-# --- RENDER VERI YUKLEME (URUNLER DAHIL) ---
+# --- VERI YUKLEME (SQLITE ICIN) ---
 @app.route('/hazirla')
 def veritabani_hazirla():
     try:
@@ -149,8 +137,8 @@ def veritabani_hazirla():
         
         return f'''
         <div style="font-family: sans-serif; padding: 50px; text-align: center; background: #d4edda; color: #155724;">
-            <h1>✅ Veritabanı Hazır!</h1>
-            <p>Postgres veritabanına bağlanıldı ve dolduruldu.</p>
+            <h1>✅ Veritabanı (SQLite) Hazır!</h1>
+            <p>instance/tarim_pazari.db dosyası oluşturuldu ve dolduruldu.</p>
             <ul>
                 <li>{eklenen_kat} Kategori</li>
                 <li>{eklenen_urun} Ürün</li>
@@ -166,7 +154,7 @@ def veritabani_hazirla():
 """
         with open(dosya_adi, "a", encoding="utf-8") as f:
             f.write(veri_hazirlama_kodu)
-        print("✅ /hazirla rotası eklendi. Site açılınca bu adrese girip verileri doldurmalısın.")
+        print("✅ /hazirla rotası eklendi.")
     else:
         print("ℹ️ /hazirla rotası zaten var.")
 

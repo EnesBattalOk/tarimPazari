@@ -7,6 +7,31 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
+# --- VERITABANI AYARI (SQLITE - INSTANCE) ---
+import os
+
+# Proje ana dizini
+base_dir = os.path.abspath(os.path.dirname(__file__))
+# Instance klasörü yolu (Flask standardı)
+instance_path = os.path.join(base_dir, 'instance')
+
+# Eğer instance klasörü yoksa oluştur (Hata almamak için)
+if not os.path.exists(instance_path):
+    try:
+        os.makedirs(instance_path)
+    except:
+        pass
+
+# Veritabanı dosyasının tam yolu
+db_path = os.path.join(instance_path, 'tarim_pazari.db')
+
+# SQLite bağlantısı
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
+print(f"✅ Veritabanı Yolu: {db_path}")
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# ---------------------------------------------
+
 # --- VERITABANI AYARI (RENDER POSTGRES) ---
 import os
 # Render'dan gelen veritabanı adresini al
@@ -16,7 +41,7 @@ if db_url:
     # Postgres adresi bazen 'postgres://' diye baslar, onu 'postgresql://' yapmamiz gerek
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+    # ESKI AYAR IPTAL: app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     print("✅ Render Postgres Veritabanı kullanılıyor.")
 else:
     # Lokal bilgisayarda yine SQLite kullan
@@ -37,7 +62,7 @@ if db_url:
     # Postgres adresi bazen 'postgres://' diye baslar, onu 'postgresql://' yapmamiz gerek
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+    # ESKI AYAR IPTAL: app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     print("✅ Render Postgres Veritabanı kullanılıyor.")
 else:
     # Lokal bilgisayarda yine SQLite kullan
@@ -49,7 +74,7 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # ---------------------------------------------
 app.config['SECRET_KEY'] = os.environ.get('SESSION_SECRET', 'tarim-pazari-secret-key-2024')
-# ESKI AYAR: app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tarim_pazari.db'
+# ESKI AYAR: # ESKI AYAR IPTAL: app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tarim_pazari.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Configure Upload Folder for Document Verification
