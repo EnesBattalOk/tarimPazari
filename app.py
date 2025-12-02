@@ -1120,3 +1120,28 @@ def handle_exception(e):
         <pre>{traceback.format_exc()}</pre>
     </div>
     ''', 500
+
+
+# --- VERCEL ICIN OZEL KURTARICI FONKSIYON ---
+def safe_get_categories():
+    try:
+        # Kategorileri çekmeyi dene
+        return Category.query.all()
+    except Exception:
+        # Hata verirse (tablo yoksa), veritabanini olustur
+        print("⚠️ Tablo bulunamadi, yeniden olusturuluyor...")
+        with app.app_context():
+            db.create_all()
+            # Bos kalmasin diye ornek kategori ekle
+            try:
+                if not Category.query.first():
+                    db.session.add(Category(name="Genel", slug="genel", icon_class="fa-leaf"))
+                    db.session.commit()
+            except:
+                pass
+        # Simdi tekrar dene, olmazsa bos liste don
+        try:
+            return Category.query.all()
+        except:
+            return []
+# -------------------------------------------
