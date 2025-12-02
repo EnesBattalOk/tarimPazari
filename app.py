@@ -1083,3 +1083,19 @@ with app.app_context():
         print("✅ Tablolar basariyla olusturuldu (Vercel /tmp).")
     except Exception as e:
         print(f"⚠️ Tablo olusturma hatasi: {e}")
+
+
+# --- HATA AYIKLAMA MODU (VERCEL) ---
+import traceback
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # Hatayi gizlemek yerine ekrana basar
+    return f'''
+    <div style="font-family: monospace; background: #f8d7da; padding: 20px; border: 1px solid #f5c6cb; color: #721c24;">
+        <h1>⚠️ UYGULAMA HATASI</h1>
+        <p>Aşağıdaki hatayı kopyalayıp geliştiriciye (yapay zekaya) iletin:</p>
+        <hr>
+        <pre>{traceback.format_exc()}</pre>
+    </div>
+    ''', 500
