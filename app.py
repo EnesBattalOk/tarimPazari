@@ -1127,6 +1127,9 @@ def handle_exception(e):
 
 
 # --- RENDER ICIN VERITABANI DOLDURMA ---
+
+
+# --- RENDER ICIN VERITABANI DOLDURMA ---
 @app.route('/hazirla')
 def veritabani_hazirla():
     try:
@@ -1135,21 +1138,21 @@ def veritabani_hazirla():
         with app.app_context():
             db.create_all()
         
-        # 2. Kategorileri Ekle
+        # 2. Kategorileri Ekle (Slug alani kaldirildi cunku modelde yok)
         kategoriler = [
-            {"name": "Meyve", "slug": "meyve", "icon_class": "fa-apple-alt"},
-            {"name": "Sebze", "slug": "sebze", "icon_class": "fa-carrot"},
-            {"name": "Tahıl & Bakliyat", "slug": "tahil", "icon_class": "fa-wheat"},
-            {"name": "Süt & Kahvaltılık", "slug": "sut", "icon_class": "fa-cheese"},
-            {"name": "Organik Ürünler", "slug": "organik", "icon_class": "fa-leaf"}
+            {"name": "Meyve", "icon_class": "fa-apple-alt"},
+            {"name": "Sebze", "icon_class": "fa-carrot"},
+            {"name": "Tahıl & Bakliyat", "icon_class": "fa-wheat"},
+            {"name": "Süt & Kahvaltılık", "icon_class": "fa-cheese"},
+            {"name": "Organik Ürünler", "icon_class": "fa-leaf"}
         ]
         
         eklenen_kat = 0
         with app.app_context():
             for k in kategoriler:
-                # Varsa ekleme, yoksa ekle
-                if not Category.query.filter_by(slug=k['slug']).first():
-                    yeni = Category(name=k['name'], slug=k['slug'], icon_class=k['icon_class'])
+                # Isme gore kontrol et, varsa ekleme
+                if not Category.query.filter_by(name=k['name']).first():
+                    yeni = Category(name=k['name'], icon_class=k['icon_class'])
                     db.session.add(yeni)
                     eklenen_kat += 1
             db.session.commit()

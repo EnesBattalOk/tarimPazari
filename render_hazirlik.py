@@ -14,21 +14,21 @@ def veritabani_hazirla():
         with app.app_context():
             db.create_all()
         
-        # 2. Kategorileri Ekle
+        # 2. Kategorileri Ekle (Slug alani kaldirildi cunku modelde yok)
         kategoriler = [
-            {"name": "Meyve", "slug": "meyve", "icon_class": "fa-apple-alt"},
-            {"name": "Sebze", "slug": "sebze", "icon_class": "fa-carrot"},
-            {"name": "Tahıl & Bakliyat", "slug": "tahil", "icon_class": "fa-wheat"},
-            {"name": "Süt & Kahvaltılık", "slug": "sut", "icon_class": "fa-cheese"},
-            {"name": "Organik Ürünler", "slug": "organik", "icon_class": "fa-leaf"}
+            {"name": "Meyve", "icon_class": "fa-apple-alt"},
+            {"name": "Sebze", "icon_class": "fa-carrot"},
+            {"name": "Tahıl & Bakliyat", "icon_class": "fa-wheat"},
+            {"name": "Süt & Kahvaltılık", "icon_class": "fa-cheese"},
+            {"name": "Organik Ürünler", "icon_class": "fa-leaf"}
         ]
         
         eklenen_kat = 0
         with app.app_context():
             for k in kategoriler:
-                # Varsa ekleme, yoksa ekle
-                if not Category.query.filter_by(slug=k['slug']).first():
-                    yeni = Category(name=k['name'], slug=k['slug'], icon_class=k['icon_class'])
+                # Isme gore kontrol et, varsa ekleme
+                if not Category.query.filter_by(name=k['name']).first():
+                    yeni = Category(name=k['name'], icon_class=k['icon_class'])
                     db.session.add(yeni)
                     eklenen_kat += 1
             db.session.commit()
@@ -51,13 +51,29 @@ if os.path.exists(dosya_adi):
     with open(dosya_adi, "r", encoding="utf-8") as f:
         icerik = f.read()
     
-    # Daha önce eklemediysek ekleyelim
-    if "/hazirla" not in icerik:
+    # Eski kod varsa onu bulup temizleyelim ve yenisini ekleyelim
+    if "@app.route('/hazirla')" in icerik:
+        print("⚠️ Eski kod bulundu, temizleniyor...")
+        
+        # Eski kodun başladığı yeri bul
+        baslangic_index = icerik.find("@app.route('/hazirla')")
+        
+        # Dosyanın sadece o kısımdan öncesini al (Eski kodu kesip atıyoruz)
+        temiz_icerik = icerik[:baslangic_index]
+        
+        # Yeni kodu ekle
+        son_icerik = temiz_icerik + veri_hazirlama_kodu
+        
+        with open(dosya_adi, "w", encoding="utf-8") as f:
+            f.write(son_icerik)
+            
+        print("✅ app.py temizlendi ve güncellendi! Hatalı 'slug' kodları silindi.")
+        
+    else:
+        # Kod hiç yoksa direkt ekle
         with open(dosya_adi, "a", encoding="utf-8") as f:
             f.write(veri_hazirlama_kodu)
         print("✅ app.py güncellendi! Artık site adresinin sonuna '/hazirla' yazarak verileri yükleyebilirsin.")
-    else:
-        print("⚠️ Bu kod zaten ekli.")
 
 else:
     print("❌ app.py dosyası bulunamadı!")
