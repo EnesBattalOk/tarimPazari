@@ -5,7 +5,7 @@ from models import db, User, Category, Product, Order, OrderItem, Review, CartIt
 from functools import wraps
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(__name__, instance_path='/tmp')
 app.config['SECRET_KEY'] = os.environ.get('SESSION_SECRET', 'tarim-pazari-secret-key-2024')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tarim_pazari.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
