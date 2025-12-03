@@ -1327,3 +1327,149 @@ main {
     text-align: center;
 }
 
+/* ============================================================================
+   MOBILE RESPONSIVE FIXES
+   ============================================================================ */
+
+/* Hide carousel arrows on mobile */
+@media (max-width: 991.98px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none !important;
+    }
+    
+    /* Make slider button smaller on mobile */
+    .hero-slide .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .hero-slide .btn-lg i {
+        font-size: 0.85rem;
+    }
+    
+    /* Scale down Featured Products section header */
+    .products-section .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .products-section .btn-outline-primary {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Footer mobile fixes */
+    .footer-bottom {
+        text-align: center;
+    }
+    
+    .footer-bottom .col-md-6 {
+        text-align: center !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-bottom .text-md-end {
+        text-align: center !important;
+    }
+    
+    .footer-bottom a {
+        display: inline-block;
+        margin: 0.25rem 0.5rem;
+    }
+    
+    /* Footer top section mobile centering */
+    .footer-top .col-lg-3,
+    .footer-top .col-md-6 {
+        text-align: center;
+    }
+    
+    .footer-top h5,
+    .footer-top h6 {
+        text-align: center;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+    
+    /* Trust badges and payment logos centering on mobile */
+    .trust-official-row {
+        justify-content: center;
+    }
+    
+    .payment-logos-grid {
+        justify-content: center;
+    }
+}
+
+/* Even smaller screens */
+@media (max-width: 576px) {
+    .hero-slide .btn-lg {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .hero-slide .display-4 {
+        font-size: 1.75rem;
+    }
+    
+    .hero-slide .lead {
+        font-size: 0.9rem;
+    }
+    
+    .products-section .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .products-section .d-flex {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .products-section .btn-outline-primary {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* ============================================================================
+   WISHLIST EMPTY STATE STYLED LINK
+   ============================================================================ */
+
+.wishlist-empty-link {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.wishlist-empty-link:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.wishlist-empty-link i {
+    margin-right: 0.5rem;
+}
+
+/* ============================================================================
+   CART LINK TEXT STYLING
+   ============================================================================ */
+
+.cart-link-text {
+    margin-left: 0.25rem;
+}
+
+@media (max-width: 991.98px) {
+    .cart-link-text {
+        margin-left: 0.5rem;
+    }
+}
+
