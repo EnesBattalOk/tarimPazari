@@ -13,7 +13,7 @@
             <div class="product-card">
                 <div class="product-image">
                     <img src="{{ product.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ product.name }}">
-                    <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn heart-btn active">
+                    <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn text-danger active{% if product.stock == 0 or product.stock < 10 %} with-stock-badge{% endif %}" data-product-id="{{ product.id }}">
                         <i class="fas fa-heart"></i>
                     </a>
                     {% if product.desi >= 30 %}
@@ -23,6 +23,15 @@
                     {% else %}
                     <span class="shipping-badge kargo">
                         <i class="fas fa-truck"></i> Kargo
+                    </span>
+                    {% endif %}
+                    {% if product.stock == 0 %}
+                    <span class="stock-badge stock-out">
+                        <i class="fas fa-ban me-1"></i>Tükendi
+                    </span>
+                    {% elif product.stock < 10 %}
+                    <span class="stock-badge stock-low">
+                        <i class="fas fa-arrow-trend-down me-1"></i>Azalıyor
                     </span>
                     {% endif %}
                 </div>

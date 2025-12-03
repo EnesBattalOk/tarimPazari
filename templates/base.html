@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <form class="d-flex mx-auto search-form" action="{{ url_for('products') }}" method="GET">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Ürün, kategori veya marka ara..." value="{{ request.args.get('search', '') }}">
+                        <input type="text" class="form-control" name="search" placeholder="Ürün veya kategori ara..." value="{{ request.args.get('search', '') }}">
                         <button class="btn btn-warning" type="submit">
                             <i class="fas fa-search"></i>
                         </button>

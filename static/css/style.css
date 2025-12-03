@@ -53,7 +53,8 @@ main {
 .navbar {
     padding: 0.8rem 0;
     box-shadow: var(--card-shadow);
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1030;
 }
 
@@ -252,7 +253,7 @@ main {
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
-    z-index: 5;
+    z-index: 15;
 }
 
 .stock-badge.stock-out {
@@ -1260,18 +1261,22 @@ main {
     right: 10px;
     background: white;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 14px;
     color: #999;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-decoration: none;
     z-index: 10;
+}
+
+.wishlist-btn.with-stock-badge {
+    top: 45px;
 }
 
 .wishlist-btn:hover {
@@ -1510,13 +1515,18 @@ main {
 }
 
 #toast-container > div {
-    padding: 10px 20px;
+    padding: 12px 24px 12px 20px;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     opacity: 1;
     min-width: auto;
     max-width: 350px;
     font-size: 0.9rem;
+}
+
+#toast-container > div .toast-message {
+    padding-left: 8px;
+    font-weight: 500;
 }
 
 #toast-container > .toast-success {
@@ -1541,10 +1551,6 @@ main {
 
 #toast-container > div .toast-title {
     display: none;
-}
-
-#toast-container > div .toast-message {
-    font-weight: 500;
 }
 
 #toast-container > div:before {

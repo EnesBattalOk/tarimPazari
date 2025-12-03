@@ -1,0 +1,31 @@
+Act as a Senior Frontend Developer. Fix the following specific UI/UX bugs and inconsistencies across the project.
+
+### 1. Navbar (Sticky Menu) Fix
+- **Issue:** The Navbar does NOT stay fixed at the top when scrolling down.
+- **Fix:** Update `style.css` (or the Navbar class in `base.html`) to ensure `position: sticky; top: 0; z-index: 1020;` is applied correctly. It must stay visible on ALL pages when scrolling.
+
+### 2. Product Card Badges & Icons (Visual Overlap Fix)
+- **Issue:** On product cards, the "Out of Stock" (Tükendi) badge overlaps with the Wishlist (Heart) icon.
+- **Fixes:**
+  1.  **Positioning:** Move the Heart Icon slightly downwards so it sits **BELOW** the Stock Badge, preventing any overlap.
+  2.  **Heart Size:** Reduce the size of the Heart Icon button (width/height) and the icon font size to make it more elegant and less intrusive.
+  3.  **Badge Icons:**
+      - Replace the "X" text in the "Tükendi" badge with a proper icon: Use `fa-solid fa-ban` or `fa-circle-xmark`.
+      - Replace the "!" text in the "Azalıyor" badge with a decreasing trend icon: Use `fa-solid fa-arrow-trend-down`.
+
+### 3. Toastr Notifications (Global Standardization)
+- **Issue:** The "Bottom Center / Oval" design currently only works for logged-in users. Other alerts (like login success) look different or overlay text.
+- **Fix:** Open `base.html`.
+- **Global Config:** Ensure the Toastr configuration is applied GLOBALLY for **ALL** Flash messages (Success, Error, Info, Warning), regardless of login status.
+- **Settings:**
+  - `positionClass`: "toast-bottom-center"
+  - `timeOut`: 2000
+  - CSS: Ensure the toast has a large `border-radius` (oval shape) and small padding (compact look).
+- **Text Overlap Fix:** Add padding to the Toastr message text so it doesn't overlap with the success checkmark icon (e.g., "Hoşgeldiniz" text shouldn't touch the icon).
+
+### 4. Search Bar Placeholder
+- **Issue:** The placeholder says "...marka ara".
+- **Fix:** Change the search input placeholder text in `base.html` (or navbar template) to: **"Ürün veya kategori ara..."** (Remove the word "marka").
+
+**Execution:**
+- Update `style.css`, `base.html`, and `main.js` to apply these visual polishes immediately.

@@ -113,7 +113,7 @@
                     <div class="product-image">
                         <img src="{{ product.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ product.name }}">
                         {% if session.get('user_id') %}
-                        <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn {% if product.id in wishlist_product_ids %}text-danger active{% endif %}" data-product-id="{{ product.id }}">
+                        <a href="{{ url_for('add_to_wishlist', product_id=product.id) }}" class="wishlist-btn {% if product.id in wishlist_product_ids %}text-danger active{% endif %}{% if product.stock == 0 or product.stock < 10 %} with-stock-badge{% endif %}" data-product-id="{{ product.id }}">
                             <i class="fas {% if product.id in wishlist_product_ids %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i>
                         </a>
                         {% endif %}
@@ -128,11 +128,11 @@
                         {% endif %}
                         {% if product.stock == 0 %}
                         <span class="stock-badge stock-out">
-                            <i class="fas fa-times me-1"></i>Tükendi
+                            <i class="fas fa-ban me-1"></i>Tükendi
                         </span>
                         {% elif product.stock < 10 %}
                         <span class="stock-badge stock-low">
-                            <i class="fas fa-exclamation me-1"></i>Son {{ product.stock }} ürün!
+                            <i class="fas fa-arrow-trend-down me-1"></i>Azalıyor
                         </span>
                         {% endif %}
                     </div>

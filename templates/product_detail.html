@@ -259,7 +259,7 @@
                             <img src="{{ rp.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ rp.name }}">
                         </a>
                         {% if session.get('user_id') %}
-                        <a href="{{ url_for('add_to_wishlist', product_id=rp.id) }}" class="wishlist-btn" data-product-id="{{ rp.id }}">
+                        <a href="{{ url_for('add_to_wishlist', product_id=rp.id) }}" class="wishlist-btn{% if rp.stock == 0 or rp.stock < 10 %} with-stock-badge{% endif %}" data-product-id="{{ rp.id }}">
                             <i class="far fa-heart"></i>
                         </a>
                         {% endif %}
@@ -274,11 +274,11 @@
                         {% endif %}
                         {% if rp.stock == 0 %}
                         <span class="stock-badge stock-out">
-                            <i class="fas fa-times me-1"></i>Tükendi
+                            <i class="fas fa-ban me-1"></i>Tükendi
                         </span>
                         {% elif rp.stock < 10 %}
                         <span class="stock-badge stock-low">
-                            <i class="fas fa-exclamation me-1"></i>Son {{ rp.stock }} ürün!
+                            <i class="fas fa-arrow-trend-down me-1"></i>Azalıyor
                         </span>
                         {% endif %}
                     </div>
