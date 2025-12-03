@@ -1,0 +1,53 @@
+FIX TOASTR NOTIFICATIONS GLOBALLY: Positioning, Style, and Overlap Issues.
+
+Currently, toastr notifications are inconsistent. Login messages overlap with icons, and Wishlist messages still appear at the top-right.
+
+**Task 1: CSS Fix for Overlap & Shape (`static/css/style.css`)**
+Add specific CSS overrides for Toastr to ensure the text never touches the icon and the shape is Oval.
+Append this to `style.css`:
+```css
+/* Toastr Customization */
+#toast-container > div {
+    opacity: 1 !important;
+    border-radius: 50px !important; /* Fully Oval */
+    padding: 15px 20px 15px 50px !important; /* Extra padding-left to make space for the icon */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* Fix Icon Position */
+#toast-container > div.toast-success,
+#toast-container > div.toast-error,
+#toast-container > div.toast-info,
+#toast-container > div.toast-warning {
+    background-position: 15px center !important; /* Move icon to the left, centered vertically */
+}
+Task 2: Enforce Global Configuration (templates/base.html) Locate the Toastr script block. Set the options ONCE and ensure they apply everywhere.
+
+JavaScript
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-center", /* FORCE BOTTOM CENTER */
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000", /* 2 Seconds */
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+Task 3: Update static/js/main.js (Wishlist Logic) Find the AJAX success function for the Wishlist (Heart) button.
+
+Problem: It likely has toastr.success('Mesaj', 'Başlık', { positionClass: 'toast-top-right' }).
+
+Fix: Remove the custom options object {...} from the toastr.success() or toastr.error() calls.
+
+Action: Change it to simply toastr.success('Favorilere eklendi'); so it inherits the global "Bottom Center" setting defined in base.html.
+
+Result: ALL notifications (Login, Logout, Cart, Wishlist) must appear at the Bottom Center, be Oval, last 2 seconds, and the text must NOT overlap the icon.
