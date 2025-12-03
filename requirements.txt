@@ -23,3 +23,13 @@ psycopg2-binary
 sqlalchemy
 Werkzeug
 WTForms
+email_validator
+flask
+flask-sqlalchemy
+gunicorn
+psycopg2-binary
+flask
+flask-login
+flask-sqlalchemy
+gunicorn
+werkzeug
