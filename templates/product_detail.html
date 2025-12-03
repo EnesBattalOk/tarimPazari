@@ -258,14 +258,62 @@
                         <a href="{{ url_for('product_detail', id=rp.id) }}">
                             <img src="{{ rp.image_url or 'https://via.placeholder.com/300x200?text=Ürün' }}" alt="{{ rp.name }}">
                         </a>
+                        {% if session.get('user_id') %}
+                        <a href="{{ url_for('add_to_wishlist', product_id=rp.id) }}" class="wishlist-btn" data-product-id="{{ rp.id }}">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        {% endif %}
+                        {% if rp.desi >= 30 %}
+                        <span class="shipping-badge ambar">
+                            <i class="fas fa-warehouse"></i> Ambar
+                        </span>
+                        {% else %}
+                        <span class="shipping-badge kargo">
+                            <i class="fas fa-truck"></i> Kargo
+                        </span>
+                        {% endif %}
+                        {% if rp.stock == 0 %}
+                        <span class="stock-badge stock-out">
+                            <i class="fas fa-times me-1"></i>Tükendi
+                        </span>
+                        {% elif rp.stock < 10 %}
+                        <span class="stock-badge stock-low">
+                            <i class="fas fa-exclamation me-1"></i>Son {{ rp.stock }} ürün!
+                        </span>
+                        {% endif %}
                     </div>
                     <div class="product-info">
+                        <p class="product-category">{{ rp.category.name }}</p>
                         <h5 class="product-title">
                             <a href="{{ url_for('product_detail', id=rp.id) }}">{{ rp.name }}</a>
                         </h5>
+                        <div class="product-rating">
+                            {% for i in range(5) %}
+                                {% if i < rp.rating|int %}
+                                    <i class="fas fa-star"></i>
+                                {% elif i < rp.rating %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="rating-text">({{ rp.rating|round(1) }})</span>
+                        </div>
                         <div class="product-footer">
                             <span class="product-price">{{ "%.2f"|format(rp.price) }} ₺</span>
                         </div>
+                        {% if rp.stock > 0 %}
+                        <form class="add-to-cart-form" action="{{ url_for('add_to_cart', product_id=rp.id) }}" method="POST">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-sm btn-outline-success w-100 mt-2" {% if not session.get('user_id') %}disabled title="Giriş yapmalısınız"{% endif %}>
+                                <i class="fas fa-cart-plus me-1"></i>Sepete Ekle
+                            </button>
+                        </form>
+                        {% else %}
+                        <button class="btn btn-sm btn-outline-secondary w-100 mt-2" disabled>
+                            <i class="fas fa-ban me-1"></i>Stok Yok
+                        </button>
+                        {% endif %}
                     </div>
                 </div>
             </div>

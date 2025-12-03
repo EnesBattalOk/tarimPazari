@@ -216,10 +216,14 @@
     <script>
         $(document).ready(function() {
             toastr.options = {
-                "positionClass": "toast-top-right",
-                "progressBar": true,
-                "timeOut": "3000",
-                "extendedTimeOut": "1000"
+                "positionClass": "toast-bottom-center",
+                "progressBar": false,
+                "timeOut": "2000",
+                "extendedTimeOut": "500",
+                "showDuration": "200",
+                "hideDuration": "200",
+                "showEasing": "swing",
+                "hideEasing": "linear"
             };
             
             {% with messages = get_flashed_messages(with_categories=true) %}
