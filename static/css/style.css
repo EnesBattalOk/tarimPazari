@@ -845,6 +845,20 @@ main {
     color: white;
 }
 
+.seller-nav .nav-item.disabled-link,
+.admin-nav .nav-item.disabled-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #999;
+}
+
+.seller-nav .nav-item.disabled-link:hover,
+.admin-nav .nav-item.disabled-link:hover {
+    background: transparent;
+    color: #999;
+}
+
 .stat-card {
     display: flex;
     align-items: center;

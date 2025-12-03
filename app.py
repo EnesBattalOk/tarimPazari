@@ -259,7 +259,13 @@ def products():
         query = query.filter(Product.price <= max_price)
     
     if search:
-        query = query.filter(Product.name.ilike(f'%{search}%'))
+        query = query.join(Category).filter(
+            db.or_(
+                Product.name.ilike(f'%{search}%'),
+                Category.name.ilike(f'%{search}%'),
+                Product.description.ilike(f'%{search}%')
+            )
+        )
     
     if sort == 'price_asc':
         query = query.order_by(Product.price.asc())

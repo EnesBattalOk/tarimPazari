@@ -19,11 +19,11 @@
                     <div class="filter-section">
                         <h6>Kategoriler</h6>
                         <div class="category-list">
-                            <a href="{{ url_for('products', search=search) }}" class="category-item {% if not selected_category %}active{% endif %}">
+                            <a href="{{ url_for('products') }}" class="category-item {% if not selected_category %}active{% endif %}">
                                 <i class="fas fa-th-large me-2"></i>Tüm Kategoriler
                             </a>
                             {% for cat in categories %}
-                            <a href="{{ url_for('products', category=cat.id, search=search) }}" class="category-item {% if selected_category == cat.id %}active{% endif %}">
+                            <a href="{{ url_for('products', category=cat.id) }}" class="category-item {% if selected_category == cat.id %}active{% endif %}">
                                 <i class="fas {{ cat.icon_class }} me-2"></i>{{ cat.name }}
                             </a>
                             {% endfor %}

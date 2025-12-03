@@ -21,18 +21,13 @@
                     <a href="{{ url_for('seller_dashboard') }}" class="nav-item active">
                         <i class="fas fa-tachometer-alt"></i> Kontrol Paneli
                     </a>
+                    {% if user.is_seller_approved %}
                     <a href="{{ url_for('seller_products') }}" class="nav-item">
                         <i class="fas fa-box"></i> Ürünlerim
                     </a>
-                    {% if user.is_seller_approved %}
                     <a href="{{ url_for('add_product') }}" class="nav-item">
                         <i class="fas fa-plus-circle"></i> Ürün Ekle
                     </a>
-                    {% else %}
-                    <a href="{{ url_for('seller_verify') }}" class="nav-item" style="opacity: 0.6; cursor: not-allowed;" title="Hesap onayı için evrak yükleyin">
-                        <i class="fas fa-plus-circle"></i> Ürün Ekle <i class="fas fa-lock ms-1" style="font-size: 0.8em;"></i>
-                    </a>
-                    {% endif %}
                     <a href="{{ url_for('seller_orders') }}" class="nav-item">
                         <i class="fas fa-shopping-bag"></i> Siparişler
                     </a>
@@ -42,6 +37,23 @@
                         <span class="badge bg-danger ms-2">{{ pending_questions_count }}</span>
                         {% endif %}
                     </a>
+                    {% else %}
+                    <a href="{{ url_for('seller_verify') }}" class="nav-item text-warning">
+                        <i class="fas fa-file-upload"></i> Evrak Yükle
+                    </a>
+                    <span class="nav-item disabled-link" title="Hesap onayı gerekli">
+                        <i class="fas fa-box"></i> Ürünlerim <i class="fas fa-lock ms-1"></i>
+                    </span>
+                    <span class="nav-item disabled-link" title="Hesap onayı gerekli">
+                        <i class="fas fa-plus-circle"></i> Ürün Ekle <i class="fas fa-lock ms-1"></i>
+                    </span>
+                    <span class="nav-item disabled-link" title="Hesap onayı gerekli">
+                        <i class="fas fa-shopping-bag"></i> Siparişler <i class="fas fa-lock ms-1"></i>
+                    </span>
+                    <span class="nav-item disabled-link" title="Hesap onayı gerekli">
+                        <i class="fas fa-comments"></i> Soru & Cevap <i class="fas fa-lock ms-1"></i>
+                    </span>
+                    {% endif %}
                 </nav>
             </div>
         </div>
